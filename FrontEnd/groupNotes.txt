@@ -1,0 +1,9 @@
+-- 前端使用的框架: REACT
+-- UI wireframe（美西时间本周三递交雏型）: Kun Cheng, YunHui Ni
+-- 前端开发的小组员本周To Do List（:
+       1. （强烈建议）观看youtube视频讲解如何使用REACT与spring boot结合开发项目。https://www.youtube.com/watch?v=i-hoSg8iRG0 
+       2. （Optional) Use React and Spring Boot to Build a Simple CRUD App。 https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot
+       3. （Optional) React.js and Spring Data REST。https://spring.io/guides/tutorials/react-and-spring-data-rest/
+-- Glossary：
+       1. 前端的icon网站。https://thenounproject.com/
+       2. UI wireframe制作平台（免费版本只限2人collaborate）。https://www.figma.com/
