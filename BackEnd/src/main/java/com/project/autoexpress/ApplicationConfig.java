@@ -25,15 +25,21 @@ public class ApplicationConfig {
 
   @Bean(name = "dataSource")
   public DataSource dataSource() {
+    final String INSTANCE = "autoexpress-instance.c5cogveqk32k.us-east-2.rds.amazonaws.com"; // instance address - endpoint - API
+    final String PORT_NUM = "3306";
+    final String DB_NAME = "autoexpress";
+    final String USERNAME = "admin";
+    final String PASSWORD = "hksssyyyyz";
+
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-    dataSource.setUrl("jdbc:mysql://localhost:3306/user_db");
-    dataSource.setUsername("root");
-    dataSource.setPassword("asdf");
+    dataSource.setUrl("jdbc:mysql://" + INSTANCE + ":" + PORT_NUM + "/" + DB_NAME);
+    dataSource.setUsername(USERNAME);
+    dataSource.setPassword(PASSWORD);
 
     return dataSource;
   }
-
+  
 
   private final Properties hibernateProperties() {
     Properties hibernateProperties = new Properties();
