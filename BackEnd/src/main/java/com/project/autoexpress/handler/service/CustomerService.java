@@ -19,19 +19,9 @@ public class CustomerService {
   private CustomerDao customerDao;
 
   public int addCustomer(RegisterRequestBody request) {
-    User user = new User();   // build a user from request
-    user.setEnabled(true);
-    user.setEmailId(request.getEmail());
-    user.setPassword(request.getPassword());
 
-    Customer customer = new Customer(); // build a customer from request
-    customer.setBillingAddress(request.getBillingAddress());
-    customer.setShippingAddress(request.getShippingAddress());
-    customer.setFirstName(request.getFirstName());
-    customer.setLastName(request.getLastName());
-    customer.setUser(user);
 
-    return customerDao.addCustomer(customer); // after save customer, a user entry will automatically built in database by hibernate.
+    return customerDao.addCustomer(request);
   }
 
   public Customer getCustomerByUserName(String userName) {

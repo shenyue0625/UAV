@@ -3,6 +3,7 @@ package com.project.autoexpress.handler.dao;
 import com.project.autoexpress.entity.Authorities;
 import com.project.autoexpress.entity.Customer;
 import com.project.autoexpress.entity.User;
+import com.project.autoexpress.request.RegisterRequestBody;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,10 +17,22 @@ public class CustomerDao {
   @Autowired
   private SessionFactory sessionFactory;
 
-  public int addCustomer(Customer customer) { // set 是否成功，通过返回一个int来表达。
-    Authorities authorities = new Authorities();
+  public int addCustomer(RegisterRequestBody request) { // set 是否成功，通过返回一个int来表达。
+    User user = new User();   // build a user from request
+    user.setEnabled(true);
+    user.setEmailId(request.getEmail());
+    user.setPassword(request.getPassword());
+
+    Customer customer = new Customer(); // build a customer from request
+    customer.setBillingAddress(request.getBillingAddress());
+    customer.setShippingAddress(request.getShippingAddress());
+    customer.setFirstName(request.getFirstName());
+    customer.setLastName(request.getLastName());
+    customer.setUser(user);
+
+    Authorities authorities = new Authorities();  // build a authorities from request
     authorities.setAuthorities("ROLE_USER");
-    authorities.setEmailId(customer.getUser().getEmailId());
+    authorities.setEmailId(request.getEmail());
     Session session = null;
 
     try {
