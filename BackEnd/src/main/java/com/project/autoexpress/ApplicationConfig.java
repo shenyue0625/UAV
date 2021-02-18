@@ -23,13 +23,27 @@ public class ApplicationConfig {
     return sessionFactory;
   }
 
+  // NOTICE:
+  // If you want to use Amazon RDS database, then uncomment RDS section, and comment the local section
+  // If you want to use local database, then uncomment the local section, and comment the RDS section
+  // 如果你希望使用云端数据库，请comment local段落，并uncomment RDS段落。（前端的同学请尽量使用云端数据库）
+  // 如果你希望使用本地数据库，则反之。 （前提是你配置了一个本地数据库）
+
   @Bean(name = "dataSource")
   public DataSource dataSource() {
-    final String INSTANCE = "autoexpress-instance.c5cogveqk32k.us-east-2.rds.amazonaws.com"; // instance address - endpoint - API
+    // RDS:
+//    final String INSTANCE = "autoexpress-instance.c5cogveqk32k.us-east-2.rds.amazonaws.com"; // instance address - endpoint - API
+//    final String PORT_NUM = "3306";
+//    final String DB_NAME = "autoexpress";
+//    final String USERNAME = "admin";
+//    final String PASSWORD = "hksssyyyyz";
+
+    // Local:
+    final String INSTANCE = "localhost";
     final String PORT_NUM = "3306";
     final String DB_NAME = "autoexpress";
-    final String USERNAME = "admin";
-    final String PASSWORD = "hksssyyyyz";
+    final String USERNAME = "root";
+    final String PASSWORD = "asdf";
 
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
@@ -39,7 +53,7 @@ public class ApplicationConfig {
 
     return dataSource;
   }
-  
+
 
   private final Properties hibernateProperties() {
     Properties hibernateProperties = new Properties();
