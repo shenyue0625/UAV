@@ -20,7 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
             .csrf().disable() // 先不处理跨站点请求伪造的问题（Cross-site request forgery）
-            .formLogin(); // 表单登录，暂时采用框架默认的那个页面。
+            .formLogin() // 表单登录
+            .loginPage("/login"); // 如果你想看到spring自带的那个页面，则注释本行并把;放到表单登陆那一行。
 
     // antMatchers是帮我们设置不同页面的权限的。
     http
