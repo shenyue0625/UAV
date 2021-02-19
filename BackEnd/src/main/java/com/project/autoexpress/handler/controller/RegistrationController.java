@@ -1,6 +1,6 @@
 package com.project.autoexpress.handler.controller;
 
-import com.project.autoexpress.request.RegisterRequestBody;
+import com.project.autoexpress.requestholder.RegisterRequestBody;
 import com.project.autoexpress.handler.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

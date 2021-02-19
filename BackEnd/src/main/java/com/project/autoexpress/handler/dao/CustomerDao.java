@@ -3,7 +3,7 @@ package com.project.autoexpress.handler.dao;
 import com.project.autoexpress.entity.Authorities;
 import com.project.autoexpress.entity.Customer;
 import com.project.autoexpress.entity.User;
-import com.project.autoexpress.request.RegisterRequestBody;
+import com.project.autoexpress.requestholder.RegisterRequestBody;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
