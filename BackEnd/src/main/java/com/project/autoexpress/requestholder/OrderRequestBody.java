@@ -6,11 +6,11 @@ public class OrderRequestBody {
     private String receiverAddress;
     private String receiverName;
     private String cardNumber;
-    private int size;
-    private int weight;
+    private String size;
+    private double weight;
     private String description;
     private String deliveryMethod;
-    private float fee;
+    private double fee;
 
     public void setSenderAddress(String senderAddress) {
         this.senderAddress = senderAddress;
@@ -28,11 +28,11 @@ public class OrderRequestBody {
         this.cardNumber = cardNumber;
     }
 
-    public void setSize(int size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
@@ -44,7 +44,7 @@ public class OrderRequestBody {
         this.deliveryMethod = deliveryMethod;
     }
 
-    public void setFee(float fee) {
+    public void setFee(double fee) {
         this.fee = fee;
     }
 
@@ -64,11 +64,11 @@ public class OrderRequestBody {
         return cardNumber;
     }
 
-    public int getSize() {
+    public String getSize() {
         return size;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
@@ -80,7 +80,7 @@ public class OrderRequestBody {
         return deliveryMethod;
     }
 
-    public float getFee() {
+    public double getFee() {
         return fee;
     }
 }

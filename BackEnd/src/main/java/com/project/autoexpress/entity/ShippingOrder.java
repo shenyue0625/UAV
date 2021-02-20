@@ -26,7 +26,7 @@ public class ShippingOrder implements Serializable {
   private String receiverName;
   private String cardNumber;
   private String size; // (small, medium, large)
-  private int weight;
+  private double weight;
   private String description;
   private String deliveryMethod; // (robot, drone)
   private double fee;
@@ -92,11 +92,11 @@ public class ShippingOrder implements Serializable {
     this.size = size;
   }
 
-  public int getWeight() {
+  public double getWeight() {
     return weight;
   }
 
-  public void setWeight(int weight) {
+  public void setWeight(double weight) {
     this.weight = weight;
   }
 
@@ -139,4 +139,8 @@ public class ShippingOrder implements Serializable {
   public void setStation(Station station) {
     this.station = station;
   }
+
+  public void setTime(Timestamp time) { this.time = time; }
+
+  public Timestamp getTime() { return time;}
 }
