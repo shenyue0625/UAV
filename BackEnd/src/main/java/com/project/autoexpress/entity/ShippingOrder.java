@@ -2,6 +2,7 @@ package com.project.autoexpress.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "shippingorder")
@@ -30,6 +31,8 @@ public class ShippingOrder implements Serializable {
   private String deliveryMethod; // (robot, drone)
   private double fee;
   private String status; // (waiting, ongoing, finished)
+  private Timestamp time;
+
   @ManyToOne
   private Station station; // 相当于 FK station_id
 

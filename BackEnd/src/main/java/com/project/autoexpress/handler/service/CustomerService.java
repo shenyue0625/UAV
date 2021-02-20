@@ -19,7 +19,6 @@ public class CustomerService {
 
   public int addCustomer(RegisterRequestBody request) {
 
-
     return customerDao.addCustomer(request);
   }
 
