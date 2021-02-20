@@ -29,6 +29,7 @@ public class CustomerDao {
     customer.setFirstName(request.getFirstName());
     customer.setLastName(request.getLastName());
     customer.setUser(user);
+    customer.setId(user);
 
     Authorities authorities = new Authorities();  // build a authorities from request
     authorities.setAuthorities("ROLE_USER");
