@@ -1,6 +1,5 @@
 package com.project.autoexpress.handler.service;
 
-import com.project.autoexpress.handler.dao.CustomerDao;
 import com.project.autoexpress.handler.dao.OrderDao;
 import com.project.autoexpress.requestholder.OrderRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;

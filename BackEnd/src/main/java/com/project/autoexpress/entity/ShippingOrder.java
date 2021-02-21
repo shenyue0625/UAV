@@ -1,5 +1,7 @@
 package com.project.autoexpress.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -19,6 +21,13 @@ public class ShippingOrder implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
+
+  @GeneratedValue(generator = "uuid")
+  @GenericGenerator(name = "uuid", strategy = "uuid")
+  @Column(columnDefinition = "CHAR(32)")
+  @Id
+  private String trackingId;
+
   @ManyToOne
   private Customer customer; // 相当于 FK user_id
   private String senderAddress;
@@ -143,4 +152,7 @@ public class ShippingOrder implements Serializable {
   public void setTime(Timestamp time) { this.time = time; }
 
   public Timestamp getTime() { return time;}
+
+  public String getTrackingId() { return trackingId; }
+
 }
