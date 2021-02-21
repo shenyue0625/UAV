@@ -18,15 +18,11 @@ public class ShippingOrder implements Serializable {
 
   private static final long serialVersionUID = 201L;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private int id;
-
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "uuid")
-  @Column(columnDefinition = "CHAR(32)")
+  @Column(columnDefinition = "CHAR(8)")
   @Id
-  private String trackingId;
+  private String orderId;
 
   @ManyToOne
   private Customer customer; // 相当于 FK user_id
@@ -44,14 +40,6 @@ public class ShippingOrder implements Serializable {
 
   @ManyToOne
   private Station station; // 相当于 FK station_id
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public Customer getCustomer() {
     return customer;
@@ -153,6 +141,6 @@ public class ShippingOrder implements Serializable {
 
   public Timestamp getTime() { return time;}
 
-  public String getTrackingId() { return trackingId; }
+  public String getOrderId() { return orderId; }
 
 }
