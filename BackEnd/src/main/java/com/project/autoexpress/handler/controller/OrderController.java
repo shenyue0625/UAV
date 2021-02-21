@@ -2,6 +2,7 @@ package com.project.autoexpress.handler.controller;
 
 import com.project.autoexpress.handler.service.OrderService;
 import com.project.autoexpress.holder.request.OrderRequestBody;
+import com.project.autoexpress.holder.response.OrderResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,15 @@ public class OrderController {
     public ResponseEntity<Object> placeOrder(@RequestBody OrderRequestBody orderRequest) {
 
         // request containing the request body.
-        int status = orderService.addOrder(orderRequest);
-        if (status == -1) {
+        OrderResponseBody orderResponse = new OrderResponseBody();
+        String orderId = orderService.addOrder(orderRequest);
+        orderResponse.setOrderId(orderId);
+
+        if (orderResponse == null) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); // give a response body class object in the first parameter
         }
 
         // TODO : return tracking number
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        return new ResponseEntity<>(orderResponse, HttpStatus.CREATED);
     }
 }

@@ -22,7 +22,7 @@ public class OrderDao {
     private CustomerService customerService;
 
 
-    public int addOrder (OrderRequestBody orderRequest) { // set 是否成功，通过返回一个int来表达。
+    public String addOrder (OrderRequestBody orderRequest) { // set 是否成功，通过返回一个int来表达。
         // use emailId of the current user to get corresponding customer
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String emailId = loggedInUser.getName();
@@ -53,12 +53,12 @@ public class OrderDao {
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
-            return -1; // on error
+            return null; // on error
         } finally {
             if (session != null) {
                 session.close();
             }
         }
-        return 0; // on success
+        return shippingOrder.getOrderId(); // on success
     }
 }
