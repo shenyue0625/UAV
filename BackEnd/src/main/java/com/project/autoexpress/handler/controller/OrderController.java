@@ -22,7 +22,7 @@ public class OrderController {
         // request containing the request body.
         int status = orderService.addOrder(orderRequest);
         if (status == -1) {
-            return new ResponseEntity<>(orderRequest, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); // give a response body class object in the first parameter
         }
 
         // TODO : return tracking number
