@@ -7,7 +7,7 @@ package com.project.autoexpress.handler.service;
 
 import com.project.autoexpress.entity.Customer;
 import com.project.autoexpress.handler.dao.CustomerDao;
-import com.project.autoexpress.requestholder.RegisterRequestBody;
+import com.project.autoexpress.holder.request.RegisterRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

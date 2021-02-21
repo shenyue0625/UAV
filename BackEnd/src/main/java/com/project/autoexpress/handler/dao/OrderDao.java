@@ -3,7 +3,7 @@ package com.project.autoexpress.handler.dao;
 import com.project.autoexpress.entity.Customer;
 import com.project.autoexpress.entity.ShippingOrder;
 import com.project.autoexpress.handler.service.CustomerService;
-import com.project.autoexpress.requestholder.OrderRequestBody;
+import com.project.autoexpress.holder.request.OrderRequestBody;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

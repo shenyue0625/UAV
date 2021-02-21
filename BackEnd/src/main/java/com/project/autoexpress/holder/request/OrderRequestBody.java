@@ -1,4 +1,4 @@
-package com.project.autoexpress.requestholder;
+package com.project.autoexpress.holder.request;
 
 public class OrderRequestBody {
 
