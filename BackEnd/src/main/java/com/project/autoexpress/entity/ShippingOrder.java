@@ -1,7 +1,10 @@
 package com.project.autoexpress.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "shippingorder")
@@ -15,9 +18,12 @@ public class ShippingOrder implements Serializable {
 
   private static final long serialVersionUID = 201L;
 
+  @GeneratedValue(generator = "uuid")
+  @GenericGenerator(name = "uuid", strategy = "uuid")
+  @Column(columnDefinition = "CHAR(8)")
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private int id;
+  private String orderId;
+
   @ManyToOne
   private Customer customer; // 相当于 FK user_id
   private String senderAddress;
@@ -25,21 +31,15 @@ public class ShippingOrder implements Serializable {
   private String receiverName;
   private String cardNumber;
   private String size; // (small, medium, large)
-  private int weight;
+  private double weight;
   private String description;
   private String deliveryMethod; // (robot, drone)
   private double fee;
   private String status; // (waiting, ongoing, finished)
+  private Timestamp time;
+
   @ManyToOne
   private Station station; // 相当于 FK station_id
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public Customer getCustomer() {
     return customer;
@@ -89,11 +89,11 @@ public class ShippingOrder implements Serializable {
     this.size = size;
   }
 
-  public int getWeight() {
+  public double getWeight() {
     return weight;
   }
 
-  public void setWeight(int weight) {
+  public void setWeight(double weight) {
     this.weight = weight;
   }
 
@@ -136,4 +136,11 @@ public class ShippingOrder implements Serializable {
   public void setStation(Station station) {
     this.station = station;
   }
+
+  public void setTime(Timestamp time) { this.time = time; }
+
+  public Timestamp getTime() { return time;}
+
+  public String getOrderId() { return orderId; }
+
 }

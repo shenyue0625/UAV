@@ -1,4 +1,4 @@
-package com.project.autoexpress.request;
+package com.project.autoexpress.holder.request;
 
 public class RegisterRequestBody {
   private String lastName;

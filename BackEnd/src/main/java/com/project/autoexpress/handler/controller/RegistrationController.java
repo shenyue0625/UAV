@@ -1,6 +1,6 @@
 package com.project.autoexpress.handler.controller;
 
-import com.project.autoexpress.request.RegisterRequestBody;
+import com.project.autoexpress.holder.request.RegisterRequestBody;
 import com.project.autoexpress.handler.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ public class RegistrationController {
   @Autowired
   private CustomerService customerService;
 
-  @RequestMapping(value = "/autoexpress/register", method = RequestMethod.POST)
+  @RequestMapping(value = "/register", method = RequestMethod.POST)
   public ResponseEntity<Object> registerCustomer(@RequestBody RegisterRequestBody request) {
     // request containing the request body.
     int status = customerService.addCustomer(request);

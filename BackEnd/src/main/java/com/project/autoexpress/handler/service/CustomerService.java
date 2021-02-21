@@ -6,9 +6,8 @@ package com.project.autoexpress.handler.service;
 //        you need to put them here.
 
 import com.project.autoexpress.entity.Customer;
-import com.project.autoexpress.entity.User;
 import com.project.autoexpress.handler.dao.CustomerDao;
-import com.project.autoexpress.request.RegisterRequestBody;
+import com.project.autoexpress.holder.request.RegisterRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,6 @@ public class CustomerService {
   private CustomerDao customerDao;
 
   public int addCustomer(RegisterRequestBody request) {
-
 
     return customerDao.addCustomer(request);
   }
