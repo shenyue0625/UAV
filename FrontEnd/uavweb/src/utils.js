@@ -54,7 +54,7 @@ export const logout = () => {
 }*/
 const getTrackingDetailsUrl = `${SERVER_ORIGIN}/tracking?orderId=`;
 
-const getTrackingDetails = (orderId) => {
+export const getTrackingDetails = (orderId) => {
     return fetch(`${getTrackingDetailsUrl}${orderId}`).then((response) => {
         if (response.status !== 200) {
             throw Error('Fail to track the order');
