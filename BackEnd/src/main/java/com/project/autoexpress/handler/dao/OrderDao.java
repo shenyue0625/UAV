@@ -26,7 +26,7 @@ public class OrderDao {
         // use emailId of the current user to get corresponding customer
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String emailId = loggedInUser.getName();
-        Customer customer = customerService.getCustomerByUserName(emailId);
+        Customer customer = customerService.getCurrentCustomer();
 
         ShippingOrder shippingOrder = new ShippingOrder(); // build a shipping order from request
         shippingOrder.setCustomer(customer);
