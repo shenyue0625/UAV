@@ -13,7 +13,7 @@ public class RegistrationController {
   @Autowired
   private CustomerService customerService;
 
-  @RequestMapping(value = "/autoexpress/register", method = RequestMethod.POST)
+  @RequestMapping(value = "/register", method = RequestMethod.POST)
   public ResponseEntity<Object> registerCustomer(@RequestBody RegisterRequestBody request) {
     // request containing the request body.
     int status = customerService.addCustomer(request);
