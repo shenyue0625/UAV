@@ -30,8 +30,9 @@ public class TrackingDao {
         ShippingOrder shippingOrder = null;
 
         try (Session session = sessionFactory.openSession()) {
-            Criteria criteria = session.createCriteria(ShippingOrder.class);
-            shippingOrder = (ShippingOrder) criteria.add(Restrictions.eq("orderId", orderId)).uniqueResult();
+//            Criteria criteria = session.createCriteria(ShippingOrder.class);
+//            shippingOrder = (ShippingOrder) criteria.add(Restrictions.eq("orderId", orderId)).uniqueResult();
+            shippingOrder = session.get(ShippingOrder.class, orderId);
         } catch (Exception e) {
             e.printStackTrace();
         }
