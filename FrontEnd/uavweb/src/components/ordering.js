@@ -1,40 +1,43 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
-import { Input, Select, Button } from "antd";
+import { Input, Select, Button, message } from "antd";
 import makeAPayment from "../utils";
 import ButtonGroup from "antd/lib/button/button-group";
 
 const { Option } = Select;
 
 class Ordering extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstName: null,
-      lastName: null,
-      address1: null,
-      address2: null,
-      city: null,
-      state: "CA",
-      country: "United States",
-      zipcode: null,
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     firstName: null,
+  //     lastName: null,
+  //     address1: null,
+  //     address2: null,
+  //     city: null,
+  //     state: "CA",
+  //     country: "United States",
+  //     zipcode: null,
 
-      receiverFirstName: null,
-      receiverLastName: null,
-      receiverAddress1: null,
-      receiverAddress2: null,
-      receiverCity: null,
-      receiverState: null,
-      receiverCountry: null,
-      receiverZipcode: null,
-      size: null,
-    };
-  }
+  //     receiverFirstName: null,
+  //     receiverLastName: null,
+  //     receiverAddress1: null,
+  //     receiverAddress2: null,
+  //     receiverCity: null,
+  //     receiverState: null,
+  //     receiverCountry: null,
+  //     receiverZipcode: null,
+  //     size: null,
+  //   };
+  // }
 
-  handleSubmit = event => {
-    event.preventDefault();
-    const data = this.state;
-    console.log("Final data is", data);
+  handleSubmit = data => {
+    makeAPayment(data)
+      .then()
+      .catch(err => {
+        console.error("submit failed ", err.message);
+        message.error("submit failed!");
+      });
   };
 
   handleInputChange = event => {
@@ -121,7 +124,6 @@ class Ordering extends Component {
             <button>Review</button>
           </p>
         </form>
-        <Button onClick={makeAPayment(this.state)}> Submit </Button>
       </div>
     );
   }
