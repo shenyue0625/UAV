@@ -18,7 +18,7 @@ public class TrackingController {
     private TrackingService trackingService;
 
     @RequestMapping(value = "/tracking", method = RequestMethod.GET)
-    public ResponseEntity<Object> getShippingOrderById(@RequestParam(value = "orderid") int orderId) {
+    public ResponseEntity<Object> getShippingOrderById(@RequestParam(value = "orderId") int orderId) {
         ShippingOrder shippingOrder = trackingService.getShippingOrderById(orderId);
 
         TrackingResponseBody trackingResponse = new TrackingResponseBody();
