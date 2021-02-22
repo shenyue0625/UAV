@@ -1,52 +1,52 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
-import { Input, Select, Button, message } from "antd";
-import makeAPayment from "../utils";
-import ButtonGroup from "antd/lib/button/button-group";
+import {
+  Input,
+  Col,
+  Row,
+  Select,
+  InputNumber,
+  DatePicker,
+  AutoComplete,
+  Cascader,
+} from "antd";
 
 const { Option } = Select;
+const options = [
+  { value: "CA", lable: "CA" },
+  { value: "United States", lable: "United States" },
+];
 
 class Ordering extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     firstName: null,
-  //     lastName: null,
-  //     address1: null,
-  //     address2: null,
-  //     city: null,
-  //     state: "CA",
-  //     country: "United States",
-  //     zipcode: null,
-
-  //     receiverFirstName: null,
-  //     receiverLastName: null,
-  //     receiverAddress1: null,
-  //     receiverAddress2: null,
-  //     receiverCity: null,
-  //     receiverState: null,
-  //     receiverCountry: null,
-  //     receiverZipcode: null,
-  //     size: null,
-  //   };
-  // }
-
-  handleSubmit = data => {
-    makeAPayment(data)
-      .then()
-      .catch(err => {
-        console.error("submit failed ", err.message);
-        message.error("submit failed!");
-      });
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: null,
+      lastName: null,
+      address1: null,
+      address2: null,
+      city: null,
+      state: "CA",
+      country: "United States",
+      zipCode: null,
+    };
+  }
+  handleSubmit = event => {
+    event.preventDefault();
+    const data = this.state;
+    console.log("Final data is", data);
   };
 
   handleInputChange = event => {
+    console.log(event.target.name);
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
 
   render() {
+    const { firstName, lastName, address1, address2, city } = this.state;
+
     return (
       <div>
         <h1 style={{ textAlign: "center" }}> CHECKOUT </h1>
@@ -109,7 +109,9 @@ class Ordering extends Component {
               <Option value="CA">CA</Option>
             </Select>
             <Select style={{ width: "15%" }} name="state">
-              <Option value="United States">United States</Option>
+              <Option value="United States" onClick={this.handleInputChange}>
+                United States
+              </Option>
             </Select>
           </Input.Group>
           <Input
@@ -121,7 +123,7 @@ class Ordering extends Component {
           />
 
           <p>
-            <button>Review</button>
+            <button>Payment</button>
           </p>
         </form>
       </div>
