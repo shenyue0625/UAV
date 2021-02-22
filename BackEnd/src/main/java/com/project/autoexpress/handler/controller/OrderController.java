@@ -29,7 +29,7 @@ public class OrderController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); // give a response body class object in the first parameter
         }
 
-        // TODO : return tracking number
+        // return tracking number and status
         return new ResponseEntity<>(orderResponse, HttpStatus.CREATED);
     }
 }
