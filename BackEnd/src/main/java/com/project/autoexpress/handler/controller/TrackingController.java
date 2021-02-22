@@ -14,13 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class TrackingController {
+
     @Autowired
     private TrackingService trackingService;
 
     @RequestMapping(value = "/tracking", method = RequestMethod.GET)
     public ResponseEntity<Object> getShippingOrderById(@RequestParam(value = "orderId") int orderId) {
         ShippingOrder shippingOrder = trackingService.getShippingOrderById(orderId);
-
         TrackingResponseBody trackingResponse = new TrackingResponseBody();
         trackingResponse.setOrderId(orderId);
         trackingResponse.setSenderAddress(shippingOrder.getSenderAddress());
@@ -35,6 +35,7 @@ public class TrackingController {
         trackingResponse.setStatus(shippingOrder.getStatus());
         trackingResponse.setTime(shippingOrder.getTime());
         trackingResponse.setStation(shippingOrder.getStation());
+        //Do not add Customer to trackingResponse
         return new ResponseEntity<>(trackingResponse, HttpStatus.OK);
     }
 }
