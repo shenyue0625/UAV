@@ -74,7 +74,6 @@ function Register2(props) {
                     <Input />
                 </Form.Item>
 
-                //need to do some check here
                 <Form.Item
                     name="Zipcode"
                     label="Zipcode"

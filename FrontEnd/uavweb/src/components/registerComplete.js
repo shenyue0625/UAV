@@ -5,11 +5,11 @@ class RegisterComplete extends React.Component {
     render() {
         return (
             <div>
-                <h1 style={{ textAlign: 'left' }}> Dear UAV </h1>
+                <h1 style={{ textAlign: 'center' }}> Dear UAV </h1>
                 <br />
                 <h1 style={{ textAlign: 'center' }}> Congratulations! You've registered an account!</h1>
                 <br />
-                <Button>Login to your account</Button>
+                <Button style = {{align: 'center'}}>Login to your account</Button>
             </div>
         );
     }
