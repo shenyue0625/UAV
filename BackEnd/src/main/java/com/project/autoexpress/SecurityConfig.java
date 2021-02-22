@@ -20,13 +20,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
             .csrf().disable() // 先不处理跨站点请求伪造的问题（Cross-site request forgery）
-            .formLogin() // 表单登录
-            .loginPage("/login"); // 如果你想看到spring自带的那个页面，则注释本行并把;放到表单登陆那一行。
+            .formLogin();// 表单登录
 
     // antMatchers是帮我们设置不同页面的权限的。
     http
             .authorizeRequests() // 指明权限，*是任意字符；**是可以匹配/a/b这种多个level的。
-            .antMatchers("/autoexpress/accountinfo/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+            .antMatchers("/accountinfo/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+            .antMatchers("/payment/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
             .anyRequest().permitAll();
     // 而且权限不够的时候，会自动redirect to login
 

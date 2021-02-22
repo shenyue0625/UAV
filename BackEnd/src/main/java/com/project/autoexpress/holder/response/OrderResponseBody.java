@@ -1,13 +1,13 @@
 package com.project.autoexpress.holder.response;
 
 public class OrderResponseBody {
-  private String orderId;
+  private int orderId;
 
-  public String getOrderId() {
+  public int getOrderId() {
     return orderId;
   }
 
-  public void setOrderId(String orderId) {
+  public void setOrderId(int orderId) {
     this.orderId = orderId;
   }
 }

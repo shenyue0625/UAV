@@ -11,7 +11,7 @@ public class OrderService {
     @Autowired
     private OrderDao orderDao;
 
-    public String addOrder(OrderRequestBody orderRequest) {
+    public int addOrder(OrderRequestBody orderRequest) {
         return orderDao.addOrder(orderRequest);
     }
 }

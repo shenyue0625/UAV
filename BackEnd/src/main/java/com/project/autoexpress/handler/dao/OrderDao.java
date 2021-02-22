@@ -22,11 +22,9 @@ public class OrderDao {
     private CustomerService customerService;
 
 
-    public String addOrder (OrderRequestBody orderRequest) { // set 是否成功，通过返回一个int来表达。
-        // use emailId of the current user to get corresponding customer
-        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        String emailId = loggedInUser.getName();
-        Customer customer = customerService.getCustomerByUserName(emailId);
+    public Integer addOrder (OrderRequestBody orderRequest) { // set 是否成功，通过返回一个int来表达。
+
+        Customer customer = customerService.getCurrentCustomer();
 
         ShippingOrder shippingOrder = new ShippingOrder(); // build a shipping order from request
         shippingOrder.setCustomer(customer);

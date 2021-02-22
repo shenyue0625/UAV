@@ -9,7 +9,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
+
 
 @Repository
 public class CustomerDao {
@@ -53,17 +56,20 @@ public class CustomerDao {
     return 0; // on success
   }
 
-  public Customer getCustomerByUserName(String userName) {
+  public Customer getCurrentCustomer() {
+    Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+    String emailId = loggedInUser.getName();
+
     User user = null;
     try (Session session = sessionFactory.openSession()) {
-
       Criteria criteria = session.createCriteria(User.class);
-      user = (User) criteria.add(Restrictions.eq("emailId", userName)).uniqueResult();
+      user = (User) criteria.add(Restrictions.eq("emailId", emailId)).uniqueResult();
     } catch (Exception e) {
       e.printStackTrace();
     }
-    if (user != null)
+    if (user != null) {
       return user.getCustomer();
+    }
     return null;
   }
 }

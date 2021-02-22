@@ -22,7 +22,7 @@ public class OrderController {
 
         // request containing the request body.
         OrderResponseBody orderResponse = new OrderResponseBody();
-        String orderId = orderService.addOrder(orderRequest);
+        int orderId = orderService.addOrder(orderRequest);
         orderResponse.setOrderId(orderId);
 
         if (orderResponse == null) {
