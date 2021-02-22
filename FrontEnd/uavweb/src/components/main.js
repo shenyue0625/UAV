@@ -6,8 +6,8 @@ import Login from './login';
 import Register from './register';
 import Tracking from './tracking';
 
-function Main(props)  {
-        const isLoggedIn = props;
+class Main extends React.Component{
+        //const isLoggedIn = props;
 
     // const showLogin = () => {
     //     // case1: already logged in --> home
@@ -19,30 +19,30 @@ function Main(props)  {
     //         <Login handleLoggedIn={handleLoggedIn}/>
     // }
 
-    const showHome = () => {
-        // case1: already logged in --> home
-        // case2: hasn't logged in --> login
-        return isLoggedIn
-            ?
-            <Home/>
-            :
-            <Redirect to="/login"/>
+    // showHome = () => {
+    //     // case1: already logged in --> home
+    //     // case2: hasn't logged in --> login
+    //     return isLoggedIn
+    //         ?
+    //         <Home/>
+    //         :
+    //         <Redirect to="/login"/>
+    // }
+
+
+    render() {
+        return (
+            // Route负责路由切换
+            <div className="main">
+                <Switch>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/register" component={Register}/>
+                    <Route path="/tracking?orderId=%20" component={{Tracking}}/>
+                    <Route path="/" component={Login}/>//home page should list home page
+                </Switch>
+            </div>
+        );
     }
-
-
-
-    return (
-        // Route负责路由切换
-        <div className="main">
-            <Switch>
-                <Route path="/" component={Home}/>//home page should list home page
-                <Route path="/login" component={Login}/>
-                <Route path="/register" component={Register}/>
-                <Route path="/tracking?orderId=%20" component={{Tracking}}/>
-            </Switch>
-        </div>
-    );
-
 }
 
 export default Main;

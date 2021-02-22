@@ -7,7 +7,7 @@ class RegisterComplete extends React.Component {
             <div>
                 <h1 style={{ textAlign: 'center' }}> Dear UAV </h1>
                 <br />
-                <h1 style={{ textAlign: 'center' }}> Congratulations! You've registered an account!</h1>
+                <h2 style={{ textAlign: 'center' }}> Congratulations! You've registered an account!</h2>
                 <br />
                 <Button style = {{align: 'center'}}>Login to your account</Button>
             </div>

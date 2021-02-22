@@ -2,6 +2,7 @@ import React from 'react';
 import { getTrackingDetails } from './utils';
 import './App.css';
 import { Layout, Menu, message } from 'antd';
+import Main from "./components/main";
 import Register from "./components/register";
 import Register2 from "./components/register2";
 import RegisterComplete from "./components/registerComplete";
@@ -59,20 +60,23 @@ class App extends React.Component {
             <Menu.Item key="4">Log in</Menu.Item>
           </Menu>
         </Header>
-        <Content className='site-layout-background'
+
+          <Content className='site-layout-background'
                  style={{ padding: '0 50px' }}>
           <div className="site-layout-content">
+              {/* below are trying to use a stupid way to view each ui */}
+
               {/*<Tracking
                 orderId={this.state.orderId}
                 //trackingOnClick={this.trackingOnClick}
               ></Tracking>*/}
-              <Register></Register>
+              {/*<Register></Register>*/}
               {/*<Register2></Register2>*/}
               {/*<Login></Login>*/}
               {/*<RegisterComplete></RegisterComplete>*/}
-              {/*<Ordering></Ordering>*/}
-
-          </div>
+              <Ordering></Ordering>
+              {/*<Main />*/}
+           </div>
         </Content>
         <Footer className='site-layout-footer' style={{ textAlign: 'center' }}>AutoExpress ©2021 </Footer>
       </Layout>

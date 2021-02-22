@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { login } from '../utils';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-//import axios from "axios";
+import axios from "axios";
 
 const layout = {
         labelCol: {
@@ -31,6 +31,34 @@ class Login extends React.Component  {
             message.error(err.message);
         })
     }
+
+    //  onFinish = values => {
+    //     // step1: collect data
+    //     console.log('Received values of form: ', values);
+    //     const { username, password } = values;
+    //
+    //     const opt = {
+    //         method: "POST",
+    //         url: `/api/login`,
+    //         data: {
+    //             username: username,
+    //             password: password
+    //         },
+    //         headers: { "Content-TYpe": "application/json" }
+    //     };
+    //
+    //     // step2: make request
+    //     axios(opt)
+    //         .then(res => {
+    //             if (res.status === 200) {
+    //                 message.success("Login succeed!");
+    //             }
+    //         })
+    //         .catch(err => {
+    //             console.error("login failed: ", err.message);
+    //             message.error("Login failed!");
+    //         })
+    // };
 
     render() {
         return (

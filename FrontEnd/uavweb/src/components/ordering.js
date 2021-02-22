@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
 import { Input, Select, Button, message } from "antd";
-import makeAPayment from "../utils";
+import { makeAPayment } from "../utils";
 import ButtonGroup from "antd/lib/button/button-group";
 
 const { Option } = Select;

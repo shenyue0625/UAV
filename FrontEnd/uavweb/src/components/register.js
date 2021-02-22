@@ -1,5 +1,7 @@
 import React from 'react';
-import { Form, Input, Select, Button } from 'antd';
+import {Form, Input, Select, Button, message, Checkbox} from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import {login, register} from '../utils';
 
 const { Option } = Select;
 const formItemLayout = {
@@ -26,34 +28,41 @@ const tailFormItemLayout = {
 };
 
 
-function Register(props) {
+class Register extends React.Component{
 
-    const [form] = Form.useForm();
+    onFinish = (data) => {
+        register(data)
+            .then(() => {
+                message.success(`Successfully signed up`);
+            }).catch((err) => {
+            message.error(err.message);
+        })
+    }
 
+    render() {
         return (
             <Form
                 {...(formItemLayout)}
-                form={form}
                 name="register"
+                onFinish={this.onFinish}
                 scrollToFirstError
             >
 
                 <Form.Item
                     name="Lastname"
-                    label="Lastname"
-
-                    rules={[{ required: true, whitespace: true }]}
+                    label="Last name"
+                    rules={[{ required: true, whitespace: true, message: 'Please input your Username!' }]}
                 >
-                    <Input />
+                    <Input prefix={<UserOutlined />} placeholder="Lastname" />
                 </Form.Item>
 
                 <Form.Item
                     name="Firstname"
-                    label="Firstname"
+                    label="First name"
 
-                    rules={[{ required: true, whitespace: true }]}
+                    rules={[{ required: true, whitespace: true, message: 'Please input your Username!'  }]}
                 >
-                    <Input />
+                    <Input prefix={<UserOutlined />} placeholder="Firstname" />
                 </Form.Item>
 
                 <Form.Item
@@ -70,7 +79,7 @@ function Register(props) {
                         },
                     ]}
                 >
-                    <Input />
+                    <Input placeholder="email"/>
                 </Form.Item>
 
                 <Form.Item
@@ -84,10 +93,10 @@ function Register(props) {
                     ]}
                     hasFeedback
                 >
-                    <Input.Password />
+                    <Input.Password prefix={<LockOutlined />} placeholder="Password"/>
                 </Form.Item>
 
-                <Form.Item
+                {/*<Form.Item
                     name="confirm"
                     label="Confirm Password"
                     dependencies={['password']}
@@ -107,17 +116,52 @@ function Register(props) {
                         }),
                     ]}
                 >
-                    <Input.Password />
+                    <Input.Password prefix={<LockOutlined />} placeholder="Confirm Password"/>
+                </Form.Item>*/}
+
+                <Form.Item
+                    name="shippingAddress"
+                    label="Shipping Address"
+
+                    rules={[{ required: true, whitespace: true }]}
+                >
+                    <Input placeholder="Pattern: Address, City, State, Zip code"/>
+                </Form.Item>
+
+                <Form.Item
+                    name="billingAddress"
+                    label="Billing Address"
+
+                    rules={[{ required: true, whitespace: true }]}
+                >
+                    <Input placeholder="Pattern: Address, City, State, Zip code"/>
+                </Form.Item>
+
+                <Form.Item
+                    name="agreement"
+                    valuePropName="checked"
+                    rules={[
+                        {
+                            validator: (_, value) =>
+                                value ? Promise.resolve() : Promise.reject('Please accept agreement'),
+                        },
+                    ]}
+                    {...(tailFormItemLayout)}
+                >
+                    <Checkbox>
+                        I have read the <a href="">agreement</a>
+                    </Checkbox>
                 </Form.Item>
 
                 <Form.Item {...(tailFormItemLayout)}>
-                    <Button type="primary" >
+                    <Button type="primary" htmlType="submit" className="register-btn" >
                         Next
                     </Button>
                 </Form.Item>
             </Form>
         );
     }
+}
 
 export default Register;
 
