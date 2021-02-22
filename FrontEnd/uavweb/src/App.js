@@ -1,12 +1,13 @@
 import React from 'react';
 import { getTrackingDetails } from './utils';
-import Tracking from './components/tracking';
 import './App.css';
 import { Layout, Menu, message } from 'antd';
 import Register from "./components/register";
 import Register2 from "./components/register2";
 import RegisterComplete from "./components/registerComplete";
 import Login from "./components/login";
+import Tracking from './components/tracking';
+import Ordering from "./components/ordering"
 
 const { Header, Content, Footer } = Layout;
 
@@ -61,11 +62,14 @@ class App extends React.Component {
         <Content className='site-layout-background'
                  style={{ padding: '0 50px' }}>
           <div className="site-layout-content">
-              <Tracking
+              {/*<Tracking
                 orderId={this.state.orderId}
                 //trackingOnClick={this.trackingOnClick}
-              ></Tracking>
+              ></Tracking>*/}
               {/*<Register></Register>*/}
+              {/*<Register2></Register2>*/}
+              {/*<RegisterComplete></RegisterComplete>*/}
+              <Ordering></Ordering>
 
           </div>
         </Content>

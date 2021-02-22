@@ -1,46 +1,36 @@
 import React from 'react';
-import {
-    Form,
-    Input,
-    Select,
-    Button,
-} from 'antd';
+import { Form, Input, Select, Button } from 'antd';
 
-class Register extends React.component {
 
-    render() {
-
-        const { Option } = Select;
-
-        const formItemLayout = {
-            labelCol: {
-                xs: { span: 24 },
-                sm: { span: 8 },
+function Register(props) {
+    const { Option } = Select;
+    const formItemLayout = {
+        labelCol: {
+            xs: { span: 24 },
+            sm: { span: 8 },
+        },
+        wrapperCol: {
+            xs: { span: 24 },
+            sm: { span: 16 },
+        },
+    };
+    const tailFormItemLayout = {
+        wrapperCol: {
+            xs: {
+                span: 24,
+                offset: 0,
             },
-            wrapperCol: {
-                xs: { span: 24 },
-                sm: { span: 16 },
+            sm: {
+                span: 16,
+                offset: 8,
             },
-        };
-        const tailFormItemLayout = {
-            wrapperCol: {
-                xs: {
-                    span: 24,
-                    offset: 0,
-                },
-                sm: {
-                    span: 16,
-                    offset: 8,
-                },
-            },
-        };
-
-        const [form] = Form.useForm();
-
+        },
+    };
+    const [form] = Form.useForm();
         return (
             <Form
                 {...(formItemLayout)}
-                form={this.form}
+                form={form}
                 name="register"
                 scrollToFirstError
             >
@@ -125,7 +115,6 @@ class Register extends React.component {
             </Form>
         );
     }
-}
 
 export default Register;
 

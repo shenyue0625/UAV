@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-    Form,
-    Input,
-    Select,
-    Checkbox,
-    Button,
-} from 'antd';
+import { Form, Input, Select, Checkbox, Button } from 'antd';
 
-class Register2 extends React.component {
+function Register2(props) {
 
-    render() {
         const { Option } = Select;
 
         const formItemLayout = {
@@ -50,7 +43,7 @@ class Register2 extends React.component {
         return (
             <Form
                 {...(formItemLayout)}
-                form={this.form}
+                form={form}
                 name="register"
                 scrollToFirstError
             >
@@ -121,6 +114,6 @@ class Register2 extends React.component {
             </Form>
         );
     }
-}
+
 
 export default Register2;
