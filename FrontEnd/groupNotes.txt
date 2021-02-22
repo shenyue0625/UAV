@@ -1,12 +1,11 @@
 Week 3 Group Meeting Scrum
 
-1. 到明天晚上，提供自己负责的前端ui基本“长相”，内部数据可以先模拟。
+1. 前端所有的重要文件和信息都在这个链接中  https://docs.google.com/document/d/1eyjNPfL0L85x07EU3jTxk5pRkTib-mKhVNnyyrqjrmw/edit
 
 2. 通过React-dom的<Route>,<Link>, <Redirect>来实现前端页面切换（根据麻组长提供的around项目代码作为参考）
 
 3. tracking页面和ordering页面需要考虑Google API的使用（需要提前学习一下google api的使用）
 
-4. 前端所有的重要文件和信息都在这个链接中  https://docs.google.com/document/d/1eyjNPfL0L85x07EU3jTxk5pRkTib-mKhVNnyyrqjrmw/edit
 
 *********************************************************************************************************************************************************************************
 
