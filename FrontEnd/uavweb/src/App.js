@@ -3,7 +3,10 @@ import { getTrackingDetails } from './utils';
 import Tracking from './components/tracking';
 import './App.css';
 import { Layout, Menu, message } from 'antd';
-
+import Register from "./components/register";
+import Register2 from "./components/register2";
+import RegisterComplete from "./components/registerComplete";
+import Login from "./components/login";
 
 const { Header, Content, Footer } = Layout;
 
@@ -62,6 +65,7 @@ class App extends React.Component {
                 orderId={this.state.orderId}
                 //trackingOnClick={this.trackingOnClick}
               ></Tracking>
+              {/*<Register></Register>*/}
 
           </div>
         </Content>
