@@ -66,10 +66,11 @@ class App extends React.Component {
                 orderId={this.state.orderId}
                 //trackingOnClick={this.trackingOnClick}
               ></Tracking>*/}
-              {/*<Register></Register>*/}
+              <Register></Register>
               {/*<Register2></Register2>*/}
+              {/*<Login></Login>*/}
               {/*<RegisterComplete></RegisterComplete>*/}
-              <Ordering></Ordering>
+              {/*<Ordering></Ordering>*/}
 
           </div>
         </Content>

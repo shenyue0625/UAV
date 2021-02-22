@@ -1,32 +1,35 @@
 import React from 'react';
 import { Form, Input, Select, Button } from 'antd';
 
+const { Option } = Select;
+const formItemLayout = {
+    labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+    },
+    wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+    },
+};
+const tailFormItemLayout = {
+    wrapperCol: {
+        xs: {
+            span: 24,
+            offset: 0,
+        },
+        sm: {
+            span: 16,
+            offset: 8,
+        },
+    },
+};
+
 
 function Register(props) {
-    const { Option } = Select;
-    const formItemLayout = {
-        labelCol: {
-            xs: { span: 24 },
-            sm: { span: 8 },
-        },
-        wrapperCol: {
-            xs: { span: 24 },
-            sm: { span: 16 },
-        },
-    };
-    const tailFormItemLayout = {
-        wrapperCol: {
-            xs: {
-                span: 24,
-                offset: 0,
-            },
-            sm: {
-                span: 16,
-                offset: 8,
-            },
-        },
-    };
+
     const [form] = Form.useForm();
+
         return (
             <Form
                 {...(formItemLayout)}

@@ -1,27 +1,38 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, message } from 'antd';
+import { login } from '../utils';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+//import axios from "axios";
 
+const layout = {
+        labelCol: {
+            span: 8,
+        },
+        wrapperCol: {
+            span: 16,
+        },
+    };
+
+const tailLayout = {
+        wrapperCol: {
+            offset: 8,
+            span: 16,
+        },
+    };
 
 class Login extends React.Component  {
 
-    render() {
-        const
-            layout = {
-                labelCol: {
-                    span: 8,
-                },
-                wrapperCol: {
-                    span: 16,
-                },
-            };
-        const
-            tailLayout = {
-                wrapperCol: {
-                    offset: 8,
-                    span: 16,
-                },
-            };
+    onFinish = (data) => {
+        login(data)
+            .then((data) => {
+                message.success(`Welcome back, ${data.name}`);
+                this.props.onSuccess();
+            }).catch((err) => {
+            message.error(err.message);
+        })
+    }
 
+    render() {
         return (
             <div className="login-form">
                 <div className="title">
@@ -31,6 +42,7 @@ class Login extends React.Component  {
                 <Form
                     {...layout}
                     name="basic"
+                    onFinish={this.onFinish}
                     initialValues={{
                         remember: true,
                     }}
@@ -45,7 +57,7 @@ class Login extends React.Component  {
                             },
                         ]}
                     >
-                        <Input/>
+                        <Input prefix={<UserOutlined />} placeholder="Username" />
                     </Form.Item>
 
                     <Form.Item
@@ -58,7 +70,7 @@ class Login extends React.Component  {
                             },
                         ]}
                     >
-                        <Input.Password/>
+                        <Input prefix={<LockOutlined />} placeholder="Password"/>
                     </Form.Item>
 
                     <Form.Item {...tailLayout} name="remember" valuePropName="checked">
