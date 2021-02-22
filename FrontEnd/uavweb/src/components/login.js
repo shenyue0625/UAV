@@ -1,7 +1,8 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 
-class Login extends React.component {
+
+class Login extends React.Component  {
 
     render() {
         const
@@ -21,9 +22,7 @@ class Login extends React.component {
                 },
             };
 
-
         return (
-
             <div className="login-form">
                 <div className="title">
                     <h1 style={{ textAlign: 'center' }}> ANYWHERE IN SAN FRANCISCO </h1>
@@ -74,7 +73,7 @@ class Login extends React.component {
                 </Form>
             </div>
         );
-    };
+    }
 }
 
 export default Login;

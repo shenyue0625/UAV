@@ -1,12 +1,9 @@
+import { Button } from 'antd';
 import React from 'react';
-import {
-    Button,
-} from 'antd';
 
-class RegisterComplete extends React.component {
-
+class RegisterComplete extends React.Component {
     render() {
-        return(
+        return (
             <div>
                 <h1 style={{ textAlign: 'left' }}> Dear UAV </h1>
                 <br />

@@ -1,7 +1,5 @@
 import React from 'react';
 import { Timeline, Descriptions } from 'antd';
-import { useState } from 'react';
-import TextArea from "antd/es/input/TextArea";
 
 class Tracking extends React.Component {
 
