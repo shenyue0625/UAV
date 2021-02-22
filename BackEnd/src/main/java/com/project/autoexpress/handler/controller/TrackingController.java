@@ -18,17 +18,23 @@ public class TrackingController {
     private TrackingService trackingService;
 
     @RequestMapping(value = "/tracking", method = RequestMethod.GET)
-    public ResponseEntity<Object> getShippingOrderById(@RequestParam(value = "orderId") int orderId) {
+    public ResponseEntity<Object> getShippingOrderById(@RequestParam(value = "orderid") int orderId) {
         ShippingOrder shippingOrder = trackingService.getShippingOrderById(orderId);
 
         TrackingResponseBody trackingResponse = new TrackingResponseBody();
         trackingResponse.setOrderId(orderId);
-        trackingResponse.setTime(shippingOrder.getTime());
         trackingResponse.setSenderAddress(shippingOrder.getSenderAddress());
         trackingResponse.setReceiverAddress(shippingOrder.getReceiverAddress());
+        trackingResponse.setReceiverName(shippingOrder.getReceiverName());
+        trackingResponse.setCardNumber(shippingOrder.getCardNumber());
+        trackingResponse.setSize(shippingOrder.getSize());
+        trackingResponse.setWeight(shippingOrder.getWeight());
+        trackingResponse.setDescription(shippingOrder.getDescription());
         trackingResponse.setDeliveryMethod(shippingOrder.getDeliveryMethod());
+        trackingResponse.setFee(shippingOrder.getFee());
         trackingResponse.setStatus(shippingOrder.getStatus());
-        trackingResponse.setCustomer(shippingOrder.getCustomer());//need last name and first name?
-        return new ResponseEntity<>(trackingResponse, HttpStatus.CREATED);
+        trackingResponse.setTime(shippingOrder.getTime());
+        trackingResponse.setStation(shippingOrder.getStation());
+        return new ResponseEntity<>(trackingResponse, HttpStatus.OK);
     }
 }

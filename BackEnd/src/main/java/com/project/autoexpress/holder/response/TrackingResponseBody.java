@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 public class TrackingResponseBody {
 
     private int orderId;
-    private Customer customer;
     private String senderAddress;
     private String receiverAddress;
     private String receiverName;
@@ -21,21 +20,12 @@ public class TrackingResponseBody {
     private Timestamp time;
     private Station station;
 
-
     public int getOrderId() {
         return orderId;
     }
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public String getSenderAddress() {
