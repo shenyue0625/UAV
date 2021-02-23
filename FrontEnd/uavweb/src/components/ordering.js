@@ -37,6 +37,7 @@ class Ordering extends Component {
       .catch(err => {
         console.error("submit failed ", err.message);
         message.error("submit failed!");
+        console.log("测试");
       });
   };
 
