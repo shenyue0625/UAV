@@ -23,6 +23,24 @@ const tailLayout = {
     },
 };
 
+const getInfo = () => {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({"username":"tester2@mail.com","password":"123"});
+
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+
+  fetch("/api/accountinfo", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+}
+
 class Login extends React.Component {
 
     onFinish = (data) => {
@@ -65,6 +83,7 @@ class Login extends React.Component {
 
     render() {
         return (
+          <>
             <div>
                 <br/><br/><br/><br/>
                 <Row>
@@ -119,11 +138,11 @@ class Login extends React.Component {
                                 <Input prefix={<LockOutlined/>} placeholder="Password"/>
                             </Form.Item>
 
-                            <Form.Item {...tailLayout}
-                                       name="remember"
-                                       valuePropName="checked">
-                                <Checkbox>Remember me</Checkbox>
-                            </Form.Item>
+                            {/*<Form.Item {...tailLayout}*/}
+                            {/*           name="remember"*/}
+                            {/*           valuePropName="checked">*/}
+                            {/*    <Checkbox>Remember me</Checkbox>*/}
+                            {/*</Form.Item>*/}
 
                             <Form.Item {...tailLayout}>
                                 <Button type="primary" htmlType="submit">
@@ -137,6 +156,11 @@ class Login extends React.Component {
                 <br/><br/><br/><br/><br/>
 
             </div>
+
+          <button onClick={getInfo}>
+            click me to get logged user info
+          </button>
+      </>
         );
     }
 }

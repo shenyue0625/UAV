@@ -2,23 +2,28 @@
 // If you don't want to host your server code and client code together, you can
 // pay AWS to host your server with HTTPS then config the api url endpoints like below
 // const SERVER_ORIGIN = '<Your server's url>';
-const SERVER_ORIGIN = 'http://localhost:8080/autoexpress';
+import axios from "axios"
+
+const SERVER_ORIGIN = '/api';
 
 const loginUrl = `${SERVER_ORIGIN}/login`;
 
 export const login = (credential) => {
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("username", "tester2@mail.com");
+    urlencoded.append("password", "123");
     return fetch(loginUrl, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
         },
-        credentials: 'include',
-        body: JSON.stringify(credential)
+        body: urlencoded,
+        redirect: 'follow'
     }).then((response) => {
         if (response.status !== 200) {
             throw Error('Fail to log in');
         }
-
+        console.log(response);
         return response.json();
     })
 }

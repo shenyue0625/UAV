@@ -32,18 +32,18 @@ public class ApplicationConfig {
   @Bean(name = "dataSource")
   public DataSource dataSource() {
     // RDS:
-    final String INSTANCE = "autoexpress-instance.c5cogveqk32k.us-east-2.rds.amazonaws.com"; // instance address - endpoint - API
-    final String PORT_NUM = "3306";
-    final String DB_NAME = "autoexpress";
-    final String USERNAME = "admin";
-    final String PASSWORD = "hksssyyyyz";
-
-    // Local:
-//    final String INSTANCE = "localhost";
+//    final String INSTANCE = "autoexpress-instance.c5cogveqk32k.us-east-2.rds.amazonaws.com"; // instance address - endpoint - API
 //    final String PORT_NUM = "3306";
 //    final String DB_NAME = "autoexpress";
-//    final String USERNAME = "root";
-//    final String PASSWORD = "asdf";
+//    final String USERNAME = "admin";
+//    final String PASSWORD = "hksssyyyyz";
+
+    // Local:
+    final String INSTANCE = "localhost";
+    final String PORT_NUM = "3306";
+    final String DB_NAME = "autoexpress";
+    final String USERNAME = "root";
+    final String PASSWORD = "asdf";
 
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");

@@ -69,7 +69,7 @@ class Register extends React.Component {
                         >
 
                             <Form.Item
-                                name="Lastname"
+                                name="lastName"
                                 label="Last name"
                                 rules={[{required: true, whitespace: true, message: 'Please input your Username!'}]}
                             >
@@ -77,7 +77,7 @@ class Register extends React.Component {
                             </Form.Item>
 
                             <Form.Item
-                                name="Firstname"
+                                name="firstName"
                                 label="First name"
 
                                 rules={[{required: true, whitespace: true, message: 'Please input your Username!'}]}
@@ -157,21 +157,21 @@ class Register extends React.Component {
                                 <Input placeholder="Pattern: Address, City, State, Zip code"/>
                             </Form.Item>
 
-                            <Form.Item
-                                name="agreement"
-                                valuePropName="checked"
-                                rules={[
-                                    {
-                                        validator: (_, value) =>
-                                            value ? Promise.resolve() : Promise.reject('Please accept agreement'),
-                                    },
-                                ]}
-                                {...(tailFormItemLayout)}
-                            >
-                                <Checkbox>
-                                    I have read the <a href="">agreement</a>
-                                </Checkbox>
-                            </Form.Item>
+                            {/*<Form.Item*/}
+                            {/*    name="agreement"*/}
+                            {/*    valuePropName="checked"*/}
+                            {/*    rules={[*/}
+                            {/*        {*/}
+                            {/*            validator: (_, value) =>*/}
+                            {/*                value ? Promise.resolve() : Promise.reject('Please accept agreement'),*/}
+                            {/*        },*/}
+                            {/*    ]}*/}
+                            {/*    {...(tailFormItemLayout)}*/}
+                            {/*>*/}
+                            {/*    <Checkbox>*/}
+                            {/*        I have read the <a href="">agreement</a>*/}
+                            {/*    </Checkbox>*/}
+                            {/*</Form.Item>*/}
 
                             <Form.Item {...(tailFormItemLayout)}>
                                 <Button type="primary" htmlType="submit" className="register-btn">
