@@ -43,6 +43,19 @@ export const register = (data) => {
         }
     })
 }
+// var requestOptions = {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(data),
+//     redirect: 'follow'
+// };
+//
+// fetch(`/api/register`, requestOptions)
+//     .then(response => response.text())
+//     .then(result => console.log(result))
+//     .catch(error => console.log('error', error));
 
 /*
 const logoutUrl = `${SERVER_ORIGIN}/logout`;

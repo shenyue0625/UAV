@@ -3,7 +3,7 @@ import "antd/dist/antd.css";
 import { Input, Select, Button, message } from "antd";
 import { makeAPayment } from "../utils";
 import ButtonGroup from "antd/lib/button/button-group";
-
+//小测试
 const { Option } = Select;
 
 class Ordering extends Component {
