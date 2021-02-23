@@ -1,47 +1,42 @@
 import React, { Component } from "react";
-import "antd/dist/antd.css";
-import { Input, Select, Button, message } from "antd";
+import { Form, Input, Select, Button, message, Checkbox } from "antd";
 import { makeAPayment } from "../utils";
-import ButtonGroup from "antd/lib/button/button-group";
-//小测试
+
 const { Option } = Select;
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 8 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 16 },
+  },
+};
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 16,
+      offset: 8,
+    },
+  },
+};
 
 class Ordering extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     firstName: null,
-  //     lastName: null,
-  //     address1: null,
-  //     address2: null,
-  //     city: null,
-  //     state: "CA",
-  //     country: "United States",
-  //     zipcode: null,
-
-  //     receiverFirstName: null,
-  //     receiverLastName: null,
-  //     receiverAddress1: null,
-  //     receiverAddress2: null,
-  //     receiverCity: null,
-  //     receiverState: null,
-  //     receiverCountry: null,
-  //     receiverZipcode: null,
-  //     size: null,
-  //   };
-  // }
-
-  handleSubmit = data => {
+  onFinish = data => {
     makeAPayment(data)
-      .then()
+      .then(() => {
+        message.success("Order successfully submitted");
+      })
       .catch(err => {
-        console.error("submit failed ", err.message);
-        message.error("submit failed!");
-        console.log("测试");
+        message.error("submit failed!", err);
       });
   };
 
-  
   handleInputChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -61,7 +56,12 @@ class Ordering extends Component {
         <h3 size="defalt size">From Address </h3>
         <br />
 
-        <form onSubmit={this.handleSubmit} style={{ width: "100%" }}>
+        <Form
+          {...formItemLayout}
+          name="register"
+          onFinish={this.onFinish}
+          scrollToFirstError
+        >
           <Input.Group compact>
             <Input
               prefix={"First Name*"}
@@ -125,7 +125,7 @@ class Ordering extends Component {
           <p>
             <button>Review</button>
           </p>
-        </form>
+        </Form>
       </div>
     );
   }
