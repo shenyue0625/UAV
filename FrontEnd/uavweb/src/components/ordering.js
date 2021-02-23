@@ -31,14 +31,14 @@ class Ordering extends Component {
   //   };
   // }
 
-  handleSubmit = data => {
-    makeAPayment(data)
-      .then()
-      .catch(err => {
-        console.error("submit failed ", err.message);
-        message.error("submit failed!");
-      });
-  };
+  // handleSubmit = data => {
+  //   makeAPayment(data)
+  //     .then()
+  //     .catch(err => {
+  //       console.error("submit failed ", err.message);
+  //       message.error("submit failed!");
+  //     });
+  // };
 
   
   handleInputChange = event => {
