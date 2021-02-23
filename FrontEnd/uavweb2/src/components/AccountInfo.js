@@ -168,7 +168,7 @@ class AccountInfo extends React.Component {
 
                     <div className="App-accountInfo-send-button">
                         <nav>
-                            <Link to='ordering'>
+                            <Link to='/ordering'>
                                 <Button type="primary">
                                     <h1 className="App-accountInfo-send">Send a New Package</h1>
                                 </Button>
