@@ -8,10 +8,12 @@ const SERVER_ORIGIN = '/api';
 
 const loginUrl = `${SERVER_ORIGIN}/login`;
 
+// Ma: the content type should be x-www-form-urlencoded.
 export const login = (credential) => {
+    const {username, password} = credential;
     var urlencoded = new URLSearchParams();
-    urlencoded.append("username", "tester2@mail.com");
-    urlencoded.append("password", "123");
+    urlencoded.append("username", username);
+    urlencoded.append("password", password);
     return fetch(loginUrl, {
         method: 'POST',
         headers: {
@@ -23,8 +25,9 @@ export const login = (credential) => {
         if (response.status !== 200) {
             throw Error('Fail to log in');
         }
-        console.log(response);
-        return response.json();
+        return response.headers.get("username");
+        // console.log(response);
+        // return response.json();
     })
 }
 
@@ -38,25 +41,12 @@ export const register = (data) => {
         },
         body: JSON.stringify(data)
     }).then((response) => {
-        if (response.status !== 200) {
+        if (response.status !== 201) { // Ma: 201 created.
             throw Error('Fail to register');
         }
     })
 }
 
-/*
-const logoutUrl = `${SERVER_ORIGIN}/logout`;
-
-export const logout = () => {
-    return fetch(logoutUrl, {
-        method: 'POST',
-        credentials: 'include',
-    }).then((response) => {
-        if (response.status !== 200) {
-            throw Error('Fail to log out');
-        }
-    })
-}*/
 const getTrackingDetailsUrl = `${SERVER_ORIGIN}/tracking?orderId=`;
 
 export const getTrackingDetails = (orderId) => {
@@ -87,21 +77,25 @@ export const makeAPayment = (allPaymentInfo) => {
     })
 }
 
-const getAccountInfoUrl = `${SERVER_ORIGIN}/accountInfo`;
+// Ma: the method will get the [currently logged in user's info], so it's unnecessary to provide credentials.
+const getAccountInfoUrl = `${SERVER_ORIGIN}/accountinfo`
 
-export const getAccountInfo = (credential) => {
-    return fetch(getAccountInfoUrl, {
+export const getAccountInfo = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(credential)
-    }).then((response) => {
-        if (response.status !== 200) {
-            throw Error('Fail to get Account Info');
-        }
+        headers: myHeaders,
+        redirect: 'follow'
+    };
 
-        return response.json();
-    })
+    fetch(getAccountInfoUrl, requestOptions)
+      .then((response) => {
+          if (response.status !== 200) {
+              throw Error('Fail to get Account Info');
+          }
+
+          return response.json();
+      });
 }

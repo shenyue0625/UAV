@@ -1,6 +1,6 @@
 import React from 'react';
 import {Row, Col, Form, Input, Button, Checkbox, message} from 'antd';
-import {login} from '../utils';
+import {login, getAccountInfo} from '../utils';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import axios from "axios";
 
@@ -23,63 +23,18 @@ const tailLayout = {
     },
 };
 
-const getInfo = () => {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  var raw = JSON.stringify({"username":"tester2@mail.com","password":"123"});
-
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
-  };
-
-  fetch("/api/accountinfo", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-}
-
 class Login extends React.Component {
 
     onFinish = (data) => {
+        // try to login 麻：修改了后端，现在不会收到一个redirect从而导致跨域问题了。
         login(data)
-            .then((data) => {
-                message.success(`Welcome back, ${data.name}`);
-                this.props.onSuccess();
-            }).catch((err) => {
+          .then((res) => {
+              message.success(`Welcome back, ${res}`);
+              // this.props.onSuccess();
+          }).catch((err) => {
             message.error(err.message);
         })
     }
-
-    //  onFinish = values => {
-    //     // step1: collect data
-    //     console.log('Received values of form: ', values);
-    //     const { username, password } = values;
-    //
-    //     const opt = {
-    //         method: "POST",
-    //         url: `/api/login`,
-    //         data: {
-    //             username: username,
-    //             password: password
-    //         },
-    //         headers: { "Content-TYpe": "application/json" }
-    //     };
-    //
-    //     // step2: make request
-    //     axios(opt)
-    //         .then(res => {
-    //             if (res.status === 200) {
-    //                 message.success("Login succeed!");
-    //             }
-    //         })
-    //         .catch(err => {
-    //             console.error("login failed: ", err.message);
-    //             message.error("Login failed!");
-    //         })
-    // };
 
     render() {
         return (
@@ -138,11 +93,11 @@ class Login extends React.Component {
                                 <Input prefix={<LockOutlined/>} placeholder="Password"/>
                             </Form.Item>
 
-                            {/*<Form.Item {...tailLayout}*/}
-                            {/*           name="remember"*/}
-                            {/*           valuePropName="checked">*/}
-                            {/*    <Checkbox>Remember me</Checkbox>*/}
-                            {/*</Form.Item>*/}
+                            <Form.Item {...tailLayout}
+                                       name="remember"
+                                       valuePropName="checked">
+                                <Checkbox>Remember me</Checkbox>
+                            </Form.Item>
 
                             <Form.Item {...tailLayout}>
                                 <Button type="primary" htmlType="submit">
@@ -157,7 +112,7 @@ class Login extends React.Component {
 
             </div>
 
-          <button onClick={getInfo}>
+          <button onClick={getAccountInfo}>
             click me to get logged user info
           </button>
       </>

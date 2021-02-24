@@ -6,9 +6,15 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import java.io.IOException;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -19,8 +25,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
-            .csrf().disable() // 先不处理跨站点请求伪造的问题（Cross-site request forgery）
-            .formLogin();// 表单登录
+            // 先不处理跨站点请求伪造的问题（Cross-site request forgery）
+            .csrf().disable()
+            // 表单登录，并禁止redirect（会导致前端跨域）
+            .formLogin().successHandler(new AuthenticationSuccessHandler() {
+      @Override
+      public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+        httpServletResponse.setHeader("username", authentication.getName()); // return the email ID
+      }
+    });
 
     // antMatchers是帮我们设置不同页面的权限的。
     http

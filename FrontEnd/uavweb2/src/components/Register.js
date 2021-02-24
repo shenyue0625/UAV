@@ -157,21 +157,21 @@ class Register extends React.Component {
                                 <Input placeholder="Pattern: Address, City, State, Zip code"/>
                             </Form.Item>
 
-                            {/*<Form.Item*/}
-                            {/*    name="agreement"*/}
-                            {/*    valuePropName="checked"*/}
-                            {/*    rules={[*/}
-                            {/*        {*/}
-                            {/*            validator: (_, value) =>*/}
-                            {/*                value ? Promise.resolve() : Promise.reject('Please accept agreement'),*/}
-                            {/*        },*/}
-                            {/*    ]}*/}
-                            {/*    {...(tailFormItemLayout)}*/}
-                            {/*>*/}
-                            {/*    <Checkbox>*/}
-                            {/*        I have read the <a href="">agreement</a>*/}
-                            {/*    </Checkbox>*/}
-                            {/*</Form.Item>*/}
+                            <Form.Item
+                                name="agreement"
+                                valuePropName="checked"
+                                rules={[
+                                    {
+                                        validator: (_, value) =>
+                                            value ? Promise.resolve() : Promise.reject('Please accept agreement'),
+                                    },
+                                ]}
+                                {...(tailFormItemLayout)}
+                            >
+                                <Checkbox>
+                                    I have read the <a href="">agreement</a>
+                                </Checkbox>
+                            </Form.Item>
 
                             <Form.Item {...(tailFormItemLayout)}>
                                 <Button type="primary" htmlType="submit" className="register-btn">

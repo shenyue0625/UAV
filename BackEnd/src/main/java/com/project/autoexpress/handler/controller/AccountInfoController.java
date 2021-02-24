@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class LoginController {
+public class AccountInfoController {
 
   @Autowired
   private CustomerService customerService;
@@ -28,17 +28,5 @@ public class LoginController {
     response.setBillingAddress(customer.getBillingAddress());
     response.setShippingAddress(customer.getShippingAddress());
     return new ResponseEntity<>(response, HttpStatus.OK);
-  }
-
-  @RequestMapping(value = "/", method = RequestMethod.GET)
-  public ResponseEntity<Object> root() {
-//    String content = "Note from Yaowei Ma: Spring Security will automatically send a GET request to localhost:8080/. " +
-//            "\n In our online shop project, it's okay. Since all webpage comes from server, so this GET request will give browser a home page." +
-//            "\n But in our new project, there is no webpage from server." +
-//            "\n Therefore, I will send back a redirect response, telling browser to seek a front-end page at front-end server.";
-//    HttpHeaders headers = new HttpHeaders();
-//    headers.add("location","http://localhost:3000/accountinfo");
-//    return new ResponseEntity<>(content, headers, HttpStatus.PERMANENT_REDIRECT);
-    return new ResponseEntity<>(null, HttpStatus.OK);
   }
 }
