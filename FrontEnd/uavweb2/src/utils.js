@@ -47,16 +47,35 @@ export const register = (data) => {
     })
 }
 
-const getTrackingDetailsUrl = `${SERVER_ORIGIN}/tracking?orderId=`;
+const getTrackingDetailsUrl = `${SERVER_ORIGIN}/tracking?orderId=11`;
 
 export const getTrackingDetails = (orderId) => {
-    return fetch(`${getTrackingDetailsUrl}${orderId}`).then((response) => {
-        if (response.status !== 200) {
-            throw Error('Fail to track the order');
-        }
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
 
-        return response.json();
-    });
+    fetch("getTrackingDetailsUrl", requestOptions)
+        .then((response) => {
+            if (response.status !== 200) {
+                throw Error('Fail to track the order');
+            }
+
+            return response.json();
+        })
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+
+
+
+    // return fetch(`${getTrackingDetailsUrl}${orderId}`).then((response) => {
+    //     if (response.status !== 200) {
+    //         throw Error('Fail to track the order');
+    //     }
+    //
+    //     return response.json();
+    // });
 }
 
 const makeAPaymentUrl = `${SERVER_ORIGIN}/payment`;//this is following "addFavoriteItem" in jupiter project

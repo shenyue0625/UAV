@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Row, Col, Divider} from 'antd';
+import {Row, Col, Divider, message} from 'antd';
 import background from "../assets/imgs/background_small.jpg";
 import loc from "../assets/imgs/location.png";
 import tracking from "../assets/imgs/tracking.png";
@@ -8,6 +8,7 @@ import {Form, Input, Button} from 'antd';
 
 
 import {Link} from 'react-router-dom';
+import {register, getTrackingDetails} from "../utils";
 
 const layout = {
     wrapperCol: {
@@ -23,6 +24,20 @@ const tailLayout = {
 };
 
 class Home extends Component {
+
+    onFinish = (orderId) => {
+        getTrackingDetails(orderId)
+            .then(data => {
+                this.setState({
+                    trackingInfo : data
+                });
+                console.log('got tracking info')
+            }).catch((err) => {
+                console.log('fail to get fetch tracking information');
+            message.error(err.message);
+        })
+    }
+
     render() {
         return (
             <div>
@@ -46,7 +61,7 @@ class Home extends Component {
                                 <div className="App-home-boxes"
                                      style={{width: 205, height: 205, backgroundColor: "grey"}}>
                                     <nav>
-                                        <Link to="ordering">
+                                        <Link to="tracking" >
                                             <img className="App-home-boxes-logo" src={tracking} alt="tracking"
                                                  height={100}/>
                                             <h3 className="App-home-boxes-name">Tracking</h3>
@@ -69,7 +84,7 @@ class Home extends Component {
 
                             <div>
                                 <div>
-                                    <Form>
+                                    <Form onFinish={this.onFinish}>
                                         <Form.Item {...layout}>
                                             <Input style={{display: "inline-block"}}
                                                    placeholder="Your Tracking Number"/>
