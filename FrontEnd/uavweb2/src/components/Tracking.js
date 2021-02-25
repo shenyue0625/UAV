@@ -40,8 +40,8 @@ class Tracking extends React.Component {
 
 
 
-    onFinish = (orderId) => {
-        getTrackingDetails(orderId)
+    onFinish = (data) => {
+        getTrackingDetails(data.orderId)
             .then(data => {
                 this.setState({
                     trackingInfo: data,
@@ -73,7 +73,7 @@ class Tracking extends React.Component {
                         >
 
                             <Form.Item {...layout}
-                                name="lastName"
+                                name="orderId"
                                 label="Order Id: "
                                 rules={[{required: true, whitespace: true, message: 'Please input Order Id!'}]}
                             >
