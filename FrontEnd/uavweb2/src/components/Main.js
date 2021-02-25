@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Route, Navigate, Routes} from "react-router-dom";
+import React from 'react';
+import {Route, Routes} from "react-router-dom";
 
 import Home from './Home';
 import Login from './Login';
@@ -16,25 +16,25 @@ import ContactUs from './ContactUs';
 
 
 class Main extends React.Component{
-  // state = {
-  //   isLoggedIn: false,
-  //   isRegistered: false
-  // }
-  //
-  // showLogin = () => {         // when user logged in, url don't change, only the state (isLoggedIn) has been changed.
-  //   // And this function change url based on this changed state.
-  //   // case1: already logged in --> home
-  //   // case2: hasn't logged in --> login
-  //   return this.state.isLoggedIn
-  //     ?
-  //     <Navigate to="/"/>
-  //     :
-  //     <Login handleLoggedIn={this.handleLoggedIn}/>
-  // }
-  //
-  // handleLoggedIn = () => {
-  //   this.state.isLoggedIn = true;
-  // }
+    // state = {
+    //   isLoggedIn: false,
+    //   isRegistered: false
+    // }
+    //
+    // showLogin = () => {         // when user logged in, url don't change, only the state (isLoggedIn) has been changed.
+    //   // And this function change url based on this changed state.
+    //   // case1: already logged in --> home
+    //   // case2: hasn't logged in --> login
+    //   return this.state.isLoggedIn
+    //     ?
+    //     <Navigate to="/"/>
+    //     :
+    //     <Login handleLoggedIn={this.handleLoggedIn}/>
+    // }
+    //
+    // handleLoggedIn = () => {
+    //   this.state.isLoggedIn = true;
+    // }
 
     render() {
         return (

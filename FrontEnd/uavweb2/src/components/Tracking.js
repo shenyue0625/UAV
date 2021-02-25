@@ -1,39 +1,22 @@
 import React from 'react';
-import {Row, Col, Divider, Timeline, Descriptions, message, Menu, Form, Input, Button} from 'antd';
+import {Row, Col, Divider, Timeline, Descriptions, message, Form, Input, Button} from 'antd';
 import {getTrackingDetails} from "../utils";
-import {Link} from "react-router-dom";
-import {UserOutlined} from "@ant-design/icons";
 
 const layout = {
+    labelCol: {
+        span: 6
+    },
     wrapperCol: {
-        offset: 8,
-        span: 8
+        span: 12,
+    },
+};
+
+const tailLayout = {
+    wrapperCol: {
+        offset: 6
     }
 };
 
-const formItemLayout = {
-    labelCol: {
-        xs: {span: 24},
-        sm: {span: 8},
-    },
-    wrapperCol: {
-        xs: {span: 24},
-        sm: {span: 16},
-    },
-};
-
-const tailFormItemLayout = {
-    wrapperCol: {
-        xs: {
-            span: 24,
-            offset: 0,
-        },
-        sm: {
-            span: 16,
-            offset: 8,
-        },
-    },
-};
 class Tracking extends React.Component {
     state = {
         loggedIn: false,
@@ -58,7 +41,7 @@ class Tracking extends React.Component {
         getTrackingDetails(orderId)
             .then(data => {
                 this.setState({
-                    trackingInfo : data
+                    trackingInfo: data
                 });
                 console.log('got tracking info')
             })
@@ -87,47 +70,50 @@ class Tracking extends React.Component {
         return (
             <div>
                 <Row>
-                    <Col offset={6} span={12}>
+                    <Col offset={6} span={12} className="App-main-tracking">
 
                         <br/><br/>
                         <Divider><h1> TRACKING A PACKAGE </h1></Divider>
                         <br/><br/>
 
-                            <Form
-                                {...(formItemLayout)}
-                                name="tracking"
-                                onFinish={this.onFinish}
-                                scrollToFirstError
+                        <Form
+                            name="tracking"
+                            onFinish={this.onFinish}
+                            scrollToFirstError
+                        >
+
+                            <Form.Item {...layout}
+                                name="lastName"
+                                label="Order Id: "
+                                rules={[{required: true, whitespace: true, message: 'Please input Order Id!'}]}
                             >
+                                <Input placeholder="Tracking number"/>
+                            </Form.Item>
 
-                                <Form.Item
-                                    name="lastName"
-                                    label="Order Id: "
-                                    rules={[{required: true, whitespace: true, message: 'Please input Order Id!'}]}
-                                >
-                                    <Input  placeholder="Tracking number"/>
-                                </Form.Item>
-
-                                <Form.Item {...(tailFormItemLayout)}>
-                                    <Button type="primary" htmlType="submit" className="register-btn">
-                                        Next
-                                    </Button>
-                                </Form.Item>
-                            </Form>
+                            <Form.Item {...tailLayout}>
+                                <Button type="primary" htmlType="submit" className="register-btn">
+                                    Track
+                                </Button>
+                            </Form.Item>
+                        </Form>
                     </Col>
                 </Row>
-                        <br></br>
 
+                <br/><br/>
+                <Row>
+                    <Col offset={6} span={12}>
                         <h2 style={{textAlign: 'center'}}> {this.state.orderId}</h2>
                         <br/><br/>
                         <br/><br/>
                         <Timeline>
                             <Timeline.Item label="02/20/2021, 7:38 a.m. timestamp" color="green">Delivery Order been
                                 placed</Timeline.Item>
-                            <Timeline.Item label="Data = new Date()" color="green">Waiting to be picked up</Timeline.Item>
+                            <Timeline.Item label="Data = new Date()" color="green">Waiting to be picked
+                                up</Timeline.Item>
                             <Timeline.Item label="02/20/2021, 9:13 a.m. " color="grey">Package
                                 delivering </Timeline.Item>
-                            <Timeline.Item label="ETS delivered time: 02/20/2021, 1:32 p.m." color="grey">Arrived </Timeline.Item>
+                            <Timeline.Item label="ETS delivered time: 02/20/2021, 1:32 p.m."
+                                           color="grey">Arrived </Timeline.Item>
                         </Timeline>
                         <br/><br/>
 
@@ -138,16 +124,22 @@ class Tracking extends React.Component {
                         >
                             <Descriptions.Item label="From">{this.state.trackingInfo.senderAddress}</Descriptions.Item>
                             <Descriptions.Item label="To">{this.state.trackingInfo.receiverAddress}</Descriptions.Item>
-                            <Descriptions.Item label="Receiver Name">{this.state.trackingInfo.receiverName}</Descriptions.Item>
-                            <Descriptions.Item label="Delivery method">{this.state.trackingInfo.deliveryMethod}</Descriptions.Item>
+                            <Descriptions.Item
+                                label="Receiver Name">{this.state.trackingInfo.receiverName}</Descriptions.Item>
+                            <Descriptions.Item
+                                label="Delivery method">{this.state.trackingInfo.deliveryMethod}</Descriptions.Item>
                             <Descriptions.Item label="Size">{this.state.trackingInfo.size}</Descriptions.Item>
                             <Descriptions.Item label="Weight">{this.state.trackingInfo.weight}</Descriptions.Item>
-                            <Descriptions.Item label="Description">{this.state.trackingInfo.description}</Descriptions.Item>
+                            <Descriptions.Item
+                                label="Description">{this.state.trackingInfo.description}</Descriptions.Item>
                             <Descriptions.Item label="Station">{this.state.trackingInfo.station}</Descriptions.Item>
                         </Descriptions>
 
-                {/*    </Col>*/}
-                {/*</Row>*/}
+                        {/*    </Col>*/}
+                        {/*</Row>*/}
+                    </Col>
+                </Row>
+
             </div>
         );
     }
