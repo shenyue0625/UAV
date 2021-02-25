@@ -12,25 +12,6 @@ class App extends React.Component {
 
     render() {
         return (
-            // <Layout className="layout">
-            //     <Header/>
-            //
-            //     <Home/>
-            //
-            //     <Footer className="site-layout-footer" style={{textAlign: "center"}}>
-            //         AutoExpress ©2021{" "}
-            //     </Footer>
-            // </Layout>
-            // <div>
-            //     <Header />
-            //     <Routes>
-            //         <Route></Route>
-            //     </Routes>
-            //     <Home />
-            //
-            //     <Footer />
-            // </div>
-
             <Router>
                 <Layout>
                     <Header className="App-header">

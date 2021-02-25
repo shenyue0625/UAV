@@ -50,25 +50,16 @@ export const register = (data) => {
 const getTrackingDetailsUrl = `${SERVER_ORIGIN}/tracking?orderId=11`;
 
 export const getTrackingDetails = (orderId) => {
-    var requestOptions = {
+    return fetch(getTrackingDetailsUrl, {
         method: 'GET',
         redirect: 'follow'
-    };
-
-    fetch("getTrackingDetailsUrl", requestOptions)
-        .then((response) => {
+    }).then((response) => {
             if (response.status !== 200) {
                 throw Error('Fail to track the order');
             }
 
             return response.json();
         })
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-
-
-
-
     // return fetch(`${getTrackingDetailsUrl}${orderId}`).then((response) => {
     //     if (response.status !== 200) {
     //         throw Error('Fail to track the order');

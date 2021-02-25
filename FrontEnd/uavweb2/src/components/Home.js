@@ -24,6 +24,9 @@ const tailLayout = {
 };
 
 class Home extends Component {
+    state = {
+        trackingInfo: []
+    }
 
     onFinish = (orderId) => {
         getTrackingDetails(orderId)
@@ -61,6 +64,7 @@ class Home extends Component {
                                 <div className="App-home-boxes"
                                      style={{width: 205, height: 205, backgroundColor: "grey"}}>
                                     <nav>
+                        {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
                                         <Link to="tracking" >
                                             <img className="App-home-boxes-logo" src={tracking} alt="tracking"
                                                  height={100}/>

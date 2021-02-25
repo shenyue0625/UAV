@@ -20,51 +20,41 @@ const tailLayout = {
 class Tracking extends React.Component {
     state = {
         loggedIn: false,
+        trackButtonClicked: false,
         trackingInfo: {
-            orderId: "1234999995",
-            senderAddress: "Rd.xx, No. 7,  yy city",
-            receiverAddress: "Rd.zzz, No. 201,  yy city",
-            receiverName: "John Smith",
-            cardNumber: "756488521123",
-            size: "medium",
-            weight: "0.8",
-            description: "an iPad Pro",
-            deliveryMethod: "drone",
-            fee: "205",
-            status: "ongoing",
-            time: 1613923236000,
+            orderId: null,
+            senderAddress: null,
+            receiverAddress: null,
+            receiverName: null,
+            cardNumber: null,
+            size: null,
+            weight: null,
+            description: null,
+            deliveryMethod: null,
+            fee: null,
+            status: null,
+            time: null,
             station: null
         }
     };
+
+
 
     onFinish = (orderId) => {
         getTrackingDetails(orderId)
             .then(data => {
                 this.setState({
-                    trackingInfo: data
+                    trackingInfo: data,
+                    trackButtonClicked: true
                 });
-                console.log('got tracking info')
+                console.log('got tracking info');
+                console.log(data);
             })
             .catch(err => {
                 console.log('did not get tracking info');
                 message.error(err.message);
             });
     };
-
-    // componentDidMount = () => {
-    //     getTrackingDetails(orderId)
-    //         .then(data => {
-    //             this.setState({
-    //                 trackingInfo : data
-    //             });
-    //             console.log('got tracking info')
-    //         })
-    //         .catch(err => {
-    //             console.log('did not get tracking info');
-    //             message.error(err.message);
-    //         });
-    // }
-
 
     render() {
         return (
@@ -91,7 +81,7 @@ class Tracking extends React.Component {
                             </Form.Item>
 
                             <Form.Item {...tailLayout}>
-                                <Button type="primary" htmlType="submit" className="register-btn">
+                                <Button style={{textAlign: 'center'}} type="primary" htmlType="submit" className="register-btn">
                                     Track
                                 </Button>
                             </Form.Item>
@@ -100,43 +90,47 @@ class Tracking extends React.Component {
                 </Row>
 
                 <br/><br/>
+
+
                 <Row>
                     <Col offset={6} span={12}>
-                        <h2 style={{textAlign: 'center'}}> {this.state.orderId}</h2>
-                        <br/><br/>
-                        <br/><br/>
-                        <Timeline>
-                            <Timeline.Item label="02/20/2021, 7:38 a.m. timestamp" color="green">Delivery Order been
-                                placed</Timeline.Item>
-                            <Timeline.Item label="Data = new Date()" color="green">Waiting to be picked
-                                up</Timeline.Item>
-                            <Timeline.Item label="02/20/2021, 9:13 a.m. " color="grey">Package
-                                delivering </Timeline.Item>
-                            <Timeline.Item label="ETS delivered time: 02/20/2021, 1:32 p.m."
-                                           color="grey">Arrived </Timeline.Item>
-                        </Timeline>
-                        <br/><br/>
+                        { //如果用户点击track按键，则显示trackingInfo，否则不显示
+                            this.state.trackButtonClicked ?
+                                (
+                                    <>
+                                        <h2 style={{textAlign: 'center'}}> Tracking # ： {this.state.trackingInfo.orderId}</h2>
+                                        <br/><br/>
+                                        <br/><br/>
+                                        <Timeline>
+                                            <Timeline.Item label="Delivery Order been placed" color="green">{Date(this.state.time)}</Timeline.Item>
+                                            <Timeline.Item label="Waiting to be picked up" color="green">{Date()}</Timeline.Item>
+                                            <Timeline.Item label="Package delivering" color="grey">   </Timeline.Item>
+                                            <Timeline.Item label="Arrived"  color="grey">   </Timeline.Item>
+                                        </Timeline>
+                                        <br/><br/>
 
-                        <Descriptions
-                            title="Delivery Details"
-                            bordered
-                            column={{xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1}}
-                        >
-                            <Descriptions.Item label="From">{this.state.trackingInfo.senderAddress}</Descriptions.Item>
-                            <Descriptions.Item label="To">{this.state.trackingInfo.receiverAddress}</Descriptions.Item>
-                            <Descriptions.Item
-                                label="Receiver Name">{this.state.trackingInfo.receiverName}</Descriptions.Item>
-                            <Descriptions.Item
-                                label="Delivery method">{this.state.trackingInfo.deliveryMethod}</Descriptions.Item>
-                            <Descriptions.Item label="Size">{this.state.trackingInfo.size}</Descriptions.Item>
-                            <Descriptions.Item label="Weight">{this.state.trackingInfo.weight}</Descriptions.Item>
-                            <Descriptions.Item
-                                label="Description">{this.state.trackingInfo.description}</Descriptions.Item>
-                            <Descriptions.Item label="Station">{this.state.trackingInfo.station}</Descriptions.Item>
-                        </Descriptions>
+                                        <Descriptions
+                                            title="Delivery Details"
+                                            bordered
+                                            column={{xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1}}
+                                        >
+                                            <Descriptions.Item label="From">{this.state.trackingInfo.senderAddress}</Descriptions.Item>
+                                            <Descriptions.Item label="To">{this.state.trackingInfo.receiverAddress}</Descriptions.Item>
+                                            <Descriptions.Item
+                                                label="Receiver Name">{this.state.trackingInfo.receiverName}</Descriptions.Item>
+                                            <Descriptions.Item
+                                                label="Delivery method">{this.state.trackingInfo.deliveryMethod}</Descriptions.Item>
+                                            <Descriptions.Item label="Size">{this.state.trackingInfo.size}</Descriptions.Item>
+                                            <Descriptions.Item label="Weight">{this.state.trackingInfo.weight}</Descriptions.Item>
+                                            <Descriptions.Item
+                                                label="Description">{this.state.trackingInfo.description}</Descriptions.Item>
+                                            <Descriptions.Item label="Station">{this.state.trackingInfo.station}</Descriptions.Item>
+                                        </Descriptions>
+                                    </>
+                                ) :
+                                <div></div>
+                        }
 
-                        {/*    </Col>*/}
-                        {/*</Row>*/}
                     </Col>
                 </Row>
 
