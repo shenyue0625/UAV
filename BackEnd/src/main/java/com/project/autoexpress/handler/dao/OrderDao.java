@@ -59,4 +59,19 @@ public class OrderDao {
         }
         return shippingOrder.getOrderId(); // on success
     }
+
+    public ShippingOrder getShippingOrderById(Integer orderId) {
+        ShippingOrder shippingOrder = null;
+
+        try (Session session = sessionFactory.openSession()) {
+            shippingOrder = session.get(ShippingOrder.class, orderId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (shippingOrder != null) {
+            return shippingOrder;
+        }
+        return null;
+    }
 }

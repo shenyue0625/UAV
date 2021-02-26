@@ -1,5 +1,6 @@
 package com.project.autoexpress.handler.service;
 
+import com.project.autoexpress.entity.ShippingOrder;
 import com.project.autoexpress.handler.dao.OrderDao;
 import com.project.autoexpress.holder.request.OrderRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,5 +14,9 @@ public class OrderService {
 
     public int addOrder(OrderRequestBody orderRequest) {
         return orderDao.addOrder(orderRequest);
+    }
+
+    public ShippingOrder getShippingOrderById(int orderId) {
+        return orderDao.getShippingOrderById(orderId);
     }
 }
