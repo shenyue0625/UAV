@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 // once login is good: use imperative redirect
@@ -8,6 +8,18 @@ function GoTo(props) {
     return <Navigate to={props.target} replace />;
 }
 
-//
+
+// 被动方式的Navigate会创建一个新按钮等待用户点击后再跳转
+// function passive() {
+//   let navigate = useNavigate();
+//   function handleClick() {
+//     navigate('/home')
+//   }
+//   return (
+//     <div>
+//       <button onClick={handleClick}>go home</button>
+//     </div>
+//   );
+// }
 
 export default GoTo;
