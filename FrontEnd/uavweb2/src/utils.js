@@ -4,7 +4,7 @@
 // const SERVER_ORIGIN = '<Your server's url>';
 import axios from "axios"
 
-const SERVER_ORIGIN = '/api';
+const SERVER_ORIGIN = 'http://localhost:8080';
 
 const loginUrl = `${SERVER_ORIGIN}/login`;
 

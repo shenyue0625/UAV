@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "customer")
-public class Customer implements Serializable {
+public class Customer implements Serializable { // POJO class can be serialized.
 
   private static final long serialVersionUID = 103L;
 
