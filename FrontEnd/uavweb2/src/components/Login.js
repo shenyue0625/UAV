@@ -37,17 +37,11 @@ class Login extends React.Component {
 
         // try to login 麻：修改了后端，现在不会收到一个redirect从而导致跨域问题了。
         login(data)
-            .then((res) => {
-                console.log(res);
-                message.success(`Welcome back, ${res}`);
+            .then(() => {
                 this.setState({authorization: true});
-                // this.props.onSuccess();
-
             }).catch((err) => {
             message.error(err.message);
         });
-        console.log("login(data)", login(data));
-
     }
 
     render() {

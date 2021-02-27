@@ -8,7 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -38,12 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     http
             .formLogin()
-            .successHandler(new AuthenticationSuccessHandler() {
-      @Override
-      public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        httpServletResponse.setHeader("username", authentication.getName()); // return the email ID
-      }
-    });
+            .successHandler((httpServletRequest, httpServletResponse, authentication) -> {
+              System.out.println(authentication.getName() + "logged in.");
+              httpServletResponse.setHeader("username", authentication.getName()); // return the email ID
+              httpServletResponse.setStatus(HttpStatus.OK.value());
+            })
+            .failureHandler((httpServletRequest, httpServletResponse, e) -> {
+              httpServletResponse.setStatus(HttpStatus.BAD_REQUEST.value()); // if fail to login, return the bad request status code
+            });
 
     // antMatchers是帮我们设置不同页面的权限的。
     http
@@ -83,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.setAllowCredentials(true);
-    configuration.setAllowedOriginPatterns(Arrays.asList("*")); // 注意要用Patterns
+    configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000")); // 注意如果允许的是*，那么credentials会出问题。
     configuration.setAllowedMethods(Arrays.asList("*"));
     configuration.setAllowedHeaders(Arrays.asList("*"));
     configuration.setMaxAge(Duration.ofHours(1));

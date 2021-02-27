@@ -3,6 +3,7 @@
 // pay AWS to host your server with HTTPS then config the api url endpoints like below
 // const SERVER_ORIGIN = '<Your server's url>';
 import axios from "axios"
+import {message} from "antd"
 
 const SERVER_ORIGIN = 'http://localhost:8080';
 
@@ -17,17 +18,21 @@ export const login = (credential) => {
     return fetch(loginUrl, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: urlencoded,
-        redirect: 'follow'
+        redirect: 'follow',
+        credentials: 'include'
     }).then((response) => {
         if (response.status !== 200) {
             throw Error('Fail to log in');
         }
-        return response.headers.get("username");
-        // console.log(response);
-        // return response.json();
+        // chaining fetch
+        getAccountInfo().then((data) => {
+            message.success(`Welcome back, ${data.firstName + " " + data.lastName}`);
+        })
+    }).catch((err) => {
+        console.error(err, "If you see a error here, contact mayaowei.study@gmail.com immediately.")
     })
 }
 
@@ -71,7 +76,7 @@ export const makeAPayment = (allPaymentInfo) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        credentials: 'include',//does this credentials include cardNumber or just username and password
+        credentials: 'include', //does this credentials include cardNumber or just username and password. Ma: no, it's a flag tells browser that you can receive or send cookies.
         body: JSON.stringify(allPaymentInfo)
     }).then((response) => {
         if (response.status !== 200) {
@@ -88,7 +93,8 @@ export const getAccountInfo = () => {
     return fetch(getAccountInfoUrl, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json',},
-        redirect: 'follow'
+        redirect: 'follow',
+        credentials: 'include'
     }).then((response) => {
         if (response.status !== 200) {
             throw Error('Fail to get account information');
