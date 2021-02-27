@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import {Row, Col, Button, Descriptions, Divider, Form} from "antd";
+import {Row, Col, Button, Descriptions, Divider, Form, message} from "antd";
 import {Table, Tag, Space} from 'antd';
+import {getTrackingDetails} from "../utils";
+import {getAccountInfo} from "../../../uavweb/src/utils";
 
 const {Column, ColumnGroup} = Table;
 
@@ -79,56 +81,84 @@ const columns = [
     }
 ];
 
-const data = [
-    {
-        sender: 'John Brown',
-        senderAddress: 'New York No. 1 Lake Park',
-        receiver: 'Jim Green',
-        receiverAddress: 'London No. 1 Lake Park',
-        size: ['small'],
-        weight: '16lb',
-        delivery: ['drone']
-    },
-    {
-        sender: 'John Brown',
-        senderAddress: 'New York No. 1 Lake Park',
-        receiver: 'Jim Green',
-        receiverAddress: 'London No. 1 Lake Park',
-        size: ['medium'],
-        weight: '16lb',
-        delivery: ['drone']
-    },
-    {
-        sender: 'John Brown',
-        senderAddress: 'New York No. 1 Lake Park',
-        receiver: 'Jim Green',
-        receiverAddress: 'London No. 1 Lake Park',
-        size: ['large'],
-        weight: '16lb',
-        delivery: ['robot']
-    },
-    {
-        sender: 'John Brown',
-        senderAddress: 'New York No. 1 Lake Park',
-        receiver: 'Jim Green',
-        receiverAddress: 'London No. 1 Lake Park',
-        size: ['large'],
-        weight: '16lb',
-        delivery: ['drone']
-    },
-    {
-        sender: 'John Brown',
-        senderAddress: 'New York No. 1 Lake Park',
-        receiver: 'Jim Green',
-        receiverAddress: 'London No. 1 Lake Park',
-        size: ['small'],
-        weight: '16lb',
-        delivery: ['robot']
-    },
+// const data = [
+//     {
+//         sender: 'John Brown',
+//         senderAddress: 'New York No. 1 Lake Park',
+//         receiver: 'Jim Green',
+//         receiverAddress: 'London No. 1 Lake Park',
+//         size: ['small'],
+//         weight: '16lb',
+//         delivery: ['drone']
+//     },
+//     {
+//         sender: 'John Brown',
+//         senderAddress: 'New York No. 1 Lake Park',
+//         receiver: 'Jim Green',
+//         receiverAddress: 'London No. 1 Lake Park',
+//         size: ['medium'],
+//         weight: '16lb',
+//         delivery: ['drone']
+//     },
+//     {
+//         sender: 'John Brown',
+//         senderAddress: 'New York No. 1 Lake Park',
+//         receiver: 'Jim Green',
+//         receiverAddress: 'London No. 1 Lake Park',
+//         size: ['large'],
+//         weight: '16lb',
+//         delivery: ['robot']
+//     },
+//     {
+//         sender: 'John Brown',
+//         senderAddress: 'New York No. 1 Lake Park',
+//         receiver: 'Jim Green',
+//         receiverAddress: 'London No. 1 Lake Park',
+//         size: ['large'],
+//         weight: '16lb',
+//         delivery: ['drone']
+//     },
+//     {
+//         sender: 'John Brown',
+//         senderAddress: 'New York No. 1 Lake Park',
+//         receiver: 'Jim Green',
+//         receiverAddress: 'London No. 1 Lake Park',
+//         size: ['small'],
+//         weight: '16lb',
+//         delivery: ['robot']
+//     },
+//
+// ];
 
-];
 
 class AccountInfo extends React.Component {
+
+    state = {
+        accountInfo: {
+            email: null,
+            firstName: null,
+            lastName: null,
+            billingAddress: null,
+            shippingAddress: null
+        }
+    };
+
+    componentDidMount() {
+        getAccountInfo()
+            .then(data => {
+                this.setState({
+                    accountInfo: data
+                });
+                console.log('got account info');
+                console.log(data);
+            })
+            .catch(err => {
+                console.log('did not get account info');
+                message.error(err.message);
+            });
+    };
+
+
     render() {
         return (
             <Row>
@@ -139,27 +169,27 @@ class AccountInfo extends React.Component {
                     <Descriptions title="Personal Info" bordered layout="vertical"
                                   labelStyle={{color: "red"}}
                                   column={{xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1}}>
-                        <Descriptions.Item label="First Name">Maomao</Descriptions.Item>
-                        <Descriptions.Item label="Last Name">Zhou</Descriptions.Item>
-                        <Descriptions.Item label="Email Address">ck@gmail.com</Descriptions.Item>
+                        <Descriptions.Item label="First Name">{this.state.accountInfo.firstName}</Descriptions.Item>
+                        <Descriptions.Item label="Last Name">{this.state.accountInfo.lastName}</Descriptions.Item>
+                        <Descriptions.Item label="Email Address">{this.state.accountInfo.email}</Descriptions.Item>
                     </Descriptions>
 
                     <Divider/>
 
                     <Descriptions title="Address" bordered layout="vertical"
                                   column={{xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1}}>
-                        <Descriptions.Item label="Address 1">No. 18, Wantang Road</Descriptions.Item>
-                        <Descriptions.Item label="Address 2">APT 111</Descriptions.Item>
-                        <Descriptions.Item label="City">San Francisco</Descriptions.Item>
+                        <Descriptions.Item label="Address 1">{this.state.accountInfo.shippingAddress.split(",")[0]}</Descriptions.Item>
+                        <Descriptions.Item label="Address 2">{this.state.accountInfo.shippingAddress.split(",")[1]}</Descriptions.Item>
+                        <Descriptions.Item label="City">{this.state.accountInfo.shippingAddress.split(",")[2]}</Descriptions.Item>
                     </Descriptions>
 
                     <Divider/>
 
                     <Descriptions title="Billing Address" bordered layout="vertical"
                                   column={{xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1}}>
-                        <Descriptions.Item label="Address 1">No. 18, Wantang Road</Descriptions.Item>
-                        <Descriptions.Item label="Address 2">APT 111</Descriptions.Item>
-                        <Descriptions.Item label="City">San Francisco</Descriptions.Item>
+                        <Descriptions.Item label="Address 1">{this.state.accountInfo.billingAddress.split(",")[0]}</Descriptions.Item>
+                        <Descriptions.Item label="Address 2">{this.state.accountInfo.billingAddress.split(",")[1]}</Descriptions.Item>
+                        <Descriptions.Item label="City">{this.state.accountInfo.billingAddress.split(",")[2]}</Descriptions.Item>
                     </Descriptions>
 
 
