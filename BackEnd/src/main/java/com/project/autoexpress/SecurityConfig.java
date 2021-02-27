@@ -10,12 +10,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.time.Duration;
+import java.util.Arrays;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -26,10 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
-            // 先不处理跨站点请求伪造的问题（Cross-site request forgery）
-            .csrf().disable()
-            // 表单登录，并禁止redirect（会导致前端跨域）
-            .formLogin().successHandler(new AuthenticationSuccessHandler() {
+            .cors() // all CORS request
+            .and()
+            .csrf()
+            .disable(); // 先不处理跨站点请求伪造的问题（Cross-site request forgery）
+
+    http
+            .formLogin()
+            .successHandler(new AuthenticationSuccessHandler() {
       @Override
       public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         httpServletResponse.setHeader("username", authentication.getName()); // return the email ID
@@ -67,5 +76,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public static NoOpPasswordEncoder passwordEncoder() {
     return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance(); // 所以直接返回就行了。
+  }
+
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowCredentials(true);
+    configuration.setAllowedOriginPatterns(Arrays.asList("*")); // 注意要用Patterns
+    configuration.setAllowedMethods(Arrays.asList("*"));
+    configuration.setAllowedHeaders(Arrays.asList("*"));
+    configuration.setMaxAge(Duration.ofHours(1));
+    source.registerCorsConfiguration("/**",configuration);
+    return source;
   }
 }
