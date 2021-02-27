@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
             .successHandler((httpServletRequest, httpServletResponse, authentication) -> {
               System.out.println(authentication.getName() + "logged in.");
-              httpServletResponse.setHeader("username", authentication.getName()); // return the email ID
+//              httpServletResponse.setHeader("username", authentication.getName()); // return the email ID
               httpServletResponse.setStatus(HttpStatus.OK.value());
             })
             .failureHandler((httpServletRequest, httpServletResponse, e) -> {
