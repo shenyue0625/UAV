@@ -79,26 +79,24 @@ export const makeAPayment = (allPaymentInfo) => {
         }
     })
 }
-
+//Shen: api目前能够成功拿到后端返回的数据，但是返回数据的格式有error,所以无法对返回的数据destruct。error如下：
+// "Failed to execute 'json' on 'Response': body stream already read.
 // Ma: the method will get the [currently logged in user's info], so it's unnecessary to provide credentials.
 const getAccountInfoUrl = `${SERVER_ORIGIN}/accountinfo`
 
 export const getAccountInfo = () => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var requestOptions = {
+    return fetch(getAccountInfoUrl, {
         method: 'GET',
-        headers: myHeaders,
+        headers: { 'Content-Type': 'application/json',},
         redirect: 'follow'
-    };
-
-    fetch(getAccountInfoUrl, requestOptions)
-      .then((response) => {
-          if (response.status !== 200) {
-              throw Error('Fail to get Account Info');
-          }
-
-          return response.json();
-      });
+    }).then((response) => {
+        if (response.status !== 200) {
+            throw Error('Fail to get account information');
+        }
+        console.log('got fetched data from backend');
+        console.log('fetched response is: ');
+        console.log(response);
+        //console.warn(Promise.responseText);
+        return response.json();
+    })
 }

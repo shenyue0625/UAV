@@ -80,6 +80,7 @@ const columns = [
     }
 ];
 
+//Shen: Server does not return these information to us, so this part is not necessary.
 //the response body from getAccountInfo does not include any order info. don't know where to get the info, so I kept the hard code for this part.
 const data = [
     {
@@ -143,7 +144,6 @@ class AccountInfo extends React.Component {
         }
     };
 
-    //这里也有问题，说cannot read property 'then' of undefiend.... 我实在不知道为啥说这个是undefined..
     componentDidMount() {
         getAccountInfo()
             .then(data => {
@@ -160,6 +160,7 @@ class AccountInfo extends React.Component {
     };
 
 
+    //Shen: we only need to finish MVP, so skip the splitting part, only keep address as a whole entity.
     //don't know how to split the address string into 3 parts.
     render() {
         return (
