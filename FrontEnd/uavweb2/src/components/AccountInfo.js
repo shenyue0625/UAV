@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import {Row, Col, Button, Descriptions, Divider, Form, message} from "antd";
 import {Table, Tag, Space} from 'antd';
-import {getTrackingDetails} from "../utils";
-import {getAccountInfo} from "../../../uavweb/src/utils";
+import {getAccountInfo} from "../utils";
 
 const {Column, ColumnGroup} = Table;
 
@@ -81,54 +80,55 @@ const columns = [
     }
 ];
 
-// const data = [
-//     {
-//         sender: 'John Brown',
-//         senderAddress: 'New York No. 1 Lake Park',
-//         receiver: 'Jim Green',
-//         receiverAddress: 'London No. 1 Lake Park',
-//         size: ['small'],
-//         weight: '16lb',
-//         delivery: ['drone']
-//     },
-//     {
-//         sender: 'John Brown',
-//         senderAddress: 'New York No. 1 Lake Park',
-//         receiver: 'Jim Green',
-//         receiverAddress: 'London No. 1 Lake Park',
-//         size: ['medium'],
-//         weight: '16lb',
-//         delivery: ['drone']
-//     },
-//     {
-//         sender: 'John Brown',
-//         senderAddress: 'New York No. 1 Lake Park',
-//         receiver: 'Jim Green',
-//         receiverAddress: 'London No. 1 Lake Park',
-//         size: ['large'],
-//         weight: '16lb',
-//         delivery: ['robot']
-//     },
-//     {
-//         sender: 'John Brown',
-//         senderAddress: 'New York No. 1 Lake Park',
-//         receiver: 'Jim Green',
-//         receiverAddress: 'London No. 1 Lake Park',
-//         size: ['large'],
-//         weight: '16lb',
-//         delivery: ['drone']
-//     },
-//     {
-//         sender: 'John Brown',
-//         senderAddress: 'New York No. 1 Lake Park',
-//         receiver: 'Jim Green',
-//         receiverAddress: 'London No. 1 Lake Park',
-//         size: ['small'],
-//         weight: '16lb',
-//         delivery: ['robot']
-//     },
-//
-// ];
+//the response body from getAccountInfo does not include any order info. don't know where to get the info, so I kept the hard code for this part.
+const data = [
+    {
+        sender: 'John Brown',
+        senderAddress: 'New York No. 1 Lake Park',
+        receiver: 'Jim Green',
+        receiverAddress: 'London No. 1 Lake Park',
+        size: ['small'],
+        weight: '16lb',
+        delivery: ['drone']
+    },
+    {
+        sender: 'John Brown',
+        senderAddress: 'New York No. 1 Lake Park',
+        receiver: 'Jim Green',
+        receiverAddress: 'London No. 1 Lake Park',
+        size: ['medium'],
+        weight: '16lb',
+        delivery: ['drone']
+    },
+    {
+        sender: 'John Brown',
+        senderAddress: 'New York No. 1 Lake Park',
+        receiver: 'Jim Green',
+        receiverAddress: 'London No. 1 Lake Park',
+        size: ['large'],
+        weight: '16lb',
+        delivery: ['robot']
+    },
+    {
+        sender: 'John Brown',
+        senderAddress: 'New York No. 1 Lake Park',
+        receiver: 'Jim Green',
+        receiverAddress: 'London No. 1 Lake Park',
+        size: ['large'],
+        weight: '16lb',
+        delivery: ['drone']
+    },
+    {
+        sender: 'John Brown',
+        senderAddress: 'New York No. 1 Lake Park',
+        receiver: 'Jim Green',
+        receiverAddress: 'London No. 1 Lake Park',
+        size: ['small'],
+        weight: '16lb',
+        delivery: ['robot']
+    },
+
+];
 
 
 class AccountInfo extends React.Component {
@@ -143,6 +143,7 @@ class AccountInfo extends React.Component {
         }
     };
 
+    //这里也有问题，说cannot read property 'then' of undefiend.... 我实在不知道为啥说这个是undefined..
     componentDidMount() {
         getAccountInfo()
             .then(data => {
@@ -159,6 +160,7 @@ class AccountInfo extends React.Component {
     };
 
 
+    //don't know how to split the address string into 3 parts.
     render() {
         return (
             <Row>
@@ -178,18 +180,18 @@ class AccountInfo extends React.Component {
 
                     <Descriptions title="Address" bordered layout="vertical"
                                   column={{xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1}}>
-                        <Descriptions.Item label="Address 1">{this.state.accountInfo.shippingAddress.split(",")[0]}</Descriptions.Item>
-                        <Descriptions.Item label="Address 2">{this.state.accountInfo.shippingAddress.split(",")[1]}</Descriptions.Item>
-                        <Descriptions.Item label="City">{this.state.accountInfo.shippingAddress.split(",")[2]}</Descriptions.Item>
+                        <Descriptions.Item label="Address 1">{this.state.accountInfo.shippingAddress}</Descriptions.Item>
+                        <Descriptions.Item label="Address 2">{this.state.accountInfo.shippingAddress}</Descriptions.Item>
+                        <Descriptions.Item label="City">{this.state.accountInfo.shippingAddress}</Descriptions.Item>
                     </Descriptions>
 
                     <Divider/>
 
                     <Descriptions title="Billing Address" bordered layout="vertical"
                                   column={{xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1}}>
-                        <Descriptions.Item label="Address 1">{this.state.accountInfo.billingAddress.split(",")[0]}</Descriptions.Item>
-                        <Descriptions.Item label="Address 2">{this.state.accountInfo.billingAddress.split(",")[1]}</Descriptions.Item>
-                        <Descriptions.Item label="City">{this.state.accountInfo.billingAddress.split(",")[2]}</Descriptions.Item>
+                        <Descriptions.Item label="Address 1">{this.state.accountInfo.billingAddress}</Descriptions.Item>
+                        <Descriptions.Item label="Address 2">{this.state.accountInfo.billingAddress}</Descriptions.Item>
+                        <Descriptions.Item label="City">{this.state.accountInfo.billingAddress}</Descriptions.Item>
                     </Descriptions>
 
 
