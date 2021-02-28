@@ -56,6 +56,7 @@ class Home extends Component {
     }
 
     onFinish = (data) => {
+        console.log(data);
         this.props.history.push(`/tracking?orderId=${data.orderId}`);
     }
 
@@ -110,26 +111,25 @@ class Home extends Component {
                                 <br/>
 
                                 <div>
-                                    <div>
-                                        <Form onFinish={this.onFinish} >
-                                            <Form.Item
-                                                {...layout}
-                                                className="App-home-input-tracking"
-                                            >
-                                                <Input style={{}}
-                                                       placeholder="Your Tracking Number"/>
-                                            </Form.Item>
+                                    <Form onFinish={this.onFinish} >
+                                        <Form.Item
+                                            {...layout}
+                                            name="orderId"
+                                            className="App-home-input-tracking"
+                                        >
+                                            <Input
+                                                   placeholder="Your Tracking Number"/>
+                                        </Form.Item>
 
-                                            <Form.Item
-                                                className="App-home-input-tracking"
-                                            >
-                                                <Button type="primary"
-                                                        htmlType="submit">
-                                                    TRACK
-                                                </Button>
-                                            </Form.Item>
-                                        </Form>
-                                    </div>
+                                        <Form.Item
+                                            className="App-home-input-tracking"
+                                        >
+                                            <Button type="primary"
+                                                    htmlType="submit">
+                                                TRACK
+                                            </Button>
+                                        </Form.Item>
+                                    </Form>
                                 </div>
                             </div>
                         </XL>
