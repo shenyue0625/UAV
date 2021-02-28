@@ -14,7 +14,7 @@ const layout = {
 
 const tailLayout = {
     wrapperCol: {
-        offset: 6
+        offset: 0
     }
 };
 
@@ -124,7 +124,7 @@ class Tracking extends React.Component {
                                             ： {this.state.trackingInfo.orderId}</h2>
                                         <br/><br/>
                                         <br/><br/>
-                                        <Timeline mode="right">
+                                        <Timeline mode="left">
                                             <Timeline.Item label="Delivery Order been placed"
                                                            color="green">{Date(this.state.time)}
                                                 <br/><br/>

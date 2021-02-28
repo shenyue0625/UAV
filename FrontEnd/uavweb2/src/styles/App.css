@@ -5,3 +5,11 @@
     width: 100%;
     z-index: 1;
 }
+
+.App-content {
+    background-color: white;
+}
+
+.App-footer {
+    background-color: white;
+}
