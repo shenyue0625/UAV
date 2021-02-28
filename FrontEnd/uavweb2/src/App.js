@@ -14,7 +14,7 @@ class App extends React.Component {
     }
 
     setLoggedIn = (status) => {
-        this.setState({isLoggedIn: {status}}); // true or false;
+        this.setState({isLoggedIn: status}); // true or false;
     }
 
     render() {
