@@ -5,7 +5,7 @@ import loc from "../assets/imgs/location.png";
 import tracking from "../assets/imgs/tracking.png";
 import shipping from "../assets/imgs/shipping.png";
 import {Form, Input, Button} from 'antd';
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from 'react-responsive';
 
 
 import {Link} from 'react-router-dom';
