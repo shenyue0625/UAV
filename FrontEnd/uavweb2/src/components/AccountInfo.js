@@ -163,3 +163,53 @@ class AccountInfo extends React.Component {
 }
 
 export default AccountInfo;
+
+// Sample Data
+// const data = [
+//     {
+//         sender: 'John Brown',
+//         senderAddress: 'New York No. 1 Lake Park',
+//         receiver: 'Jim Green',
+//         receiverAddress: 'London No. 1 Lake Park',
+//         size: 'small',
+//         weight: '16lb',
+//         delivery: 'drone'
+//     },
+//     {
+//         sender: 'John Brown',
+//         senderAddress: 'New York No. 1 Lake Park',
+//         receiver: 'Jim Green',
+//         receiverAddress: 'London No. 1 Lake Park',
+//         size: 'medium',
+//         weight: '16lb',
+//         delivery: 'drone'
+//     },
+//     {
+//         sender: 'John Brown',
+//         senderAddress: 'New York No. 1 Lake Park',
+//         receiver: 'Jim Green',
+//         receiverAddress: 'London No. 1 Lake Park',
+//         size: 'large',
+//         weight: '16lb',
+//         delivery: 'robot'
+//     },
+//     {
+//         sender: 'John Brown',
+//         senderAddress: 'New York No. 1 Lake Park',
+//         receiver: 'Jim Green',
+//         receiverAddress: 'London No. 1 Lake Park',
+//         size: 'large',
+//         weight: '16lb',
+//         delivery: 'drone'
+//     },
+//     {
+//         sender: 'John Brown',
+//         senderAddress: 'New York No. 1 Lake Park',
+//         receiver: 'Jim Green',
+//         receiverAddress: 'London No. 1 Lake Park',
+//         size: 'small',
+//         weight: '16lb',
+//         delivery: 'robot'
+//     },
+//
+// ];
