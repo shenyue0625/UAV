@@ -6,6 +6,8 @@ import com.project.autoexpress.holder.request.OrderRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -18,5 +20,9 @@ public class OrderService {
 
     public ShippingOrder getShippingOrderById(int orderId) {
         return orderDao.getShippingOrderById(orderId);
+    }
+
+    public List<ShippingOrder> getCurrentUserOrders() {
+        return orderDao.getCurrentUserOrders();
     }
 }

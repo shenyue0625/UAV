@@ -1,5 +1,6 @@
 package com.project.autoexpress.handler.controller;
 
+import com.project.autoexpress.entity.ShippingOrder;
 import com.project.autoexpress.handler.service.OrderService;
 import com.project.autoexpress.holder.request.OrderRequestBody;
 import com.project.autoexpress.holder.response.OrderResponseBody;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class OrderController {
@@ -31,5 +34,11 @@ public class OrderController {
 
         // return tracking number and status
         return new ResponseEntity<>(orderResponse, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    public ResponseEntity<Object> getCurrentUserOrders() {
+        List<ShippingOrder> orderList = orderService.getCurrentUserOrders();
+        return new ResponseEntity<>(orderList, HttpStatus.OK);
     }
 }
