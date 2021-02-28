@@ -165,51 +165,15 @@ class AccountInfo extends React.Component {
 export default AccountInfo;
 
 // Sample Data
-// const data = [
-//     {
-//         sender: 'John Brown',
-//         senderAddress: 'New York No. 1 Lake Park',
-//         receiver: 'Jim Green',
-//         receiverAddress: 'London No. 1 Lake Park',
-//         size: 'small',
-//         weight: '16lb',
-//         delivery: 'drone'
-//     },
-//     {
-//         sender: 'John Brown',
-//         senderAddress: 'New York No. 1 Lake Park',
-//         receiver: 'Jim Green',
-//         receiverAddress: 'London No. 1 Lake Park',
-//         size: 'medium',
-//         weight: '16lb',
-//         delivery: 'drone'
-//     },
-//     {
-//         sender: 'John Brown',
-//         senderAddress: 'New York No. 1 Lake Park',
-//         receiver: 'Jim Green',
-//         receiverAddress: 'London No. 1 Lake Park',
-//         size: 'large',
-//         weight: '16lb',
-//         delivery: 'robot'
-//     },
-//     {
-//         sender: 'John Brown',
-//         senderAddress: 'New York No. 1 Lake Park',
-//         receiver: 'Jim Green',
-//         receiverAddress: 'London No. 1 Lake Park',
-//         size: 'large',
-//         weight: '16lb',
-//         delivery: 'drone'
-//     },
-//     {
-//         sender: 'John Brown',
-//         senderAddress: 'New York No. 1 Lake Park',
-//         receiver: 'Jim Green',
-//         receiverAddress: 'London No. 1 Lake Park',
-//         size: 'small',
-//         weight: '16lb',
-//         delivery: 'robot'
-//     },
-//
-// ];
+const data = [
+    {
+        sender: 'Santa Claus',
+        senderAddress: '2901 Sloat Blvd, San Francisco, CA 94132, United States',
+        receiver: 'Yaowei Ma',
+        receiverAddress: '1310 17th St, San Francisco, CA 94107, United States',
+        size: 'large',
+        weight: '10 lb',
+        delivery: 'robot',
+        // description: 'A brand new Desktop.'
+    }
+];
