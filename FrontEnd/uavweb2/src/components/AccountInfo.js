@@ -82,6 +82,8 @@ const columns = [
 
 //Shen: Server does not return these information to us, so this part is not necessary.
 //the response body from getAccountInfo does not include any order info. don't know where to get the info, so I kept the hard code for this part.
+
+//Ma: now the server provide this API. In utils, a function called getAllOrders() can return these data.
 const data = [
     {
         sender: 'John Brown',
