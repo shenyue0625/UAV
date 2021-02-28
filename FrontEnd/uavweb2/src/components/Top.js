@@ -4,6 +4,8 @@ import loginLogo from "../assets/imgs/login-logo.png";
 import {Row, Col, Menu, Button} from 'antd';
 import {Link} from "react-router-dom";
 import {logout} from "../utils"
+import GoTo from "./GoTo"
+import {useNavigate} from "react-router"
 
 
 class Top extends Component {
@@ -30,6 +32,7 @@ class Top extends Component {
                         loggedIn: false
                     })
       logout().then(r => console.log(r));
+      this.props.setLoggedIn(false); // 修改全局的state
     }
 
     render() {

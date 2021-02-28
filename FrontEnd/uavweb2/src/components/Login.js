@@ -39,6 +39,7 @@ class Login extends React.Component {
         login(data)
             .then(() => {
                 this.setState({authorization: true});
+                this.props.setLoggedIn(true);
             }).catch((err) => {
             message.error(err.message);
         });
