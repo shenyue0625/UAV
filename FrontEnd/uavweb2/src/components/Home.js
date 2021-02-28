@@ -56,8 +56,8 @@ class Home extends Component {
     }
 
     onFinish = (data) => {
-        console.log(data);
-        this.props.history.push(`/tracking?orderId=${data.orderId}`);
+        console.log(data);//data contains all <Input> collected from user
+        this.props.history.push(`/tracking?orderId=${data.orderId}`);//change url, then render Tracking component
     }
 
     render() {

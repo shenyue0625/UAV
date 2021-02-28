@@ -1,7 +1,6 @@
 import React from 'react';
 import {Row, Col, Divider, Timeline, Descriptions, message, Form, Input, Button} from 'antd';
 import {getTrackingDetails} from "../utils";
-import * as queryString from "querystring"
 
 const layout = {
     labelCol: {
@@ -22,6 +21,7 @@ class Tracking extends React.Component {
     state = {
         loggedIn: false,
         trackButtonClicked: false,
+        orderIdEnteredOnHome: false,
         trackingInfo: {
             orderId: null,
             senderAddress: null,
@@ -40,6 +40,7 @@ class Tracking extends React.Component {
     };
 
 
+    //First step: get the url and parse url parameter as orderID
     componentDidMount() {
         const location = this.props.history.location; // get the current url
         const id = location.search.substr(9, location.search.length); // get the number after "?orderId="
@@ -49,7 +50,8 @@ class Tracking extends React.Component {
                 .then(res => {
                     this.setState({
                         trackingInfo: res,
-                        trackButtonClicked: true
+                        trackButtonClicked: true,
+                        orderIdEnteredOnHome: true
                     });
                     console.log('got tracking info');
                     console.log(res);
@@ -86,28 +88,34 @@ class Tracking extends React.Component {
                         <br/><br/>
                         <Divider><h1> TRACKING A PACKAGE </h1></Divider>
                         <br/><br/>
+                    { //如果用户点击在home页面输入了orderId，则不显示tracking页面不继续显示Form
+                        this.state.orderIdEnteredOnHome ?
+                            <div></div> :
+                            (//否则显示Form，让用户在tracking页面输入orderId
+                                <>
+                                <Form
+                                    name="tracking"
+                                    onFinish={this.onFinish}
+                                    scrollToFirstError
+                                >
 
-                        <Form
-                            name="tracking"
-                            onFinish={this.onFinish}
-                            scrollToFirstError
-                        >
+                                    <Form.Item {...layout}
+                                               name="orderId"
+                                               label="Order Id: "
+                                               rules={[{required: true, whitespace: true, message: 'Please input Order Id!'}]}
+                                    >
+                                        <Input placeholder="Tracking number"/>
+                                    </Form.Item>
 
-                            <Form.Item {...layout}
-                                       name="orderId"
-                                       label="Order Id: "
-                                       rules={[{required: true, whitespace: true, message: 'Please input Order Id!'}]}
-                            >
-                                <Input placeholder="Tracking number"/>
-                            </Form.Item>
-
-                            <Form.Item {...tailLayout}>
-                                <Button style={{textAlign: 'center'}} type="primary" htmlType="submit"
-                                        className="register-btn">
-                                    Track
-                                </Button>
-                            </Form.Item>
-                        </Form>
+                                    <Form.Item {...tailLayout}>
+                                        <Button style={{textAlign: 'center'}} type="primary" htmlType="submit"
+                                                className="register-btn">
+                                            Track
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
+                                </>
+                            )}
                     </Col>
                 </Row>
 

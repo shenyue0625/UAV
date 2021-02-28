@@ -109,7 +109,7 @@ class AccountInfo extends React.Component {
                 <Col span={12}>
                     <br/>
                     <Divider><h1>ACCOUNT INFO</h1></Divider>
-                    <Descriptions title="Personal Info" bordered layout="vertical"
+                    <Descriptions title="Personal Information" bordered layout="vertical"
                                   labelStyle={{color: "red"}}
                                   column={{xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1}}>
                         <Descriptions.Item label="First Name">{this.state.accountInfo.firstName}</Descriptions.Item>
@@ -119,20 +119,20 @@ class AccountInfo extends React.Component {
 
                     <Divider/>
 
-                    <Descriptions title="Address" bordered layout="vertical"
+                    <Descriptions title="Address" bordered
                                   column={{xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1}}>
-                        <Descriptions.Item label="Address 1">{this.state.accountInfo.shippingAddress}</Descriptions.Item>
-                        <Descriptions.Item label="Address 2">{this.state.accountInfo.shippingAddress}</Descriptions.Item>
-                        <Descriptions.Item label="City">{this.state.accountInfo.shippingAddress}</Descriptions.Item>
+                        <Descriptions.Item label="Address">{this.state.accountInfo.shippingAddress}</Descriptions.Item>
+                        {/*<Descriptions.Item label="Address 2">{this.state.accountInfo.shippingAddress}</Descriptions.Item>*/}
+                        {/*<Descriptions.Item label="City">{this.state.accountInfo.shippingAddress}</Descriptions.Item>*/}
                     </Descriptions>
 
                     <Divider/>
 
-                    <Descriptions title="Billing Address" bordered layout="vertical"
+                    <Descriptions title="Billing Address" bordered
                                   column={{xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1}}>
-                        <Descriptions.Item label="Address 1">{this.state.accountInfo.billingAddress}</Descriptions.Item>
-                        <Descriptions.Item label="Address 2">{this.state.accountInfo.billingAddress}</Descriptions.Item>
-                        <Descriptions.Item label="City">{this.state.accountInfo.billingAddress}</Descriptions.Item>
+                        <Descriptions.Item label="Address">{this.state.accountInfo.billingAddress}</Descriptions.Item>
+                        {/*<Descriptions.Item label="Address 2">{this.state.accountInfo.billingAddress}</Descriptions.Item>*/}
+                        {/*<Descriptions.Item label="City">{this.state.accountInfo.billingAddress}</Descriptions.Item>*/}
                     </Descriptions>
 
 
