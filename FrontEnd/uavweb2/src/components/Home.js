@@ -5,6 +5,7 @@ import loc from "../assets/imgs/location.png";
 import tracking from "../assets/imgs/tracking.png";
 import shipping from "../assets/imgs/shipping.png";
 import {Form, Input, Button} from 'antd';
+import { useMediaQuery } from 'react-responsive';
 
 
 import {Link} from 'react-router-dom';
@@ -23,6 +24,31 @@ const tailLayout = {
         offset: 10
     }
 };
+
+const XL = ({ children }) => {
+    const isDesktop = useMediaQuery({ minWidth: 1640 })
+    return isDesktop ? children : null
+}
+const L = ({ children }) => {
+    const isTablet = useMediaQuery({ minWidth: 1480, maxWidth: 1639 })
+    return isTablet ? children : null
+}
+const M = ({ children }) => {
+    const isMobile = useMediaQuery({ minWidth: 1310, maxWidth: 1479 })
+    return isMobile ? children : null
+}
+const S = ({ children }) => {
+    const isMobile = useMediaQuery({ minWidth: 1150, maxWidth: 1309 })
+    return isMobile ? children : null
+}
+const XS = ({ children }) => {
+    const isMobile = useMediaQuery({ minWidth: 820, maxWidth: 1149 })
+    return isMobile ? children : null
+}
+const XXS = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 819 })
+    return isMobile ? children : null
+}
 
 class Home extends Component {
     state = {
@@ -43,46 +69,179 @@ class Home extends Component {
                 <Row>
                     <Col span={24} className="App-home-main">
                         <img className="App-home-background" src={background} alt="This is Drone."/>
-                        <div className="App-home-container">
-                            <h1 className="App-home-title">ANYWHERE</h1>
-                            <h1 className="App-home-title">SAN FRANCISCO</h1>
-                            <div>
-                                <div className="App-home-boxes">
-                                    <nav>
-                                        <Link to="ordering">
-                                            <img className="App-home-boxes-logo" src={shipping} alt="shipping"
-                                                 height={100}/>
-                                            <h3 className="App-home-boxes-name">Rate & Ship</h3>
-                                        </Link>
-                                    </nav>
+                        <XL>
+                            <div className="App-home-container-xl">
+                                <h1 className="App-home-title">ANYWHERE</h1>
+                                <h1 className="App-home-title">SAN FRANCISCO</h1>
+                                <div>
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={shipping} alt="shipping"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Rate & Ship</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
+
+                                    <div className="App-home-boxes"
+                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                        <nav>
+                                            {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
+                                            <Link to="tracking">
+                                                <img className="App-home-boxes-logo" src={tracking} alt="tracking"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Tracking</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
+
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={loc} alt="location"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Location</h3>
+                                            </Link>
+                                        </nav>
+
+                                    </div>
                                 </div>
 
-                                <div className="App-home-boxes"
-                                     style={{width: 205, height: 205, backgroundColor: "grey"}}>
-                                    <nav>
-                        {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
-                                        <Link to="tracking" >
-                                            <img className="App-home-boxes-logo" src={tracking} alt="tracking"
-                                                 height={100}/>
-                                            <h3 className="App-home-boxes-name">Tracking</h3>
-                                        </Link>
-                                    </nav>
-                                </div>
+                                <br/>
 
-                                <div className="App-home-boxes">
-                                    <nav>
-                                        <Link to="ordering">
-                                            <img className="App-home-boxes-logo" src={loc} alt="location" height={100}/>
-                                            <h3 className="App-home-boxes-name">Location</h3>
-                                        </Link>
-                                    </nav>
+                                <div>
+                                    <div>
+                                        <Form onFinish={this.onFinish} >
+                                            <Form.Item
+                                                {...layout}
+                                                className="App-home-input-tracking"
+                                            >
+                                                <Input style={{}}
+                                                       placeholder="Your Tracking Number"/>
+                                            </Form.Item>
 
+                                            <Form.Item
+                                                className="App-home-input-tracking"
+                                            >
+                                                <Button type="primary"
+                                                        htmlType="submit">
+                                                    TRACK
+                                                </Button>
+                                            </Form.Item>
+                                        </Form>
+                                    </div>
                                 </div>
                             </div>
+                        </XL>
 
-                            <br/>
+                        <L>
+                            <div className="App-home-container-l">
+                                <h1 className="App-home-title">ANYWHERE</h1>
+                                <h1 className="App-home-title">SAN FRANCISCO</h1>
+                                <div>
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={shipping} alt="shipping"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Rate & Ship</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
 
-                            <div>
+                                    <div className="App-home-boxes"
+                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                        <nav>
+                                            {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
+                                            <Link to="tracking">
+                                                <img className="App-home-boxes-logo" src={tracking} alt="tracking"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Tracking</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
+
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={loc} alt="location"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Location</h3>
+                                            </Link>
+                                        </nav>
+
+                                    </div>
+                                </div>
+
+                                <br/>
+
+                                <div>
+                                    <div>
+                                        <Form onFinish={this.onFinish} >
+                                            <Form.Item
+                                                {...layout}
+                                                className="App-home-input-tracking"
+                                            >
+                                                <Input style={{}}
+                                                       placeholder="Your Tracking Number"/>
+                                            </Form.Item>
+
+                                            <Form.Item
+                                                className="App-home-input-tracking"
+                                            >
+                                                <Button type="primary"
+                                                        htmlType="submit">
+                                                    TRACK
+                                                </Button>
+                                            </Form.Item>
+                                        </Form>
+                                    </div>
+                                </div>
+                            </div>
+                        </L>
+
+                        <M>
+                            <div className="App-home-container-m">
+                                <h1 className="App-home-title">ANYWHERE</h1>
+                                <h1 className="App-home-title">SAN FRANCISCO</h1>
+                                <div>
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={shipping} alt="shipping"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Rate & Ship</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
+
+                                    <div className="App-home-boxes"
+                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                        <nav>
+                                            {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
+                                            <Link to="tracking">
+                                                <img className="App-home-boxes-logo" src={tracking} alt="tracking"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Tracking</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
+
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={loc} alt="location"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Location</h3>
+                                            </Link>
+                                        </nav>
+
+                                    </div>
+                                </div>
+
+                                <br/>
+
                                 <div>
                                     <Form onFinish={this.onFinish}>
                                         <Form.Item {...layout}
@@ -100,7 +259,206 @@ class Home extends Component {
                                     </Form>
                                 </div>
                             </div>
-                        </div>
+                        </M>
+
+                        <S>
+                            <div className="App-home-container-s">
+                                <h1 className="App-home-title">ANYWHERE</h1>
+                                <h1 className="App-home-title">SAN FRANCISCO</h1>
+                                <div>
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={shipping} alt="shipping"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Rate & Ship</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
+
+                                    <div className="App-home-boxes"
+                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                        <nav>
+                                            {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
+                                            <Link to="tracking">
+                                                <img className="App-home-boxes-logo" src={tracking} alt="tracking"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Tracking</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
+
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={loc} alt="location"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Location</h3>
+                                            </Link>
+                                        </nav>
+
+                                    </div>
+                                </div>
+
+                                <br/>
+
+                                <div>
+                                    <div>
+                                        <Form onFinish={this.onFinish} >
+                                            <Form.Item
+                                                {...layout}
+                                                className="App-home-input-tracking"
+                                            >
+                                                <Input style={{}}
+                                                       placeholder="Your Tracking Number"/>
+                                            </Form.Item>
+
+                                            <Form.Item
+                                                className="App-home-input-tracking"
+                                            >
+                                                <Button type="primary"
+                                                        htmlType="submit">
+                                                    TRACK
+                                                </Button>
+                                            </Form.Item>
+                                        </Form>
+                                    </div>
+                                </div>
+                            </div>
+                        </S>
+
+                        <XS>
+                            <div className="App-home-container-xs">
+                                <h1 className="App-home-title">ANYWHERE</h1>
+                                <h1 className="App-home-title">SAN FRANCISCO</h1>
+                                <div>
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={shipping} alt="shipping"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Rate & Ship</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
+
+                                    <div className="App-home-boxes"
+                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                        <nav>
+                                            {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
+                                            <Link to="tracking">
+                                                <img className="App-home-boxes-logo" src={tracking} alt="tracking"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Tracking</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
+
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={loc} alt="location"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Location</h3>
+                                            </Link>
+                                        </nav>
+
+                                    </div>
+                                </div>
+
+                                <br/>
+
+                                <div>
+                                    <div>
+                                        <Form onFinish={this.onFinish} >
+                                            <Form.Item
+                                                {...layout}
+                                                className="App-home-input-tracking"
+                                            >
+                                                <Input style={{}}
+                                                       placeholder="Your Tracking Number"/>
+                                            </Form.Item>
+
+                                            <Form.Item
+                                                className="App-home-input-tracking"
+                                            >
+                                                <Button type="primary"
+                                                        htmlType="submit">
+                                                    TRACK
+                                                </Button>
+                                            </Form.Item>
+                                        </Form>
+                                    </div>
+                                </div>
+                            </div>
+                        </XS>
+
+                        <XXS>
+                            <div className="App-home-container-xxs">
+                                <h1 className="App-home-title">ANYWHERE</h1>
+                                <h1 className="App-home-title">SAN FRANCISCO</h1>
+                                <div>
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={shipping} alt="shipping"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Rate & Ship</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
+
+                                    <div className="App-home-boxes"
+                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                        <nav>
+                                            {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
+                                            <Link to="tracking">
+                                                <img className="App-home-boxes-logo" src={tracking} alt="tracking"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Tracking</h3>
+                                            </Link>
+                                        </nav>
+                                    </div>
+
+                                    <div className="App-home-boxes">
+                                        <nav>
+                                            <Link to="ordering">
+                                                <img className="App-home-boxes-logo" src={loc} alt="location"
+                                                     height={100}/>
+                                                <h3 className="App-home-boxes-name">Location</h3>
+                                            </Link>
+                                        </nav>
+
+                                    </div>
+                                </div>
+
+                                <br/>
+
+                                <div>
+                                    <div>
+                                        <Form onFinish={this.onFinish} >
+                                            <Form.Item
+                                                {...layout}
+                                                className="App-home-input-tracking"
+                                            >
+                                                <Input style={{}}
+                                                       placeholder="Your Tracking Number"/>
+                                            </Form.Item>
+
+                                            <Form.Item
+                                                className="App-home-input-tracking"
+                                            >
+                                                <Button type="primary"
+                                                        htmlType="submit">
+                                                    TRACK
+                                                </Button>
+                                            </Form.Item>
+                                        </Form>
+                                    </div>
+                                </div>
+                            </div>
+                        </XXS>
+
                     </Col>
                 </Row>
 

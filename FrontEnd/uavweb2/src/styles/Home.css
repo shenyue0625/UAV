@@ -21,7 +21,76 @@
     left: 0;
     right: 0;
     text-align: center;
-    /*background-color: #282c34;*/
+}
+
+.App-home-container-xl {
+    position: absolute;
+    top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.App-home-container-l {
+    position: absolute;
+    top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    zoom: 0.9;
+}
+
+.App-home-container-m {
+    position: absolute;
+    top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    zoom: 0.8;
+}
+
+.App-home-container-s {
+    position: absolute;
+    top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    zoom: 0.7;
+}
+
+.App-home-container-xs {
+    position: absolute;
+    top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    zoom: 0.5;
+}
+
+.App-home-container-xxs {
+    position: absolute;
+    top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    zoom: 0.3;
 }
 
 .App-home-intro {
@@ -50,4 +119,8 @@
     position: relative;
     top: 50px;
 
+}
+
+.App-home-input-tracking {
+    z-index: 1;
 }
