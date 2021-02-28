@@ -1,11 +1,12 @@
 import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import {Redirect} from "react-router"
 
 
 // once login is good: use imperative redirect
 // https://dev.to/emreloper/react-router-v6-in-two-minutes-2i96 (网页素材名字写反了)
 function GoTo(props) {
-    return <Navigate to={props.target} replace />;
+    return <Redirect to={props.target} replace />;
 }
 
 

@@ -1,56 +1,61 @@
 import React from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Route} from "react-router-dom";
+import {Redirect, Switch} from "react-router"
 
 import Home from './Home';
 import Login from './Login';
 import Register from './Register';
-import Register2 from './Register2';
 import RegisterComplete from './RegisterComplete';
 import AccountInfo from './AccountInfo';
 import Ordering from './Ordering';
 import Tracking from './Tracking';
 import ContactUs from './ContactUs';
+import GoTo from "./GoTo"
 
 
 
 
 
 class Main extends React.Component{
-    // state = {
-    //   isLoggedIn: false,
-    //   isRegistered: false
-    // }
-    //
-    // showLogin = () => {         // when user logged in, url don't change, only the state (isLoggedIn) has been changed.
-    //   // And this function change url based on this changed state.
-    //   // case1: already logged in --> home
-    //   // case2: hasn't logged in --> login
-    //   return this.state.isLoggedIn
-    //     ?
-    //     <Navigate to="/"/>
-    //     :
-    //     <Login handleLoggedIn={this.handleLoggedIn}/>
-    // }
-    //
-    // handleLoggedIn = () => {
-    //   this.state.isLoggedIn = true;
-    // }
-
-    render() {
-        return (
-            <Routes>
-                <Route path="/" element={<Home />}>Home</Route>
-                <Route path="/login" element={<Login/>}>Login</Route>
-                <Route path="/register" element={<Register/>}>Register</Route>
-                <Route path="/register2" element={<Register2 />}>Register2</Route>
-                <Route path="/register/complete" element={<RegisterComplete />}>RegisterComplete</Route>
-                <Route path="/accountInfo" element={<AccountInfo />}>AccountInfo</Route>
-                <Route path="/ordering" element={<Ordering />}>Ordering</Route>
-                <Route path="/tracking" element={<Tracking />}>Tracking</Route>
-                <Route path="/contactus" element={<ContactUs />}>ContactUs</Route>
-            </Routes>
-        )
+  showAccountInfo = () => {
+      // case1: already logged in --> the component you want
+      // case2: hasn't logged in --> login
+      return this.props.isLoggedIn
+        ?
+        <AccountInfo/>
+        :
+        <GoTo target='/login'/>;
     }
+
+  showOrdering = () => {
+    // case1: already logged in --> the component you want
+    // case2: hasn't logged in --> login
+    console.log("is logged in?", this.props.isLoggedIn)
+    return this.props.isLoggedIn
+      ?
+      <Ordering/>
+      :
+      <Redirect to='/login'/>;
+  }
+
+  showLogin = () => {
+    return <Login setLoggedIn={this.props.setLoggedIn}/>
+  }
+
+  render() {
+    return (
+        <Switch>
+            <Route path="/login" render={this.showLogin}/>
+            <Route path="/register" component={Register}/>
+            <Route path="/register/complete" component={RegisterComplete}/>
+            <Route path="/accountInfo" render={this.showAccountInfo}/>
+            <Route path="/ordering" render={this.showOrdering}/>
+            <Route path="/tracking" component={Tracking}/>
+            <Route path="/contactus" component={ContactUs}/>
+            <Route path="/" component={Home}/>
+        </Switch>
+    )
+  }
 }
 
 export default Main;

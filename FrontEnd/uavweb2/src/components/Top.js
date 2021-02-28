@@ -3,6 +3,9 @@ import title from "../assets/imgs/title.PNG";
 import loginLogo from "../assets/imgs/login-logo.png";
 import {Row, Col, Menu, Button} from 'antd';
 import {Link} from "react-router-dom";
+import {logout} from "../utils"
+import GoTo from "./GoTo"
+import {useNavigate} from "react-router"
 
 
 class Top extends Component {
@@ -25,19 +28,11 @@ class Top extends Component {
     };
 
     signoutOnClick = () => {
-        this.setState({  //然后前端state更改一下
+      this.setState({  //然后前端state更改一下
                         loggedIn: false
                     })
-        // 暂时没有与后端交互的logout api，略。
-        // logout()
-        //     .then(() => {
-        //         this.setState({
-        //             loggedIn: false
-        //         })
-        //         message.success(`Successfull signed out`);
-        //     }).catch((err) => {
-        //     message.error(err.message);
-        // })
+      logout().then(r => console.log(r));
+      this.props.setLoggedIn(false); // 修改全局的state
     }
 
     render() {

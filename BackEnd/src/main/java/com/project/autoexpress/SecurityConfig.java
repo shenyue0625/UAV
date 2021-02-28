@@ -82,6 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance(); // 所以直接返回就行了。
   }
 
+  // 响应OPTION request
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

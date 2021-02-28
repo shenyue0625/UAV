@@ -52,6 +52,19 @@ export const register = (data) => {
     })
 }
 
+const logoutUrl = `${SERVER_ORIGIN}/logout`;
+
+export const logout = (data) => {
+    return fetch(logoutUrl, {
+        method: 'GET',
+        credentials: "include"
+    }).then((response) => {
+        if (response.status !== 200) {
+            throw Error('Fail to logout');
+        }
+    })
+}
+
 const getTrackingDetailsUrl = `${SERVER_ORIGIN}/tracking?orderId=`;
 
 export const getTrackingDetails = (orderId) => {
@@ -102,7 +115,11 @@ export const getAccountInfo = () => {
         console.log('got fetched data from backend');
         console.log('fetched response is: ');
         console.log(response);
-        //console.warn(Promise.responseText);
-        return response.json();
+
+        var data = response.json();
+        if (data === null) {
+            message.warning("Please login");
+        }
+        return data;
     })
 }

@@ -9,17 +9,24 @@ import Main from './components/Main';
 const {Header, Footer, Content} = Layout;
 
 class App extends React.Component {
+    state = {
+      isLoggedIn: false,
+    }
+
+    setLoggedIn = (status) => {
+        this.setState({isLoggedIn: status}); // true or false;
+    }
 
     render() {
         return (
             <Router>
                 <Layout>
                     <Header className="App-header">
-                        <Top />
+                        <Top isLoggedIn={this.state.isLoggedIn} setLoggedIn={this.setLoggedIn}/>
                     </Header>
 
                     <Content>
-                        <Main/>
+                        <Main isLoggedIn={this.state.isLoggedIn} setLoggedIn={this.setLoggedIn}/>
                     </Content>
 
                     <Footer>
