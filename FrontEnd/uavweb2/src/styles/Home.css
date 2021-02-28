@@ -108,6 +108,12 @@
     width: 190px;
     height: 190px;
     background-color: ghostwhite;
+    border-radius: 10px;
+}
+
+.App-home-boxes:hover {
+    zoom: 1.15;
+    background-color: grey;
 }
 
 .App-home-boxes-logo {

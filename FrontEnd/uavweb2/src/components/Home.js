@@ -84,8 +84,7 @@ class Home extends Component {
                                         </nav>
                                     </div>
 
-                                    <div className="App-home-boxes"
-                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                    <div className="App-home-boxes">
                                         <nav>
                                             {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
                                             <Link to="tracking">
@@ -150,8 +149,7 @@ class Home extends Component {
                                         </nav>
                                     </div>
 
-                                    <div className="App-home-boxes"
-                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                    <div className="App-home-boxes">
                                         <nav>
                                             {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
                                             <Link to="tracking">
@@ -216,8 +214,7 @@ class Home extends Component {
                                         </nav>
                                     </div>
 
-                                    <div className="App-home-boxes"
-                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                    <div className="App-home-boxes">
                                         <nav>
                                             {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
                                             <Link to="tracking">
@@ -276,8 +273,7 @@ class Home extends Component {
                                         </nav>
                                     </div>
 
-                                    <div className="App-home-boxes"
-                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                    <div className="App-home-boxes">
                                         <nav>
                                             {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
                                             <Link to="tracking">
@@ -342,8 +338,7 @@ class Home extends Component {
                                         </nav>
                                     </div>
 
-                                    <div className="App-home-boxes"
-                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                    <div className="App-home-boxes">
                                         <nav>
                                             {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
                                             <Link to="tracking">
@@ -408,8 +403,7 @@ class Home extends Component {
                                         </nav>
                                     </div>
 
-                                    <div className="App-home-boxes"
-                                         style={{width: 205, height: 205, backgroundColor: "grey"}}>
+                                    <div className="App-home-boxes">
                                         <nav>
                                             {/*如果从home页面tracking，则需要传给tracking：trackingInfo 和 trackButtonClicked：true  */}
                                             <Link to="tracking">
