@@ -1,6 +1,7 @@
 import React from 'react';
 import {Row, Col, Divider, Timeline, Descriptions, message, Form, Input, Button} from 'antd';
 import {getTrackingDetails} from "../utils";
+import * as queryString from "querystring"
 
 const layout = {
     labelCol: {
@@ -40,15 +41,36 @@ class Tracking extends React.Component {
 
 
 
+    componentDidMount() {
+        const location = this.props.history.location; // get the current url
+        const id = location.search.substr(9, location.search.length); // get the number after "?orderId="
+        // e.g.  "?orderId=13" --> substr --> "13" (which is id)
+        if (id !== "") {
+            getTrackingDetails(id)
+              .then(res => {
+                  this.setState({
+                      trackingInfo: res,
+                      trackButtonClicked: true
+                  });
+                  console.log('got tracking info');
+                  console.log(res);
+              })
+              .catch(err => {
+                  console.log('did not get tracking info');
+                  message.error(err.message);
+              });
+        }
+    }
+
     onFinish = (data) => {
         getTrackingDetails(data.orderId)
-            .then(data => {
+            .then(res => {
                 this.setState({
-                    trackingInfo: data,
+                    trackingInfo: res,
                     trackButtonClicked: true
                 });
                 console.log('got tracking info');
-                console.log(data);
+                console.log(res);
             })
             .catch(err => {
                 console.log('did not get tracking info');

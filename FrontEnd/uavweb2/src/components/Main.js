@@ -39,7 +39,7 @@ class Main extends React.Component{
   }
 
   showLogin = () => {
-    return <Login setLoggedIn={this.props.setLoggedIn}/>
+    return <Login setLoggedIn={this.props.setLoggedIn} isLoggedIn={this.props.isLoggedIn}/>
   }
 
   render() {

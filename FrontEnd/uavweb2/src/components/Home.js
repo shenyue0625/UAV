@@ -9,6 +9,7 @@ import {Form, Input, Button} from 'antd';
 
 import {Link} from 'react-router-dom';
 import {register, getTrackingDetails} from "../utils";
+import {Redirect} from "react-router"
 
 const layout = {
     wrapperCol: {
@@ -28,21 +29,16 @@ class Home extends Component {
         trackingInfo: []
     }
 
-    onFinish = (orderId) => {
-        getTrackingDetails(orderId)
-            .then(data => {
-                this.setState({
-                    trackingInfo : data
-                });
-                console.log('got tracking info')
-            }).catch((err) => {
-                console.log('fail to get fetch tracking information');
-            message.error(err.message);
-        })
+    onFinish = (data) => {
+        this.props.history.push(`/tracking?orderId=${data.orderId}`);
     }
 
     render() {
         return (
+            this.hasChange
+            ?
+              <Redirect to="/tracking"/>
+            :
             <div>
                 <Row>
                     <Col span={24} className="App-home-main">
@@ -89,7 +85,9 @@ class Home extends Component {
                             <div>
                                 <div>
                                     <Form onFinish={this.onFinish}>
-                                        <Form.Item {...layout}>
+                                        <Form.Item {...layout}
+                                        name="orderId"
+                                        >
                                             <Input style={{display: "inline-block"}}
                                                    placeholder="Your Tracking Number"/>
                                         </Form.Item>

@@ -14,25 +14,18 @@ class Top extends Component {
         loggedIn: false
     };
 
-    handleClick = e => {
-        console.log('click ', e);
-        this.setState({current: e.key});
-    };
-
-    handleLoginClick = e => {
+    handleClick = e => { // change key
         console.log('click ', e);
         this.setState({
-            current: e.key,
-            loggedIn: true
+          current: e.key,
         });
     };
 
     signoutOnClick = () => {
-      this.setState({  //然后前端state更改一下
-                        loggedIn: false
-                    })
-      logout().then(r => console.log(r));
       this.props.setLoggedIn(false); // 修改全局的state
+      this.setState({
+        loggedIn: false
+      });
     }
 
     render() {
@@ -102,26 +95,26 @@ class Top extends Component {
 
                 <Col span={4} className="App-top-nav">
                     { //如果用户login成功，则页面<Col>中只显示一个logout按键
-                        this.state.loggedIn ?
+                        this.props.isLoggedIn
+                            ?
                             <Button shape="round" onClick={this.signoutOnClick}>
-                                Logout</Button> : //如果用户login暂时不成功，持续显示login按键
-                            (
-                                <>
-                                    <Menu onClick={this.handleLoginClick} selectedKeys={[this.current]} defaultSelectedKeys={[this.current]}
-                                          mode="horizontal"
-                                          theme="dark"
-                                          className="App-top-font">
-                                        <Menu.Item key="login">
-                                            <nav>
-                                                <Link to="login">
-                                                    <h3 className="App-top-font">Login &nbsp;</h3>
-                                                    <img className="App-top-login-logo" src={loginLogo} alt="login-logo"/>
-                                                </Link>
-                                            </nav>
-                                        </Menu.Item>
-                                    </Menu>
-                                </>
-                            )
+                                Logout</Button>
+                            :                   //如果用户login暂时不成功，持续显示login按键
+                            <>
+                                <Menu onClick={this.handleClick} selectedKeys={[this.current]} defaultSelectedKeys={[this.current]}
+                                      mode="horizontal"
+                                      theme="dark"
+                                      className="App-top-font">
+                                    <Menu.Item key="login">
+                                        <nav>
+                                            <Link to="login">
+                                                <h3 className="App-top-font">Login &nbsp;</h3>
+                                                <img className="App-top-login-logo" src={loginLogo} alt="login-logo"/>
+                                            </Link>
+                                        </nav>
+                                    </Menu.Item>
+                                </Menu>
+                            </>
                     }
 
                 </Col>

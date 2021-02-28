@@ -25,11 +25,6 @@ const tailLayout = {
 };
 
 class Login extends React.Component {
-
-    state = {
-        authorization: false,
-    }
-
     onFinish = (data) => {
         // console.log("data", data);
         // const {name} = data;
@@ -38,7 +33,7 @@ class Login extends React.Component {
         // try to login 麻：修改了后端，现在不会收到一个redirect从而导致跨域问题了。
         login(data)
             .then(() => {
-                this.setState({authorization: true});
+                console.log("successfully logged in")
                 this.props.setLoggedIn(true);
             }).catch((err) => {
             message.error(err.message);
@@ -46,8 +41,7 @@ class Login extends React.Component {
     }
 
     render() {
-        console.log(this.state.authorization);
-        if (this.state.authorization) {
+        if (this.props.isLoggedIn) {
             return <GoTo target='/'/>;
         }
 
@@ -125,10 +119,6 @@ class Login extends React.Component {
                     <br/><br/><br/><br/><br/>
 
                 </div>
-
-                <button onClick={getAccountInfo}>
-                    click me to get logged user info
-                </button>
             </>
         );
     }
