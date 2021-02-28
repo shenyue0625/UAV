@@ -15,22 +15,32 @@ export const login = (credential) => {
     var urlencoded = new URLSearchParams();
     urlencoded.append("username", username);
     urlencoded.append("password", password);
-    return fetch(loginUrl, {
+    fetch(loginUrl, {  // step 1: login
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: urlencoded,
         redirect: 'follow',
-        credentials: 'include'
-    }).then((response) => {
+        credentials: 'include'                   // 自动把sessionid写到cookies里。
+    }).then((response) => {  // step 2: get user data
         if (response.status !== 200) {
             throw Error('Fail to log in');
         }
         // chaining fetch
-        getAccountInfo().then((data) => {
-            message.success(`Welcome back, ${data.firstName + " " + data.lastName}`);
+        return fetch(getAccountInfoUrl, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json',},
+            redirect: 'follow',
+            credentials: 'include'               // 自动从cookies里面取出（session_id）
         })
+    }).then((response) => { // step 3: json
+        if (response.status !== 200) {
+            throw Error('Fail to get account information');
+        }
+        return response.json();
+    }).then((data) => { // step 4: show welcome
+        message.success(`Welcome back, ${data.firstName + " " + data.lastName}`);
     }).catch((err) => {
         console.error(err, "If you see a error here, contact mayaowei.study@gmail.com immediately.")
     })
