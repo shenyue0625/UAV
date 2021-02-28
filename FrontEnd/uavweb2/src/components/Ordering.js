@@ -7,8 +7,7 @@ import drone from "../assets/imgs/icon-drone.png";
 
 import {Row, Col, Form, Input, Select, Radio, Button, InputNumber, message, Divider} from "antd";
 
-import {LockOutlined, UserOutlined} from "@ant-design/icons";
-
+import {LockOutlined, UserOutlined, SearchOutlined } from "@ant-design/icons";
 
 const {Option} = Select;
 const formItemLayout = {
@@ -41,17 +40,40 @@ const { number, street, zip, state} = address;
 // const newAddress {...address} = {}
 
 
-
+//Shen: Ordering页面的2个按钮已经分离开，点击check price只检查价格，点击submit才会触发restful api。
+//接下来的work：
+//1. 完成价格的计算，写进checkPriceOnClick() 中
+//2. submit 按键的css style需要美化
+//注意事项：state里的price是为了测试而写上去的，可以根据你的实现机制选择删除或保留。如果保留的话，在向后端发送数据的时候要确认:
+    //1. state中"Ordering的price"已被更新
+    //2. state中"Ordering的weight"数据是有意义的，不是undefined。
 class Ordering extends Component {
-    onFinish = data => {
+    state = {
+        price: null,
+        Ordering:null
+    }
+
+    //'SUBMIT' button: This function only in charge of sending order info to backend
+    onFinish = () => {
         // 现在这里算一下。
-        makeAPayment(data)
+        console.log("this.state.Ordering");
+        console.log(this.state.Ordering);
+        makeAPayment(this.state.Ordering)
             .then(() => {
                 message.success("Order successfully submitted");
             })
             .catch(err => {
                 message.error("submit failed!", err);
             });
+    };
+
+    //'Check Price' button: use google api calculate price. Define calculation algorithm here
+    checkPriceOnClick = (data) => {
+        this.setState({
+            price: "$30",//$30只是为了测试写的hard code。NEED TO BE CHANGED TO CALCULATED PRICE，并且把price负值给Ordering.price
+            Ordering: data,
+
+        })
     };
 
     // handleInputChange = event => {
@@ -91,7 +113,7 @@ class Ordering extends Component {
                         <Form
                             {...formItemLayout}
                             name="Ordering"
-                            onFinish={this.onFinish}
+                            onFinish={this.checkPriceOnClick}
                             scrollToFirstError
                         >
                             <Form.Item
@@ -144,8 +166,8 @@ class Ordering extends Component {
                             </Form.Item>
 
                             <Form.Item
-                                name="discription"
-                                label="Item Discription"
+                                name="description"
+                                label="Item Description"
                                 rules={[{required: true, whitespace: true}]}
                             >
                                 <Input placeholder="Please discribe your product"/>
@@ -165,6 +187,7 @@ class Ordering extends Component {
 
                             <Form.Item
                                 label="Weight"
+                                // name="weight"
                                 rules={[{required: true, whitespace: true}]}
                             >
                                 <Form.Item name="weight" noStyle>
@@ -188,22 +211,25 @@ class Ordering extends Component {
                               label="Price"
                               name="price"
                             >
+                                {this.state.price}
                             {/*    show the price after click the following button */}
                             </Form.Item>
 
-                            <Form.Item {...tailFormItemLayout}
-                            >
-                                <Button type="primary" htmlType="submit" className="check-price">
+                            <Form.Item {...tailFormItemLayout}>
+                                <Button onClick={this.checkPriceOnClick} icon={<SearchOutlined />} type="primary" htmlType="submit" className="check-price">
                                     {/* change the button back to the normal one */}
                                     Check Shipping Price
                                 </Button>
                             </Form.Item>
 
-                            <Form.Item {...tailFormItemLayout}>
-                                <Button type="primary" htmlType="submit" className="order-btn">
-                                    Submit
-                                </Button>
-                            </Form.Item>
+                        </Form>
+
+                                    <button onClick={this.onFinish} >
+                                        Submit
+                                    </button>
+
+
+
 
                             {/* <Form.Item
             name="agreement"
@@ -296,7 +322,7 @@ class Ordering extends Component {
           <p>
             <button>Review</button>
           </p> */}
-                        </Form>
+                        {/*</Form>*/}
 
                     </Col>
                 </Row>

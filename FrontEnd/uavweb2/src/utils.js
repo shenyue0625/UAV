@@ -92,7 +92,7 @@ export const makeAPayment = (allPaymentInfo) => {
         credentials: 'include', //does this credentials include cardNumber or just username and password. Ma: no, it's a flag tells browser that you can receive or send cookies.
         body: JSON.stringify(allPaymentInfo)
     }).then((response) => {
-        if (response.status !== 200) {
+        if (response.status !== 201) {
             throw Error('Fail to make a payment');
         }
     })
