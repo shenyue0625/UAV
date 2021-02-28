@@ -77,9 +77,9 @@ class Ordering extends Component {
       });
   };
 
-  getPrice = (data) => {
+  getPrice = () => {
 
-    function sizeFactor(data){
+    function sizeFactor(size){
         if (size === small){
             return 0.2;
         }else if  (size === medium){
@@ -91,8 +91,8 @@ class Ordering extends Component {
 
     function dist(data){
 
-         receiverAddress = "3583 16th St, San Francisco, CA 94114";
-         senderLatAddress = "600 Guerrero St, San Francisco, CA 94110";
+         receiverAddress = "3583 16th St, San Francisco, CA 94114";//place holder
+         senderLatAddress = "600 Guerrero St, San Francisco, CA 94110";//place holder
 
          if(data.Ordering.deliveryMethod === drone){
              return getDistance(receiverAddress,senderLatAddress) //这里应该是{google 直线距离测算公式}
@@ -109,10 +109,12 @@ class Ordering extends Component {
         }
     }
 
-    return dist(data)*sizeFactor(data.Ordering.size)*{data.Ordering.weight}*methodFactor(data.Ordering.deliveryMethod);
+    const weight = this.Ordering.weight;
+
+    return dist(this)*sizeFactor(this.Ordering.size.value)*{weight}*methodFactor(this.Ordering.deliveryMethod.value);
  
   };
-  
+
 
   //'Check Price' button: use google api calculate price. Define calculation algorithm here
   checkPriceOnClick = data => {
