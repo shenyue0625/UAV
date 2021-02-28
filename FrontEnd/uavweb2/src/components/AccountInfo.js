@@ -6,6 +6,15 @@ import {getAccountInfo, getAllOrders} from "../utils";
 
 const {Column, ColumnGroup} = Table;
 
+// maintain the mapping between color and content
+const colors = {
+    "small": "orange",
+    "medium": "red",
+    "large": "purple",
+    "robot": "volcano",
+    "drone": "blue"
+}
+
 const columns = [
     {
         title: 'Sender',
@@ -32,23 +41,9 @@ const columns = [
         dataIndex: 'size',
         key: 'size',
         render: size => (
-            <>
-                {size.map(data => {
-                    let color;
-                    if (data === 'small') {
-                        color = 'orange';
-                    } else if(data === 'medium') {
-                        color = 'red';
-                    } else if (data === 'large') {
-                        color = 'purple';
-                    }
-                    return (
-                        <Tag color={color} key={data}>
-                            {data.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
+            <Tag color={colors[size]} key={size}>
+                {size.toUpperCase()}
+            </Tag>
         )
     },
     {
@@ -61,78 +56,12 @@ const columns = [
         dataIndex: 'delivery',
         key: 'delivery',
         render: delivery => (
-            <>
-                {delivery.map(data => {
-                    let color;
-                    if (data === 'robot') {
-                        color = 'volcano';
-                    } else if(data === 'drone') {
-                        color = 'blue';
-                    }
-                    return (
-                        <Tag color={color} key={data}>
-                            {data.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
+            <Tag color={colors[delivery]} key={delivery}>
+                {delivery.toUpperCase()}
+            </Tag>
         )
     }
 ];
-
-//Shen: Server does not return these information to us, so this part is not necessary.
-//the response body from getAccountInfo does not include any order info. don't know where to get the info, so I kept the hard code for this part.
-
-//Ma: now the server provide this API. In utils, a function called getAllOrders() can return these data.
-const data = [
-    {
-        sender: 'John Brown',
-        senderAddress: 'New York No. 1 Lake Park',
-        receiver: 'Jim Green',
-        receiverAddress: 'London No. 1 Lake Park',
-        size: ['small'],
-        weight: '16lb',
-        delivery: ['drone']
-    },
-    {
-        sender: 'John Brown',
-        senderAddress: 'New York No. 1 Lake Park',
-        receiver: 'Jim Green',
-        receiverAddress: 'London No. 1 Lake Park',
-        size: ['medium'],
-        weight: '16lb',
-        delivery: ['drone']
-    },
-    {
-        sender: 'John Brown',
-        senderAddress: 'New York No. 1 Lake Park',
-        receiver: 'Jim Green',
-        receiverAddress: 'London No. 1 Lake Park',
-        size: ['large'],
-        weight: '16lb',
-        delivery: ['robot']
-    },
-    {
-        sender: 'John Brown',
-        senderAddress: 'New York No. 1 Lake Park',
-        receiver: 'Jim Green',
-        receiverAddress: 'London No. 1 Lake Park',
-        size: ['large'],
-        weight: '16lb',
-        delivery: ['drone']
-    },
-    {
-        sender: 'John Brown',
-        senderAddress: 'New York No. 1 Lake Park',
-        receiver: 'Jim Green',
-        receiverAddress: 'London No. 1 Lake Park',
-        size: ['small'],
-        weight: '16lb',
-        delivery: ['robot']
-    },
-
-];
-
 
 class AccountInfo extends React.Component {
 
@@ -143,7 +72,8 @@ class AccountInfo extends React.Component {
             lastName: null,
             billingAddress: null,
             shippingAddress: null
-        }
+        },
+        orderData: null
     };
 
     componentDidMount() {
@@ -163,7 +93,10 @@ class AccountInfo extends React.Component {
 
         // 2. query current logged in user's orders.
         getAllOrders()
-          .then(res => console.log("get res in AccountInfo", res));
+          .then(res => {
+              this.setState({orderData: res});
+              console.log(res);
+          });
     };
 
 
@@ -219,7 +152,7 @@ class AccountInfo extends React.Component {
                     <br/>
                     <Divider><h1>ORDER INFO</h1></Divider>
 
-                    <Table columns={columns} dataSource={data} />
+                    <Table columns={columns} dataSource={this.state.orderData}/>
 
                     <br/><br/><br/><br/>
                 </Col>
