@@ -44,6 +44,7 @@ const { number, street, zip, state} = address;
 
 class Ordering extends Component {
     onFinish = data => {
+        // 现在这里算一下。
         makeAPayment(data)
             .then(() => {
                 message.success("Order successfully submitted");
@@ -183,8 +184,17 @@ class Ordering extends Component {
                                 </Radio.Group>
                             </Form.Item>
 
-                            <Form.Item {...tailFormItemLayout}>
+                            <Form.Item
+                              label="Price"
+                              name="price"
+                            >
+                            {/*    show the price after click the following button */}
+                            </Form.Item>
+
+                            <Form.Item {...tailFormItemLayout}
+                            >
                                 <Button type="primary" htmlType="submit" className="check-price">
+                                    {/* change the button back to the normal one */}
                                     Check Shipping Price
                                 </Button>
                             </Form.Item>
