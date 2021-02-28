@@ -5,6 +5,7 @@ import com.project.autoexpress.entity.ShippingOrder;
 import com.project.autoexpress.entity.User;
 import com.project.autoexpress.handler.service.CustomerService;
 import com.project.autoexpress.holder.request.OrderRequestBody;
+import com.project.autoexpress.holder.response.OrderInfoResponseBody;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,7 +27,7 @@ public class OrderDao {
     @Autowired
     private CustomerService customerService;
 
-    public List<ShippingOrder> getCurrentUserOrders() {
+    public List<OrderInfoResponseBody> getCurrentUserOrders() {
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String emailId = loggedInUser.getName();
 
@@ -39,11 +40,19 @@ public class OrderDao {
 
         Customer customer = user.getCustomer();
         List<ShippingOrder> orders = customer.getShippingOrder();
+        List<OrderInfoResponseBody> results = new ArrayList<>();
         for(ShippingOrder order : orders) {
-            order.setCustomer(null);
+            OrderInfoResponseBody body = new OrderInfoResponseBody();
+            body.setSender(order.getCustomer().getFirstName() + " " + order.getCustomer().getLastName());
+            body.setSenderAddress(order.getSenderAddress());
+            body.setReceiver(order.getReceiverName());
+            body.setReceiverAddress(order.getReceiverAddress());
+            body.setSize(order.getSize());
+            body.setWeight(order.getWeight() + " lb");
+            body.setDelivery(order.getDeliveryMethod());
+            results.add(body);
         }
-        System.out.println(orders);
-        return orders;
+        return results;
     }
 
     public Integer addOrder(OrderRequestBody orderRequest) { // set 是否成功，通过返回一个int来表达。

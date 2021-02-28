@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import {Row, Col, Button, Descriptions, Divider, Form, message} from "antd";
 import {Table, Tag, Space} from 'antd';
-import {getAccountInfo} from "../utils";
+import {getAccountInfo, getAllOrders} from "../utils";
 
 const {Column, ColumnGroup} = Table;
 
@@ -145,18 +145,23 @@ class AccountInfo extends React.Component {
     };
 
     componentDidMount() {
+        // 1. query current logged in user's info
         getAccountInfo()
-            .then(data => {
+            .then(res => {
                 this.setState({
-                    accountInfo: data
+                    accountInfo: res
                 });
                 console.log('got account info');
-                console.log(data);
+                console.log(res);
             })
             .catch(err => {
                 console.log('did not get account info');
                 message.error(err.message);
             });
+
+        // 2. query current logged in user's orders.
+        getAllOrders()
+          .then(res => console.log("get res in AccountInfo", res));
     };
 
 

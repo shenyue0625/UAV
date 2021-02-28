@@ -123,3 +123,23 @@ export const getAccountInfo = () => {
         return data;
     })
 }
+
+const getAllOrdersUrl = `${SERVER_ORIGIN}/orders`
+export const getAllOrders = () => {
+    return fetch(getAllOrdersUrl, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json',},
+        redirect: 'follow',
+        credentials: 'include'
+    }).then((response) => {
+        if (response.status !== 200) {
+            throw Error('Fail to get orders information');
+        }
+        let data = response.json();
+        if (data === null) {
+            message.warning("Please login");
+        }
+        console.log(data);
+        return data;
+    })
+}

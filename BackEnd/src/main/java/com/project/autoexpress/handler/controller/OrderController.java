@@ -3,6 +3,7 @@ package com.project.autoexpress.handler.controller;
 import com.project.autoexpress.entity.ShippingOrder;
 import com.project.autoexpress.handler.service.OrderService;
 import com.project.autoexpress.holder.request.OrderRequestBody;
+import com.project.autoexpress.holder.response.OrderInfoResponseBody;
 import com.project.autoexpress.holder.response.OrderResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class OrderController {
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public ResponseEntity<Object> getCurrentUserOrders() {
-        List<ShippingOrder> orderList = orderService.getCurrentUserOrders();
+        List<OrderInfoResponseBody> orderList = orderService.getCurrentUserOrders();
         return new ResponseEntity<>(orderList, HttpStatus.OK);
     }
 }

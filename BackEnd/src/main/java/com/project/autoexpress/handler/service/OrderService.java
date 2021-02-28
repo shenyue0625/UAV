@@ -3,6 +3,7 @@ package com.project.autoexpress.handler.service;
 import com.project.autoexpress.entity.ShippingOrder;
 import com.project.autoexpress.handler.dao.OrderDao;
 import com.project.autoexpress.holder.request.OrderRequestBody;
+import com.project.autoexpress.holder.response.OrderInfoResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class OrderService {
         return orderDao.getShippingOrderById(orderId);
     }
 
-    public List<ShippingOrder> getCurrentUserOrders() {
+    public List<OrderInfoResponseBody> getCurrentUserOrders() {
         return orderDao.getCurrentUserOrders();
     }
 }
