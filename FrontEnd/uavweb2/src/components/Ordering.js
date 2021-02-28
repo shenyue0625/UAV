@@ -216,17 +216,21 @@ class Ordering extends Component {
                             </Form.Item>
 
                             <Form.Item {...tailFormItemLayout}>
-                                <Button onClick={this.checkPriceOnClick} icon={<SearchOutlined />} type="primary" htmlType="submit" className="check-price">
+                                <Button onClick={this.checkPriceOnClick} icon={<SearchOutlined />} type="default" htmlType="submit" className="check-price">
                                     {/* change the button back to the normal one */}
                                     Check Shipping Price
                                 </Button>
                             </Form.Item>
 
+                            <Form.Item {...tailFormItemLayout}>
+                                <Button type="primary" onClick={this.onFinish} >
+                                    Submit
+                                </Button>
+                            </Form.Item>
+
                         </Form>
 
-                                    <button onClick={this.onFinish} >
-                                        Submit
-                                    </button>
+
 
 
 
