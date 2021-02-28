@@ -59,8 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     http   // logout不用写，用默认的就好了。
             .logout()
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/");
+            .logoutUrl("/logout");
   }
 
   @Override
