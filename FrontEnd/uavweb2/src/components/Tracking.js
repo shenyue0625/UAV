@@ -40,25 +40,24 @@ class Tracking extends React.Component {
     };
 
 
-
     componentDidMount() {
         const location = this.props.history.location; // get the current url
         const id = location.search.substr(9, location.search.length); // get the number after "?orderId="
         // e.g.  "?orderId=13" --> substr --> "13" (which is id)
         if (id !== "") {
             getTrackingDetails(id)
-              .then(res => {
-                  this.setState({
-                      trackingInfo: res,
-                      trackButtonClicked: true
-                  });
-                  console.log('got tracking info');
-                  console.log(res);
-              })
-              .catch(err => {
-                  console.log('did not get tracking info');
-                  message.error(err.message);
-              });
+                .then(res => {
+                    this.setState({
+                        trackingInfo: res,
+                        trackButtonClicked: true
+                    });
+                    console.log('got tracking info');
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log('did not get tracking info');
+                    message.error(err.message);
+                });
         }
     }
 
@@ -95,15 +94,16 @@ class Tracking extends React.Component {
                         >
 
                             <Form.Item {...layout}
-                                name="orderId"
-                                label="Order Id: "
-                                rules={[{required: true, whitespace: true, message: 'Please input Order Id!'}]}
+                                       name="orderId"
+                                       label="Order Id: "
+                                       rules={[{required: true, whitespace: true, message: 'Please input Order Id!'}]}
                             >
                                 <Input placeholder="Tracking number"/>
                             </Form.Item>
 
                             <Form.Item {...tailLayout}>
-                                <Button style={{textAlign: 'center'}} type="primary" htmlType="submit" className="register-btn">
+                                <Button style={{textAlign: 'center'}} type="primary" htmlType="submit"
+                                        className="register-btn">
                                     Track
                                 </Button>
                             </Form.Item>
@@ -120,14 +120,25 @@ class Tracking extends React.Component {
                             this.state.trackButtonClicked ?
                                 (
                                     <>
-                                        <h2 style={{textAlign: 'center'}}> Tracking # ： {this.state.trackingInfo.orderId}</h2>
+                                        <h2 style={{textAlign: 'center'}}> Tracking #
+                                            ： {this.state.trackingInfo.orderId}</h2>
                                         <br/><br/>
                                         <br/><br/>
-                                        <Timeline>
-                                            <Timeline.Item label="Delivery Order been placed" color="green">{Date(this.state.time)}</Timeline.Item>
-                                            <Timeline.Item label="Waiting to be picked up" color="green">{Date()}</Timeline.Item>
-                                            <Timeline.Item label="Package delivering" color="grey">   </Timeline.Item>
-                                            <Timeline.Item label="Arrived"  color="grey">   </Timeline.Item>
+                                        <Timeline mode="right">
+                                            <Timeline.Item label="Delivery Order been placed"
+                                                           color="green">{Date(this.state.time)}
+                                                <br/><br/>
+                                            </Timeline.Item>
+                                            <Timeline.Item label="Waiting to be picked up"
+                                                           color="green">
+                                                {Date()}<br/><br/>
+                                            </Timeline.Item>
+                                            <Timeline.Item label="Package delivering" color="grey">
+                                                <br/><br/>
+                                            </Timeline.Item>
+                                            <Timeline.Item label="Arrived" color="grey">
+                                                <br/><br/>
+                                            </Timeline.Item>
                                         </Timeline>
                                         <br/><br/>
 
@@ -136,17 +147,22 @@ class Tracking extends React.Component {
                                             bordered
                                             column={{xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1}}
                                         >
-                                            <Descriptions.Item label="From">{this.state.trackingInfo.senderAddress}</Descriptions.Item>
-                                            <Descriptions.Item label="To">{this.state.trackingInfo.receiverAddress}</Descriptions.Item>
+                                            <Descriptions.Item
+                                                label="From">{this.state.trackingInfo.senderAddress}</Descriptions.Item>
+                                            <Descriptions.Item
+                                                label="To">{this.state.trackingInfo.receiverAddress}</Descriptions.Item>
                                             <Descriptions.Item
                                                 label="Receiver Name">{this.state.trackingInfo.receiverName}</Descriptions.Item>
                                             <Descriptions.Item
                                                 label="Delivery method">{this.state.trackingInfo.deliveryMethod}</Descriptions.Item>
-                                            <Descriptions.Item label="Size">{this.state.trackingInfo.size}</Descriptions.Item>
-                                            <Descriptions.Item label="Weight">{this.state.trackingInfo.weight}</Descriptions.Item>
+                                            <Descriptions.Item
+                                                label="Size">{this.state.trackingInfo.size}</Descriptions.Item>
+                                            <Descriptions.Item
+                                                label="Weight">{this.state.trackingInfo.weight}</Descriptions.Item>
                                             <Descriptions.Item
                                                 label="Description">{this.state.trackingInfo.description}</Descriptions.Item>
-                                            <Descriptions.Item label="Station">{this.state.trackingInfo.station}</Descriptions.Item>
+                                            <Descriptions.Item
+                                                label="Station">{this.state.trackingInfo.station}</Descriptions.Item>
                                         </Descriptions>
                                     </>
                                 ) :
