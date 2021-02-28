@@ -1,10 +1,10 @@
 @import '~antd/dist/antd.css';
 @import './styles/Top.css';
 @import './styles/Bottom.css';
-@import './styles/App.css';
+@import './styles/Home.css';
 @import './styles/Login.css';
 @import './styles/AccountInfo.css';
-@import './styles/Header.css';
+@import './styles/App.css';
 @import './styles/Tracking.css';
 
 
