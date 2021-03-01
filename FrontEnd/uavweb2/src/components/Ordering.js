@@ -56,7 +56,7 @@ class Ordering extends Component {
       receiverName: null,
       cardNumber: null,
       size: null,
-      weight: null,
+      weight: 0,
       description: null,
       deliveryMethod: null,
       fee: null,
@@ -215,7 +215,7 @@ class Ordering extends Component {
               <Form.Item
                 name="description"
                 label="Item Description"
-                rules={[{ required: true, whitespace: true }]}
+                rules={[{ required: false, whitespace: true }]}
               >
                 <Input placeholder="Please discribe your product" />
               </Form.Item>
@@ -245,28 +245,29 @@ class Ordering extends Component {
 
               <Form.Item
                 label="Weight"
-                // name="weight"
                 rules={[{ required: true, whitespace: true }]}
               >
                 <Form.Item name="weight" noStyle>
-                  <InputNumber min={0} max={20.0} step={0.5} />
+                  <InputNumber min={0} max={20.0} step={0.5} defaultValue={0} />
                 </Form.Item>
+
                 <span className="package-weight"> lb </span>
               </Form.Item>
 
               <Form.Item label="Shipping Price" name="fee">
-                {this.state.Ordering.fee}USD
-                {/*    show the price after click the following button */}
-                <Button
-                  onClick={this.checkPriceOnClick}
-                  icon={<SearchOutlined />}
-                  type="default"
-                  htmlType="submit"
-                  className="check-price"
-                >
-                  {/* change the button back to the normal one */}
-                  Check Shipping Price
-                </Button>
+                <p>
+                  {this.state.Ordering.fee}USD
+                  <button
+                    onClick={this.checkPriceOnClick}
+                    icon={<SearchOutlined />}
+                    type="default"
+                    htmlType="submit"
+                    className="check-price"
+                  >
+                    {/* change the button back to the normal one */}
+                    Check Price
+                  </button>
+                </p>
               </Form.Item>
 
               <Divider orientation="left">Payment Information</Divider>
