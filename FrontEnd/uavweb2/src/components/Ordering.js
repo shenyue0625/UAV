@@ -10,7 +10,6 @@ import {
   Col,
   Form,
   Input,
-  Select,
   Radio,
   Button,
   InputNumber,
@@ -20,7 +19,6 @@ import {
 
 import { UserOutlined, SearchOutlined } from "@ant-design/icons";
 
-const { Option } = Select;
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -58,7 +56,7 @@ class Ordering extends Component {
       receiverName: null,
       cardNumber: null,
       size: null,
-      weight: 0,
+      weight: null,
       description: null,
       deliveryMethod: null,
       fee: null,
@@ -163,19 +161,8 @@ class Ordering extends Component {
               <h1>SENDING A PACKAGE</h1>
             </Divider>
             <br></br>
-
-            <Divider orientation="left">
-              <h3>1. Shipping</h3>
-            </Divider>
-            <Divider orientation="left">
-              <h3>2. Billing</h3>
-            </Divider>
-            <Divider orientation="left">
-              <h3>3. Order Summary</h3>
-            </Divider>
-
             <br />
-            <Divider orientation="left">Shipping</Divider>
+            <Divider orientation="left">Shipping Information</Divider>
 
             <Form
               {...formItemLayout}
@@ -223,14 +210,7 @@ class Ordering extends Component {
               >
                 <Input placeholder="Pattern: Address, City, State, Zip code" />
               </Form.Item>
-
-              <Form.Item
-                name="cardNumber"
-                label="Card Number"
-                rules={[{ required: true, whitespace: true }]}
-              >
-                <Input placeholder="Credit Card/ Debit Card Number" />
-              </Form.Item>
+              <Divider orientation="left">Package Information</Divider>
 
               <Form.Item
                 name="description"
@@ -253,17 +233,6 @@ class Ordering extends Component {
               </Form.Item>
 
               <Form.Item
-                label="Weight"
-                // name="weight"
-                rules={[{ required: true, whitespace: true }]}
-              >
-                <Form.Item name="weight" noStyle>
-                  <InputNumber min={0} max={20.0} step={0.5} />
-                </Form.Item>
-                <span className="package-weight"> lb </span>
-              </Form.Item>
-
-              <Form.Item
                 label="Delivery Method "
                 name="deliveryMethod"
                 rules={[{ required: true, whitespace: true }]}
@@ -274,12 +243,20 @@ class Ordering extends Component {
                 </Radio.Group>
               </Form.Item>
 
-              <Form.Item label="Price" name="fee">
-                {this.state.Ordering.fee}
-                {/*    show the price after click the following button */}
+              <Form.Item
+                label="Weight"
+                // name="weight"
+                rules={[{ required: true, whitespace: true }]}
+              >
+                <Form.Item name="weight" noStyle>
+                  <InputNumber min={0} max={20.0} step={0.5} />
+                </Form.Item>
+                <span className="package-weight"> lb </span>
               </Form.Item>
 
-              <Form.Item {...tailFormItemLayout}>
+              <Form.Item label="Shipping Price" name="fee">
+                {this.state.Ordering.fee}USD
+                {/*    show the price after click the following button */}
                 <Button
                   onClick={this.checkPriceOnClick}
                   icon={<SearchOutlined />}
@@ -290,6 +267,16 @@ class Ordering extends Component {
                   {/* change the button back to the normal one */}
                   Check Shipping Price
                 </Button>
+              </Form.Item>
+
+              <Divider orientation="left">Payment Information</Divider>
+
+              <Form.Item
+                name="cardNumber"
+                label="Card Number"
+                rules={[{ required: true, whitespace: true }]}
+              >
+                <Input placeholder="Credit Card/ Debit Card Number" />
               </Form.Item>
 
               <Form.Item {...tailFormItemLayout}>
