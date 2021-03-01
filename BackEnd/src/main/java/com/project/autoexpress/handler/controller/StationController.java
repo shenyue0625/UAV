@@ -20,8 +20,6 @@ public class StationController {
     @RequestMapping(value = "/admin/addStation", method = RequestMethod.POST)
     public ResponseEntity<Object> addStation(@RequestBody StationRequestBody stationRequest) {
 
-        StationResponseBody stationResponse = new StationResponseBody();
-
         // add station, get stationId
         Integer stationId = stationService.addStation(stationRequest);
 
@@ -31,10 +29,9 @@ public class StationController {
         }
 
         // if successful, put list of stations into responsebody
-        List<StationInfoResponseBody> stationInfoList = stationService.getAllStations();
-        stationResponse.setStationInfoList(stationInfoList);
+        List<StationInfoResponseBody> stationList = stationService.getAllStations();
 
         // return list of stations and status
-        return new ResponseEntity<>(stationResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(stationList, HttpStatus.CREATED);
     }
 }

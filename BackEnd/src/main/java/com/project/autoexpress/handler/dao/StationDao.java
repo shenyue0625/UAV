@@ -68,6 +68,7 @@ public class StationDao {
             body.setAvailableDrone(station.getAvailableDrones());
             body.setAvailableRobot(station.getAvailableRobots());
             body.setStationAddress(station.getStationAddress());
+            results.add(body);
         }
         return results;
     }
