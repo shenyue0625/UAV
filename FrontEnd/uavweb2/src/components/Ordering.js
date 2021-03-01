@@ -58,7 +58,7 @@ class Ordering extends Component {
       receiverName: null,
       cardNumber: null,
       size: null,
-      weight: 0.1,
+      weight: 0,
       description: null,
       deliveryMethod: null,
       fee: null,
@@ -86,7 +86,7 @@ class Ordering extends Component {
     this.setState({
       Ordering: data,
     });
-
+    let weight = this.state.Ordering.weight;
     // price calculation
     let size = 0;
     if (this.state.Ordering.size === "small") {
@@ -120,7 +120,7 @@ class Ordering extends Component {
       );
     }
 
-    let price = 0.8 * size * method * dist;
+    let price = 0.8 * size * method * dist * weight;
 
     console.log("price : ");
     console.log(price);
@@ -258,12 +258,7 @@ class Ordering extends Component {
                 rules={[{ required: true, whitespace: true }]}
               >
                 <Form.Item name="weight" noStyle>
-                  <InputNumber
-                    min={0.1}
-                    max={20.0}
-                    step={0.5}
-                    defaultValue={0.1}
-                  />
+                  <InputNumber min={0} max={20.0} step={0.5} />
                 </Form.Item>
                 <span className="package-weight"> lb </span>
               </Form.Item>
