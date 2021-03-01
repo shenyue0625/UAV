@@ -43,14 +43,22 @@ const { number, street, zip, state} = address;
 //Shen: Ordering页面的2个按钮已经分离开，点击check price只检查价格，点击submit才会触发restful api。
 //接下来的work：
 //1. 完成价格的计算，写进checkPriceOnClick() 中
-//2. submit 按键的css style需要美化
 //注意事项：state里的price是为了测试而写上去的，可以根据你的实现机制选择删除或保留。如果保留的话，在向后端发送数据的时候要确认:
     //1. state中"Ordering的price"已被更新
     //2. state中"Ordering的weight"数据是有意义的，不是undefined。
 class Ordering extends Component {
     state = {
-        price: null,
-        Ordering:null
+        Ordering: {
+            senderAddress: null,
+            receiverAddress: null,
+            receiverName: null,
+            cardNumber: null,
+            size: null,
+            weight: 0.1,
+            description: null,
+            deliveryMethod: null,
+            fee: null,
+        }
     }
 
     //'SUBMIT' button: This function only in charge of sending order info to backend
@@ -69,11 +77,40 @@ class Ordering extends Component {
 
     //'Check Price' button: use google api calculate price. Define calculation algorithm here
     checkPriceOnClick = (data) => {
+        console.log("this.state.Ordering");
+        console.log(this.state.Ordering);
         this.setState({
-            price: "$30",//$30只是为了测试写的hard code。NEED TO BE CHANGED TO CALCULATED PRICE，并且把price负值给Ordering.price
             Ordering: data,
-
         })
+
+        // price calculation
+        let size = 0;
+        if (this.state.Ordering.size === "small") {
+            size = 1;
+        } else if (this.state.Ordering.size === "medium") {
+            size = 2;
+        } else {
+            size = 3;
+        }
+        console.log("size : ");
+        console.log(size);
+
+        let method = 0;
+        if (this.state.Ordering.deliveryMethod === "drone") {
+            method = 1;
+        } else {
+            method = 2;
+        }
+        console.log("method : ");
+        console.log(method);
+
+        let price = 0.8 * size * method;
+        console.log("price : ");
+        console.log(price);
+        this.setState({
+            Ordering: Object.assign({}, this.state.Ordering, { fee: price })
+        } , () => console.log(this.state.Ordering.fee))
+        console.log(this.state.Ordering.fee)
     };
 
     // handleInputChange = event => {
@@ -209,9 +246,9 @@ class Ordering extends Component {
 
                             <Form.Item
                               label="Price"
-                              name="price"
+                              name="fee"
                             >
-                                {this.state.price}
+                                {this.state.Ordering.fee}
                             {/*    show the price after click the following button */}
                             </Form.Item>
 
