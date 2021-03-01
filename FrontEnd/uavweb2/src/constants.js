@@ -1,3 +1,5 @@
+/*This file defines constants that can be globally used in this project*/
+
 export const GOOGLE_API_KEY = "AIzaSyB53y4-6k1lvgsORyVe1T28zH82VkpFmrA";
 
 /*这个是google geocoding提供的地址转换成经纬度的api url的base*/
