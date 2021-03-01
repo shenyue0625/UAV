@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
 import { makeAPayment } from "../utils";
-import ButtonGroup from "antd/lib/button/button-group";
 import walle from "../assets/imgs/icon-robot.png";
 import drone from "../assets/imgs/icon-drone.png";
-import { getDistance, getRoute } from "./Google.js";
+import { getDistance, getRoute } from "./GoogleAPI.js";
 
 import {
   Row,
@@ -19,7 +18,7 @@ import {
   Divider,
 } from "antd";
 
-import { LockOutlined, UserOutlined, SearchOutlined } from "@ant-design/icons";
+import { UserOutlined, SearchOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 const formItemLayout = {
@@ -44,11 +43,6 @@ const tailFormItemLayout = {
     },
   },
 };
-
-const address = ["", "", "", ""];
-const { number, street, zip, state } = address;
-
-// const newAddress {...address} = {}
 
 //Shen: Ordering页面的2个按钮已经分离开，点击check price只检查价格，点击submit才会触发restful api。
 //接下来的work：
