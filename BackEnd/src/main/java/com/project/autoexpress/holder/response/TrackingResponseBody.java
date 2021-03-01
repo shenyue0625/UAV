@@ -18,7 +18,7 @@ public class TrackingResponseBody {
     private double fee;
     private String status;
     private Timestamp time;
-    private Station station;
+    private int stationId;
 
     public int getOrderId() {
         return orderId;
@@ -116,11 +116,13 @@ public class TrackingResponseBody {
         this.time = time;
     }
 
-    public Station getStation() {
-        return station;
+    public int getStationId() {
+        return stationId;
     }
 
-    public void setStation(Station station) {
-        this.station = station;
+    public void setStationId(int stationId) {
+        this.stationId = stationId;
     }
+
+
 }

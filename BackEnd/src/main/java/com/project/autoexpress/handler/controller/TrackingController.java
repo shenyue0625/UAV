@@ -30,7 +30,7 @@ public class TrackingController {
         trackingResponse.setFee(shippingOrder.getFee());
         trackingResponse.setStatus(shippingOrder.getStatus());
         trackingResponse.setTime(shippingOrder.getTime());
-        trackingResponse.setStation(shippingOrder.getStation());
+        trackingResponse.setStationId(shippingOrder.getStation().getStationId());
         //Do not add Customer to trackingResponse
         return new ResponseEntity<>(trackingResponse, HttpStatus.OK);
     }
