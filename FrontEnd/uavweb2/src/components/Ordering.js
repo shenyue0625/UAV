@@ -4,19 +4,7 @@ import { makeAPayment } from "../utils";
 import walle from "../assets/imgs/icon-robot.png";
 import drone from "../assets/imgs/icon-drone.png";
 import { getDistance, getRoute } from "./GoogleAPI.js";
-
-import {
-  Row,
-  Col,
-  Form,
-  Input,
-  Radio,
-  Button,
-  InputNumber,
-  message,
-  Divider,
-} from "antd";
-
+import { Row, Col, Form, Input, Radio, Button, InputNumber, message, Divider } from "antd";
 import { UserOutlined, SearchOutlined } from "@ant-design/icons";
 
 const formItemLayout = {
@@ -42,19 +30,16 @@ const tailFormItemLayout = {
   },
 };
 
-//Shen: Ordering页面的2个按钮已经分离开，点击check price只检查价格，点击submit才会触发restful api。
-//接下来的work：
-//1. 完成价格的计算，写进checkPriceOnClick() 中
-//注意事项：state里的price是为了测试而写上去的，可以根据你的实现机制选择删除或保留。如果保留的话，在向后端发送数据的时候要确认:
-//1. state中"Ordering的price"已被更新
-//2. state中"Ordering的weight"数据是有意义的，不是undefined。
 class Ordering extends Component {
   state = {
+    cardInfo: {
+      cardNumber: null
+    },
     Ordering: {
       senderAddress: null,
       receiverAddress: null,
       receiverName: null,
-      cardNumber: null,
+      //cardNumber: null,
       size: null,
       weight: 0,
       description: null,
@@ -63,11 +48,22 @@ class Ordering extends Component {
     },
   };
 
-  //'SUBMIT' button: This function only in charge of sending order info to backend
-  onFinish = () => {
-    // 现在这里算一下。
-    console.log("this.state.Ordering");
-    console.log(this.state.Ordering);
+  //'SUBMIT' button: 只负责向后端发送数据
+  onFinish = (data) => {
+
+    //ui上拿到的credit card数据不可以直接用，需要解构才能拿到。 存放在：this.state.cardInfo.cardNumber
+    this.setState({
+      cardInfo: data
+    })
+
+    //更改Ordering中的cardNumber
+    this.setState({
+          Ordering: {...this.state.Ordering, cardNumber: this.state.cardInfo.cardNumber }
+        });
+
+    //console.log("onFinish, this.state.cardInfo:", this.state.cardInfo);
+
+    //向后端发送Ordering数据
     makeAPayment(this.state.Ordering)
       .then(() => {
         message.success("Order successfully submitted");
@@ -75,17 +71,21 @@ class Ordering extends Component {
       .catch(err => {
         message.error("submit failed!", err);
       });
+
+    //console.log("onFinish, this.state.cardInfo.cardNumber:", this.state.cardInfo.cardNumber);
+    console.log("onFinish, this.state.Ordering:", this.state.cardInfo.Ordering);
   };
 
-  //'Check Price' button: use google api calculate price. Define calculation algorithm here
-  checkPriceOnClick = data => {
-    console.log("this.state.Ordering");
-    console.log(this.state.Ordering);
+  //'Check Price' button: 只负责计算价格，实时显示给前端用户
+  checkPriceOnClick = (data) => {
+     //console.log("Click check price, data:", data);
+
     this.setState({
       Ordering: data,
     });
-    let weight = this.state.Ordering.weight;
+
     // price calculation
+    let weight = this.state.Ordering.weight;
     let size = 0;
     if (this.state.Ordering.size === "small") {
       size = 1;
@@ -94,48 +94,33 @@ class Ordering extends Component {
     } else {
       size = 3;
     }
-    console.log("size : ");
-    console.log(size);
+    // console.log("when checking price, size: ", size);
 
     let method = 0;
-    if (this.state.Ordering.deliveryMethod === "drone") {
-      method = 1;
-    } else {
-      method = 2;
-    }
-    console.log("method : ");
-    console.log(method);
     let dist = 1;
     if (this.state.Ordering.deliveryMethod === "drone") {
+      method = 1;
       dist = getDistance(
-        this.state.Ordering.senderAddress,
-        this.state.Ordering.receiverAddress
+          this.state.Ordering.senderAddress,
+          this.state.Ordering.receiverAddress
       );
     } else {
+      method = 2;
       dist = getRoute(
-        this.state.Ordering.senderAddress,
-        this.state.Ordering.receiverAddress
+          this.state.Ordering.senderAddress,
+          this.state.Ordering.receiverAddress
       );
     }
+    // console.log("when checking price, method : ", method);
 
     let price = 0.8 * size * method * dist * weight;
 
-    console.log("price : ");
-    console.log(price);
     this.setState(
       {
         Ordering: Object.assign({}, this.state.Ordering, { fee: price }),
-      },
-      () => console.log(this.state.Ordering.fee)
-    );
-    console.log(this.state.Ordering.fee);
+      });
+    console.log("checked price, Update fee in Ordering:", this.state.Ordering);
   };
-
-  // handleInputChange = event => {
-  //   this.setState({
-  //     [event.target.name]: event.target.value,
-  //   });
-  // };
 
   render() {
     return (
@@ -255,23 +240,27 @@ class Ordering extends Component {
               </Form.Item>
 
               <Form.Item label="Shipping Price" name="fee">
-                <p>
-                  {this.state.Ordering.fee}USD
-                  <button
+                {/*<p>*/}
+                  ${this.state.Ordering.fee}USD
+                  <Button
                     onClick={this.checkPriceOnClick}
                     icon={<SearchOutlined />}
-                    type="default"
                     htmlType="submit"
-                    className="check-price"
                   >
-                    {/* change the button back to the normal one */}
                     Check Price
-                  </button>
-                </p>
+                  </Button>
+                {/*</p>*/}
               </Form.Item>
+            </Form>
 
               <Divider orientation="left">Payment Information</Divider>
 
+            <Form
+                {...formItemLayout}
+                name="cardInfo"
+                onFinish={this.onFinish}
+                scrollToFirstError
+            >
               <Form.Item
                 name="cardNumber"
                 label="Card Number"
@@ -281,7 +270,7 @@ class Ordering extends Component {
               </Form.Item>
 
               <Form.Item {...tailFormItemLayout}>
-                <Button type="primary" onClick={this.onFinish}>
+                <Button onClick={this.onFinish} htmlType="submit">
                   Submit
                 </Button>
               </Form.Item>
