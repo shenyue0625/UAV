@@ -14,8 +14,11 @@ public class User implements Serializable {
 
   @Id
   private String emailId;
+
   private String password;
+
   private boolean enabled;
+
   @OneToOne(mappedBy = "user")
   private Customer customer;
 

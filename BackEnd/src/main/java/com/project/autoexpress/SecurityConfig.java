@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests() // 指明权限，*是任意字符；**是可以匹配/a/b这种多个level的。
             .antMatchers("/accountinfo/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
             .antMatchers("/payment/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+            .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
             .anyRequest().permitAll();
     // 而且权限不够的时候，会自动redirect to login
 

@@ -11,20 +11,20 @@ public class Station implements Serializable {
   private static final long serialVersionUID = 301L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private int id;
+  private int stationId;
   private int availableDrones;
   private int availableRobots;
   private String stationAddress;
+
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<ShippingOrder> shippingOrder;
 
-  public int getId() {
-    return id;
+  public int getStationId() {
+    return stationId;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setStationId(int stationId) {
+    this.stationId = stationId;
   }
 
   public int getAvailableDrones() {

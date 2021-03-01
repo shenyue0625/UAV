@@ -2,14 +2,14 @@ package com.project.autoexpress.handler.dao;
 
 import com.project.autoexpress.entity.Customer;
 import com.project.autoexpress.entity.ShippingOrder;
+import com.project.autoexpress.entity.Station;
 import com.project.autoexpress.entity.User;
 import com.project.autoexpress.handler.service.CustomerService;
+import com.project.autoexpress.handler.service.StationService;
 import com.project.autoexpress.holder.request.OrderRequestBody;
 import com.project.autoexpress.holder.response.OrderInfoResponseBody;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +26,9 @@ public class OrderDao {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private StationService stationService;
 
     public List<OrderInfoResponseBody> getCurrentUserOrders() {
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
@@ -58,6 +61,8 @@ public class OrderDao {
     public Integer addOrder(OrderRequestBody orderRequest) { // set 是否成功，通过返回一个int来表达。
 
         Customer customer = customerService.getCurrentCustomer();
+        // assume new order is assigned to station with stationID == 1
+        Station station = stationService.getStationById(1);
 
         ShippingOrder shippingOrder = new ShippingOrder(); // build a shipping order from request
         shippingOrder.setCustomer(customer);
@@ -72,7 +77,10 @@ public class OrderDao {
         shippingOrder.setWeight(orderRequest.getWeight());
         // add current time
         shippingOrder.setTime(new Timestamp(System.currentTimeMillis()));
+        // assume inital status of new order is waiting
         shippingOrder.setStatus("waiting");
+        // assign order to a station
+        shippingOrder.setStation(station);
 
         Session session = null;
 
