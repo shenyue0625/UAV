@@ -3,7 +3,6 @@ package com.project.autoexpress.handler.controller;
 import com.project.autoexpress.handler.service.StationService;
 import com.project.autoexpress.holder.request.StationRequestBody;
 import com.project.autoexpress.holder.response.StationInfoResponseBody;
-import com.project.autoexpress.holder.response.StationResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +27,20 @@ public class StationController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
-        // if successful, put list of stations into responsebody
+        // if successful, get list of stations
         List<StationInfoResponseBody> stationList = stationService.getAllStations();
 
         // return list of stations and status
         return new ResponseEntity<>(stationList, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/admin/allStations", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAllStations() {
+
+        // get all stations as a list
+        List<StationInfoResponseBody> stationList = stationService.getAllStations();
+
+        // return list of stations and status
+        return new ResponseEntity<>(stationList, HttpStatus.OK);
     }
 }
