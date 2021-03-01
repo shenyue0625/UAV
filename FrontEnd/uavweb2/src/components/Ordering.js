@@ -121,7 +121,7 @@ class Ordering extends Component {
 
     this.setState(
       {
-        Ordering: Object.assign({}, this.state.Ordering, { fee: price }),
+        Ordering: Object.assign({}, this.state.Ordering, { fee: price.toFixed(2) }),//Round to 2 decimals
       });
     console.log("checked price, Update fee in Ordering:", this.state.Ordering);
   };
