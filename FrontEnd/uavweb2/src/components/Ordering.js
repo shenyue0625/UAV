@@ -50,6 +50,9 @@ class Ordering extends Component {
 
   //'SUBMIT' button: 只负责向后端发送数据
   onFinish = (data) => {
+    if (!data.hasOwnProperty("cardNumber")) {
+      return;
+    }
 
     //ui上拿到的credit card数据不可以直接用，需要解构才能拿到。 存放在：this.state.cardInfo.cardNumber
     this.setState({
@@ -64,6 +67,7 @@ class Ordering extends Component {
     //console.log("onFinish, this.state.cardInfo:", this.state.cardInfo);
 
     //向后端发送Ordering数据
+    console.log(data)
     makeAPayment(this.state.Ordering)
       .then(() => {
         message.success("Order successfully submitted");
