@@ -1,10 +1,13 @@
 package com.project.autoexpress.handler.controller;
 
 import com.project.autoexpress.entity.ShippingOrder;
+import com.project.autoexpress.handler.service.DispatchService;
 import com.project.autoexpress.handler.service.OrderService;
 import com.project.autoexpress.holder.request.OrderRequestBody;
 import com.project.autoexpress.holder.response.OrderInfoResponseBody;
 import com.project.autoexpress.holder.response.OrderResponseBody;
+import com.project.autoexpress.holder.response.TrackingResponseBody;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,9 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private DispatchService dispatchService;
+
     @RequestMapping(value = "/payment", method = RequestMethod.POST)
     public ResponseEntity<Object> placeOrder(@RequestBody OrderRequestBody orderRequest) {
 
@@ -28,6 +34,11 @@ public class OrderController {
         OrderResponseBody orderResponse = new OrderResponseBody();
         int orderId = orderService.addOrder(orderRequest);
         orderResponse.setOrderId(orderId);
+
+        //add a dispatched stationId to the response
+        TrackingResponseBody trackingResponseBody = new TrackingResponseBody();
+        int stationId = dispatchService.dispatchStation(orderRequest);
+        trackingResponseBody.setStationId(stationId);
 
         if (orderResponse == null) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); // give a response body class object in the first parameter
