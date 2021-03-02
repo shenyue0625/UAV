@@ -5,6 +5,7 @@ import com.project.autoexpress.entity.ShippingOrder;
 import com.project.autoexpress.entity.Station;
 import com.project.autoexpress.entity.User;
 import com.project.autoexpress.handler.service.CustomerService;
+import com.project.autoexpress.handler.service.DispatchService;
 import com.project.autoexpress.handler.service.StationService;
 import com.project.autoexpress.holder.request.OrderRequestBody;
 import com.project.autoexpress.holder.response.OrderInfoResponseBody;
@@ -29,6 +30,9 @@ public class OrderDao {
 
     @Autowired
     private StationService stationService;
+
+    @Autowired
+    private DispatchService dispatchService;
 
     public List<OrderInfoResponseBody> getCurrentUserOrders() {
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
@@ -63,6 +67,9 @@ public class OrderDao {
         Customer customer = customerService.getCurrentCustomer();
         // assume new order is assigned to station with stationID == 1
         Station station = stationService.getStationById(1);
+
+        //dispatch a station
+        //Station station = dispatchService.dispatchStation(orderRequest);
 
         ShippingOrder shippingOrder = new ShippingOrder(); // build a shipping order from request
         shippingOrder.setCustomer(customer);
