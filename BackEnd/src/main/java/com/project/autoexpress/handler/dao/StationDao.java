@@ -30,6 +30,8 @@ public class StationDao {
         station.setAvailableRobots(stationRequest.getAvailableRobots());
         station.setStationAddress(stationRequest.getStationAddress());
 
+        //delete a robot or drone from the station
+
         Session session = null;
 
         try {
@@ -86,6 +88,20 @@ public class StationDao {
             return station;
         }
         return null;
+    }
 
+    //get all 3 stations for lat and long
+    public List<Station> getStationsLocation() {
+
+        List<Station> stations = new ArrayList<>();
+        try (Session session = sessionFactory.openSession()) {
+            // if have, return all
+            stations = session.createCriteria(Station.class).list();
+        } catch (Exception e) {
+            // if don't have return null
+            e.printStackTrace();
+        }
+
+        return stations;
     }
 }
