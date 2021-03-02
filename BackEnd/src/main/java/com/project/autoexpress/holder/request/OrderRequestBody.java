@@ -11,6 +11,9 @@ public class OrderRequestBody {
     private String description;
     private String deliveryMethod;
     private double fee;
+    //add sender address's latitude and longitude
+    private double latitude;
+    private double longitude;
 
     public void setSenderAddress(String senderAddress) {
         this.senderAddress = senderAddress;
@@ -83,4 +86,13 @@ public class OrderRequestBody {
     public double getFee() {
         return fee;
     }
+
+    public double getLatitude() { return latitude; }
+
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+
+    public double getLongitude() { return longitude; }
+
+    public void setLongitude(double longitude) { this.longitude = longitude; }
+
 }
