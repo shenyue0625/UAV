@@ -15,6 +15,10 @@ public class Station implements Serializable {
   private int availableDrones;
   private int availableRobots;
   private String stationAddress;
+  //add lat and long
+  private double latitude;
+  private double longitude;
+
 
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<ShippingOrder> shippingOrder;
@@ -58,5 +62,13 @@ public class Station implements Serializable {
   public void setShippingOrder(List<ShippingOrder> shippingOrder) {
     this.shippingOrder = shippingOrder;
   }
+
+  public double getLatitude() { return latitude; }
+
+  public void setLatitude(double latitude) { this.latitude = latitude; }
+
+  public double getLongitude() { return longitude; }
+
+  public void setLongitude(double longitude) { this.longitude = longitude; }
 }
 
