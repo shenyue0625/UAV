@@ -50,7 +50,7 @@ class Ordering extends Component {
 
   //'SUBMIT' button: 只负责向后端发送数据
   onFinish = (data) => {
-    if (!data.hasOwnProperty("cardNumber")) {
+    if (!data.hasOwnProperty("cardNumber")) {//如果当前data数据中没有cardNumber信息，则不向后端发送rest api，直接return。这一步是绕开发送2个api的bug
       return;
     }
 
