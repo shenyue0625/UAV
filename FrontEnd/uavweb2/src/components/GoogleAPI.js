@@ -1,4 +1,8 @@
-//this google.js file is to implement all google app API and return the numbers per needed.
+/*本文主要提供3个函数,用于实现与google app API交互的方法：
+1. getLatAndLong：转换地址->经纬度
+2. getDistance：输入寄件地址 & 收件地址，来计算无人机需要的 直 线 距 离
+3. getRoute：输入寄件地址 & 收件地址，来计算机器人在陆地上的 真正路线距离
+*/
 import { GOOGLE_API_KEY, GEOCODING_BASE, GOOGLE_DISTANCE_MATRIX_API } from "../constants";
 import axios from "axios";
 //Google API KEY:  AIzaSyB53y4-6k1lvgsORyVe1T28zH82VkpFmrA  feel free to use
@@ -29,7 +33,7 @@ export const getLatAndLong = (address) => {
         })
 };
 
-//2. Drone's distance calculation:直线距离
+//2. Drone's distance calculation:无人机路线的距离 (直线)
 export const getDistance = (addressFrom, addressTo) => {
   //处理地址，格式化
   var addressFromStr = addressFrom;
@@ -102,6 +106,8 @@ export const getDistance = (addressFrom, addressTo) => {
 */
 }
 
+//可以测试这个url，是能够拿到json数据的。
+//https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=765+hampden+ave,+saint+paul,+MN&destinations=1016+Washington+Ave,+Minneapolis,+MN&key=AIzaSyB53y4-6k1lvgsORyVe1T28zH82VkpFmrA
 //3. Machine's distance calculation: 陆地路线的距离
 export const getRoute = (addressFrom, addressTo) => {
     //处理地址，格式化
