@@ -3,9 +3,11 @@ import "antd/dist/antd.css";
 import { makeAPayment } from "../utils";
 import walle from "../assets/imgs/icon-robot.png";
 import drone from "../assets/imgs/icon-drone.png";
-import { getDistance, getRoute } from "./GoogleAPI.js";
+import {getDistance, getRoute, getStraightDistance} from "./GoogleAPI.js";
 import { Row, Col, Form, Input, Radio, Button, InputNumber, message, Divider } from "antd";
 import { UserOutlined, SearchOutlined } from "@ant-design/icons";
+import {GEOCODING_BASE, GOOGLE_API_KEY, GOOGLE_DISTANCE_MATRIX_API } from "../constants";
+import axios from "axios";
 
 const formItemLayout = {
   labelCol: {
@@ -32,6 +34,7 @@ const tailFormItemLayout = {
 
 class Ordering extends Component {
   state = {
+      dist: null,
     cardInfo: {
       cardNumber: null
     },
@@ -102,13 +105,58 @@ class Ordering extends Component {
 
     let method = 0;
     let dist = 1;
-    if (this.state.Ordering.deliveryMethod === "drone") {
+
+    if (this.state.Ordering.deliveryMethod === "drone") {//无人机派送
       method = 1;
-      dist = getDistance(
-          this.state.Ordering.senderAddress,
-          this.state.Ordering.receiverAddress
-      );
-    } else {
+
+        //处理地址，格式化
+        var formattedAddrFrom = this.state.Ordering.senderAddress.replace(" ", "+");
+        var formattedAddrTo = this.state.Ordering.receiverAddress.replace(" ", "+");
+
+        // Geocoding API 起始地址
+        const urlFrom = `${GEOCODING_BASE}${formattedAddrFrom}&key=${GOOGLE_API_KEY}`;
+        console.log('Drone From url: ', urlFrom);
+
+        // Geocoding API 目的地址
+        const urlTo = `${GEOCODING_BASE}${formattedAddrTo}&key=${GOOGLE_API_KEY}`;
+        console.log('Drone To url: ', urlTo);
+
+        var location1 = null;
+
+        //拿到经纬度，并计算距离，这里要注意：是在cb function内异步，所以用axios实现同步操作
+        axios.get(urlFrom)
+            .then(response => {
+                //console.log("Sender, google api drone - response.data", response.data);
+                //console.log('Sender location: ', response.data.results[0].geometry.location);
+                location1 = response.data.results[0].geometry.location;
+                const { lat, lng } = location1;
+                console.log('Drone Sender Latitude & Longitude: ', lat, lng);
+                var lat1 = lat;
+                var lng1 = lng;
+
+                var location2 = null;
+                axios.get(urlTo)
+                    .then(response => {
+                        //console.log("Receiver, google api drone - response.data", response.data)
+                        //console.log('Receiver location: ', response.data.results[0].geometry.location);
+                        location2 = response.data.results[0].geometry.location;
+                        const { lat, lng } = location2;
+                        console.log('Drone Receiver Latitude & Longitude: ', lat, lng);
+                        var lat2 = lat;
+                        var lng2 = lng;
+                        console.log('Drone distance is: ', getStraightDistance(lat1, lng1, lat2, lng2));
+                        dist =  getStraightDistance(lat1, lng1, lat2, lng2);//单位是米
+                    })
+                    .catch(error => {
+                        console.log('Drone To, err in fetch latitude and longitude -> ', error);
+                    })
+
+            })
+            .catch(error => {
+                console.log('Drone From, err in fetch latitude and longitude -> ', error);
+            })
+
+    } else {//机器人派送
       method = 2;
       dist = getRoute(
           this.state.Ordering.senderAddress,
@@ -116,7 +164,6 @@ class Ordering extends Component {
       );
     }
     // console.log("when checking price, method : ", method);
-
     let price = 0.8 * size * method * dist * weight;
 
     this.setState(

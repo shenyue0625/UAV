@@ -36,10 +36,8 @@ export const getLatAndLong = (address) => {
 //2. Drone's distance calculation:无人机路线的距离 (直线)
 export const getDistance = (addressFrom, addressTo) => {
   //处理地址，格式化
-  var addressFromStr = addressFrom;
-  var addressToStr = addressTo;
-  var formattedAddrFrom = addressFromStr.replace(" ", "+");
-  var formattedAddrTo = addressToStr.replace(" ", "+");
+  var formattedAddrFrom = addressFrom.replace(" ", "+");
+  var formattedAddrTo = addressTo.replace(" ", "+");
 
   // Geocoding API 起始地址
   const urlFrom = `${GEOCODING_BASE}${formattedAddrFrom}&key=${GOOGLE_API_KEY}`;
@@ -110,30 +108,28 @@ export const getDistance = (addressFrom, addressTo) => {
 //https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=765+hampden+ave,+saint+paul,+MN&destinations=1016+Washington+Ave,+Minneapolis,+MN&key=AIzaSyB53y4-6k1lvgsORyVe1T28zH82VkpFmrA
 //3. Machine's distance calculation: 陆地路线的距离
 export const getRoute = (addressFrom, addressTo) => {
-    //处理地址，格式化
-    var addressFromStr = addressFrom;
-    var addressToStr = addressTo;
-    var formattedAddrFrom = addressFromStr.replace(" ", "+");
-    var formattedAddrTo = addressToStr.replace(" ", "+");
-
-    const url = `${GOOGLE_DISTANCE_MATRIX_API}${formattedAddrFrom}&destinations=${formattedAddrTo}&key=${GOOGLE_API_KEY}`;
-    console.log('Machines calculation url: ', url);
-
-    //？？？？？？？？？遇到跨域问题？？？？？？？？？？
-    axios.get(url, {
-        headers: {'Access-Control-Allow-Origin': '*'},
-        proxy: {
-            host: '104.236.174.88',
-            port: 3128
-        },})
-        .then(response => {
-            console.log("Machines, response.data", response.data);
-            console.log('Machines distance: ', response.data.rows[0].elements[0].distance);
-
-        })
-        .catch(error => {
-            console.log('To, err in fetch latitude and longitude -> ', error);
-        })
+    // //处理地址，格式化
+    // var formattedAddrFrom = addressFrom.replace(" ", "+");
+    // var formattedAddrTo = addressTo.replace(" ", "+");
+    //
+    // const url = `${GOOGLE_DISTANCE_MATRIX_API}${formattedAddrFrom}&destinations=${formattedAddrTo}&key=${GOOGLE_API_KEY}`;
+    // console.log('Machines calculation url: ', url);
+    //
+    // //？？？？？？？？？遇到跨域问题？？？？？？？？？？
+    // axios.get(url, {
+    //     headers: {'Access-Control-Allow-Origin': '*'},
+    //     proxy: {
+    //         host: '104.236.174.88',
+    //         port: 3128
+    //     },})
+    //     .then(response => {
+    //         console.log("Machines, response.data", response.data);
+    //         console.log('Machines distance: ', response.data.rows[0].elements[0].distance);
+    //
+    //     })
+    //     .catch(error => {
+    //         console.log('To, err in fetch latitude and longitude -> ', error);
+    //     })
 
   return 2;
 };
