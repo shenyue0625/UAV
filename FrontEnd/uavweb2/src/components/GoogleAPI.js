@@ -7,6 +7,8 @@ import { GOOGLE_API_KEY, GEOCODING_BASE, GOOGLE_DISTANCE_MATRIX_API } from "../c
 import axios from "axios";
 //Google API KEY:  AIzaSyB53y4-6k1lvgsORyVe1T28zH82VkpFmrA  feel free to use
 
+
+
 //1. Convert address to latitude & longitude.
 export const getLatAndLong = (address) => {
     //处理地址，格式化
@@ -108,20 +110,21 @@ export const getDistance = (addressFrom, addressTo) => {
 //https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=765+hampden+ave,+saint+paul,+MN&destinations=1016+Washington+Ave,+Minneapolis,+MN&key=AIzaSyB53y4-6k1lvgsORyVe1T28zH82VkpFmrA
 //3. Machine's distance calculation: 陆地路线的距离
 export const getRoute = (addressFrom, addressTo) => {
-    // //处理地址，格式化
+    //处理地址，格式化
     // var formattedAddrFrom = addressFrom.replace(" ", "+");
     // var formattedAddrTo = addressTo.replace(" ", "+");
     //
     // const url = `${GOOGLE_DISTANCE_MATRIX_API}${formattedAddrFrom}&destinations=${formattedAddrTo}&key=${GOOGLE_API_KEY}`;
     // console.log('Machines calculation url: ', url);
-    //
-    // //？？？？？？？？？遇到跨域问题？？？？？？？？？？
+
+    //？？？？？？？？？遇到跨域问题？？？？？？？？？？
     // axios.get(url, {
     //     headers: {'Access-Control-Allow-Origin': '*'},
     //     proxy: {
-    //         host: '104.236.174.88',
-    //         port: 3128
-    //     },})
+    //        host: '104.236.174.88',
+    //        port: 3128
+    //     },}
+    //     )
     //     .then(response => {
     //         console.log("Machines, response.data", response.data);
     //         console.log('Machines distance: ', response.data.rows[0].elements[0].distance);
