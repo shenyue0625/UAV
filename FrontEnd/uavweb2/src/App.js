@@ -8,6 +8,8 @@ import Main from './components/Main';
 
 const {Header, Footer, Content} = Layout;
 
+//SZQ:where did we apply the Router or BrowserRouter??
+//SZQ:setLoggedIn 是怎么被调用的呢？？是写好的吗？ 像onClick onFinish一样
 class App extends React.Component {
     state = {
       isLoggedIn: false,

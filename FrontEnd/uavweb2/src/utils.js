@@ -10,6 +10,7 @@ const SERVER_ORIGIN = 'http://localhost:8080';
 const loginUrl = `${SERVER_ORIGIN}/login`;
 
 // Ma: the content type should be x-www-form-urlencoded.
+
 export const login = (credential) => {
     const {username, password} = credential;
     var urlencoded = new URLSearchParams();
@@ -28,6 +29,7 @@ export const login = (credential) => {
             throw Error('Fail to log in');
         }
         // chaining fetch
+        //SZQ： how did you get the account info without giving that function a param?
         getAccountInfo().then((data) => {
             message.success(`Welcome back, ${data.firstName + " " + data.lastName}`);
         })
@@ -101,7 +103,7 @@ export const makeAPayment = (allPaymentInfo) => {
 // "Failed to execute 'json' on 'Response': body stream already read.
 // Ma: the method will get the [currently logged in user's info], so it's unnecessary to provide credentials.
 const getAccountInfoUrl = `${SERVER_ORIGIN}/accountinfo`
-
+//SZQ: how did you get the account info without giving this function a param?
 export const getAccountInfo = () => {
     return fetch(getAccountInfoUrl, {
         method: 'GET',

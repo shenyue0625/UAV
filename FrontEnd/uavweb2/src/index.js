@@ -4,9 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+//SZQ: where do we apply index.css file??
 ReactDOM.render(
     <App/>,
-    document.getElementById('root')
+    document.getElementById('root')//SZ：render(from where, to where)  root is the only ID in index.html file
 );
 
 // If you want to start measuring performance in your app, pass a function
