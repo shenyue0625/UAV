@@ -15,7 +15,7 @@ API Doc published by Postman: https://documenter.getpostman.com/view/13221409/TW
 
 ## Database Schema
 
-![](https://github.com/shenyue0625/UAV/blob/main/images/Database Schema.png)
+![](https://github.com/shenyue0625/UAV/blob/main/images/Database%20Schema.png)
 
 ## Backend Architecture
 
