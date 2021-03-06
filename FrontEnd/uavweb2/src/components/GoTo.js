@@ -5,6 +5,7 @@ import {Redirect} from "react-router"
 
 // once login is good: use imperative redirect
 // https://dev.to/emreloper/react-router-v6-in-two-minutes-2i96 (网页素材名字写反了)
+//SZQ：what is the difference between this redirect and Go to?
 function GoTo(props) {
     return <Redirect to={props.target} replace />;
 }
