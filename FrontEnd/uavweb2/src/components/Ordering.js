@@ -3,11 +3,12 @@ import "antd/dist/antd.css";
 import { makeAPayment } from "../utils";
 import walle from "../assets/imgs/icon-robot.png";
 import drone from "../assets/imgs/icon-drone.png";
-import {getDistance, getRoute, getStraightDistance} from "./GoogleAPI.js";
+import { getDistance, getRoute, getStraightDistance } from "./GoogleAPI.js";
 import { Row, Col, Form, Input, Radio, Button, InputNumber, message, Divider } from "antd";
 import { UserOutlined, SearchOutlined } from "@ant-design/icons";
-import {GEOCODING_BASE, GOOGLE_API_KEY, GOOGLE_DISTANCE_MATRIX_API } from "../constants";
+import { GEOCODING_BASE, GOOGLE_API_KEY, GOOGLE_DISTANCE_MATRIX_API } from "../constants";
 import axios from "axios";
+import MapContainer from "./GoogleMap";
 
 const formItemLayout = {
   labelCol: {
@@ -34,7 +35,7 @@ const tailFormItemLayout = {
 
 class Ordering extends Component {
   state = {
-      dist: null,
+    dist: null,
     cardInfo: {
       cardNumber: null
     },
@@ -64,8 +65,8 @@ class Ordering extends Component {
 
     //更改Ordering中的cardNumber
     this.setState({
-          Ordering: {...this.state.Ordering, cardNumber: this.state.cardInfo.cardNumber }
-        });
+      Ordering: { ...this.state.Ordering, cardNumber: this.state.cardInfo.cardNumber }
+    });
 
     //console.log("onFinish, this.state.cardInfo:", this.state.cardInfo);
 
@@ -85,7 +86,7 @@ class Ordering extends Component {
 
   //'Check Price' button: 只负责计算价格，实时显示给前端用户
   checkPriceOnClick = (data) => {
-     //console.log("Click check price, data:", data);
+    //console.log("Click check price, data:", data);
 
     this.setState({
       Ordering: data,
@@ -109,59 +110,60 @@ class Ordering extends Component {
     if (this.state.Ordering.deliveryMethod === "drone") {//无人机派送
       method = 1;
 
-        //处理地址，格式化
-        var formattedAddrFrom = this.state.Ordering.senderAddress.replace(" ", "+");
-        var formattedAddrTo = this.state.Ordering.receiverAddress.replace(" ", "+");
+      //处理地址，格式化
+      var formattedAddrFrom = this.state.Ordering.senderAddress.replace(" ", "+");
+      var formattedAddrTo = this.state.Ordering.receiverAddress.replace(" ", "+");
 
-        // Geocoding API 起始地址
-        const urlFrom = `${GEOCODING_BASE}${formattedAddrFrom}&key=${GOOGLE_API_KEY}`;
-        console.log('Drone From url: ', urlFrom);
+      // Geocoding API 起始地址
+      const urlFrom = `${GEOCODING_BASE}${formattedAddrFrom}&key=${GOOGLE_API_KEY}`;
+      console.log('Drone From url: ', urlFrom);
 
-        // Geocoding API 目的地址
-        const urlTo = `${GEOCODING_BASE}${formattedAddrTo}&key=${GOOGLE_API_KEY}`;
-        console.log('Drone To url: ', urlTo);
+      // Geocoding API 目的地址
+      const urlTo = `${GEOCODING_BASE}${formattedAddrTo}&key=${GOOGLE_API_KEY}`;
+      console.log('Drone To url: ', urlTo);
 
-        var location1 = null;
+      var location1 = null;
 
-        //拿到经纬度，并计算距离，这里要注意：是在cb function内异步，所以用axios实现同步操作
-        axios.get(urlFrom)
+      //拿到经纬度，并计算距离，这里要注意：是在cb function内异步，所以用axios实现同步操作
+      axios.get(urlFrom)
+        .then(response => {
+          //console.log("Sender, google api drone - response.data", response.data);
+          //console.log('Sender location: ', response.data.results[0].geometry.location);
+          location1 = response.data.results[0].geometry.location;
+          const { lat, lng } = location1;
+          console.log('Drone Sender Latitude & Longitude: ', lat, lng);
+          var lat1 = lat;
+          var lng1 = lng;
+
+          var location2 = null;
+          axios.get(urlTo)
             .then(response => {
-                //console.log("Sender, google api drone - response.data", response.data);
-                //console.log('Sender location: ', response.data.results[0].geometry.location);
-                location1 = response.data.results[0].geometry.location;
-                const { lat, lng } = location1;
-                console.log('Drone Sender Latitude & Longitude: ', lat, lng);
-                var lat1 = lat;
-                var lng1 = lng;
-
-                var location2 = null;
-                axios.get(urlTo)
-                    .then(response => {
-                        //console.log("Receiver, google api drone - response.data", response.data)
-                        //console.log('Receiver location: ', response.data.results[0].geometry.location);
-                        location2 = response.data.results[0].geometry.location;
-                        const { lat, lng } = location2;
-                        console.log('Drone Receiver Latitude & Longitude: ', lat, lng);
-                        var lat2 = lat;
-                        var lng2 = lng;
-                        console.log('Drone distance is: ', getStraightDistance(lat1, lng1, lat2, lng2));
-                        dist =  getStraightDistance(lat1, lng1, lat2, lng2);//单位是米
-                    })
-                    .catch(error => {
-                        console.log('Drone To, err in fetch latitude and longitude -> ', error);
-                    })
-
+              //console.log("Receiver, google api drone - response.data", response.data)
+              //console.log('Receiver location: ', response.data.results[0].geometry.location);
+              location2 = response.data.results[0].geometry.location;
+              const { lat, lng } = location2;
+              console.log('Drone Receiver Latitude & Longitude: ', lat, lng);
+              var lat2 = lat;
+              var lng2 = lng;
+              console.log('Drone distance is: ', getStraightDistance(lat1, lng1, lat2, lng2));
+              dist = getStraightDistance(lat1, lng1, lat2, lng2);//单位是米
             })
             .catch(error => {
-                console.log('Drone From, err in fetch latitude and longitude -> ', error);
+              console.log('Drone To, err in fetch latitude and longitude -> ', error);
             })
+
+        })
+        .catch(error => {
+          console.log('Drone From, err in fetch latitude and longitude -> ', error);
+        })
 
     } else {//机器人派送
       method = 2;
       dist = getRoute(
-          this.state.Ordering.senderAddress,
-          this.state.Ordering.receiverAddress
+        this.state.Ordering.senderAddress,
+        this.state.Ordering.receiverAddress
       );
+      console.log(dist);
     }
     // console.log("when checking price, method : ", method);
     let price = 0.8 * size * method * dist * weight;
@@ -287,30 +289,30 @@ class Ordering extends Component {
                   <InputNumber min={0} max={20.0} step={0.5} defaultValue={0} />
                 </Form.Item>
 
-                <span className="package-weight"> lb </span>
+                <span className="App-ordering-package-weight"> lbs </span>
               </Form.Item>
 
               <Form.Item label="Shipping Price" name="fee">
                 {/*<p>*/}
-                  ${this.state.Ordering.fee}USD
+                  ${this.state.Ordering.fee } USD {'   '}
                   <Button
-                    onClick={this.checkPriceOnClick}
-                    icon={<SearchOutlined />}
-                    htmlType="submit"
-                  >
-                    Check Price
+                  onClick={this.checkPriceOnClick}
+                  icon={<SearchOutlined />}
+                  htmlType="submit"
+                >
+                  Check Price
                   </Button>
                 {/*</p>*/}
               </Form.Item>
             </Form>
 
-              <Divider orientation="left">Payment Information</Divider>
+            <Divider orientation="left">Payment Information</Divider>
 
             <Form
-                {...formItemLayout}
-                name="cardInfo"
-                onFinish={this.onFinish}
-                scrollToFirstError
+              {...formItemLayout}
+              name="cardInfo"
+              onFinish={this.onFinish}
+              scrollToFirstError
             >
               <Form.Item
                 name="cardNumber"
@@ -321,14 +323,26 @@ class Ordering extends Component {
               </Form.Item>
 
               <Form.Item {...tailFormItemLayout}>
-                <Button onClick={this.onFinish} htmlType="submit">
+                <Button onClick={this.onFinish} htmlType="submit" type="primary">
                   Submit
                 </Button>
               </Form.Item>
             </Form>
+
           </Col>
         </Row>
+        <br />
+        <Row>
+          <Col offset={6} span={12} className="App-ordering-map">
+            <MapContainer />
+          </Col>
+        </Row>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        
+
+
       </div>
+
     );
   }
 }
