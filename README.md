@@ -2,8 +2,7 @@
 
 ## Example
 
-- Presentation Slides with video demo:
-  - https://docs.google.com/presentation/d/1h-b2_OrRlyS7VOhFJzQAW6pWPzIlRViN9Vgp3SiAzP8/edit?usp=sharing
+- [Presentation Slides with video demo](https://docs.google.com/presentation/d/1h-b2_OrRlyS7VOhFJzQAW6pWPzIlRViN9Vgp3SiAzP8/edit?usp=sharing)
 - Sample UI
 
 ![](https://github.com/shenyue0625/UAV/blob/main/images/sample.png)
