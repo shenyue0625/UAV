@@ -6,7 +6,7 @@
   - https://docs.google.com/presentation/d/1h-b2_OrRlyS7VOhFJzQAW6pWPzIlRViN9Vgp3SiAzP8/edit?usp=sharing
 - Sample UI
 
-![](.\images\sample.png)
+![](https://github.com/shenyue0625/UAV/blob/main/images/sample.png)
 
 ## RESTful API
 
@@ -16,12 +16,12 @@ API Doc published by Postman: https://documenter.getpostman.com/view/13221409/TW
 
 ## Database Schema
 
-![](.\images\Database Schema.png)
+![](https://github.com/shenyue0625/UAV/blob/main/images/Database Schema.png)
 
 ## Backend Architecture
 
-![](.\images\backend.png)
+![](https://github.com/shenyue0625/UAV/blob/main/images/backend.png)
 
 ## Frontend Architecture
 
-![](.\images\frontend.png)
+![](https://github.com/shenyue0625/UAV/blob/main/images/frontend.png)
