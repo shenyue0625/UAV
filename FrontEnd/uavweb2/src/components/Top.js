@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+ import React, {Component} from 'react';
 import title from "../assets/imgs/title.PNG";
 import loginLogo from "../assets/imgs/login-logo.png";
 import {Row, Col, Menu, Button} from 'antd';
@@ -45,6 +45,8 @@ class Top extends Component {
                 </Col>
 
                 <Col span={4} className="App-top-nav">
+                    {/* SZQ：还是不太懂为什么this.current 要加[] 所以什么时候要加{} 什么时候加[] 什么时候不加呢*/}
+                    {/* SZQ：以及这个key 和current的作用 不懂 */}
                     <Menu onClick={this.handleClick} selectedKeys={[this.current]} defaultSelectedKeys={[this.current]}
                           mode="horizontal"
                           theme="dark"
