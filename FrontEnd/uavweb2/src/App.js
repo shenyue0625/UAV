@@ -26,11 +26,11 @@ class App extends React.Component {
                     <Header className="App-header">
                         <Top isLoggedIn={this.state.isLoggedIn} setLoggedIn={this.setLoggedIn}/>
                     </Header>
-                    <Router>
+
                     <Content className="App-content">
                         <Main isLoggedIn={this.state.isLoggedIn} setLoggedIn={this.setLoggedIn}/>
                     </Content>
-                    </Router>
+
                     <Footer className="App-footer">
                         <Bottom />
                     </Footer>
