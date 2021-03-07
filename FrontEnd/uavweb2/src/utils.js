@@ -23,13 +23,12 @@ export const login = (credential) => {
         },
         body: urlencoded,
         redirect: 'follow',
-        credentials: 'include'
+        credentials: 'include' //SZQ: means cookies available？
     }).then((response) => {
         if (response.status !== 200) {
             throw Error('Fail to log in');
         }
         // chaining fetch
-        //SZQ： how did you get the account info without giving that function a param?
         getAccountInfo().then((data) => {
             message.success(`Welcome back, ${data.firstName + " " + data.lastName}`);
         })
@@ -103,7 +102,7 @@ export const makeAPayment = (allPaymentInfo) => {
 // "Failed to execute 'json' on 'Response': body stream already read.
 // Ma: the method will get the [currently logged in user's info], so it's unnecessary to provide credentials.
 const getAccountInfoUrl = `${SERVER_ORIGIN}/accountinfo`
-//SZQ: how did you get the account info without giving this function a param?
+//SZQ-a: how to get the current user info?
 export const getAccountInfo = () => {
     return fetch(getAccountInfoUrl, {
         method: 'GET',

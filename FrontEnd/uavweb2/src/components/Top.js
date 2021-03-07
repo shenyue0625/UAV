@@ -81,7 +81,7 @@ class Top extends Component {
                           className="App-top-font">
                         <Menu.Item key="register">
                             <nav>
-                                <Link to="register">
+                                <Link to="register">{/*SZQ：h3 和div有什么区别 如果都可以在css里通过ClassName设置的话*/}
                                     <h3 className="App-top-font">Register</h3>
                                 </Link>
                             </nav>

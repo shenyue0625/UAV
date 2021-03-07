@@ -39,7 +39,7 @@ class Register extends React.Component {
         complete: false,
     }
 
-    onFinish = (data) => {
+   onFinish = (data) => {
         register(data)
             .then(() => {
                 message.success(`Successfully signed up`);
@@ -48,6 +48,7 @@ class Register extends React.Component {
             message.error(err.message);
         })
     }
+
 
     render() {
         if (this.state.complete) {

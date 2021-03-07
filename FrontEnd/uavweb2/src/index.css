@@ -9,8 +9,8 @@
 @import './styles/Ordering.css';
 
 
-/* SZQ: 引用css 都需要加@吗 */
-/* SZ: css文件里对应的每一个 name 对应的就是 className 所以可以找得到*/
+/* SZ-a: css引用css都需要加@, js 引用css 不用加@ (import './xxx') */
+/* SZ-a: css文件里对应的每一个 .name 对应的就是 className 所以可以找得到*/
 .ant-row-rtl #components-layout-demo-top .logo {
   float: right;
   margin: 16px 0 16px 24px;
