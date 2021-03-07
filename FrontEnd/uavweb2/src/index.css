@@ -9,7 +9,8 @@
 @import './styles/Ordering.css';
 
 
-/* SZQ： what*/
+/* SZQ: 引用css 都需要加@吗 */
+/* SZ: css文件里对应的每一个 name 对应的就是 className 所以可以找得到*/
 .ant-row-rtl #components-layout-demo-top .logo {
   float: right;
   margin: 16px 0 16px 24px;

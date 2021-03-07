@@ -538,7 +538,7 @@ class Home extends Component {
           </Col>
           <Col span={6} />
         </Row>
-
+        {/* SZQ: 为什么style里面需要两个花括号 */}
         <div style={{ textAlign: "center" }}>
           <Link to="accountInfo">Account Info</Link>
         </div>
