@@ -23,7 +23,9 @@ const tailLayout = {
     offset: 10,
   },
 };
-//SZQ:这些const在哪里被调用？
+//SZQ： “background“ ”loc“ ”shipping” 这些image的名字是怎么来的呢？跟文件名也不一样啊
+//SZ: 先在render里把这六个layout 都写出来，然后用useMediaQuery检测当前浏览页面的size，因为size肯定落在max/min width区间之内
+//所以最后render出来 有且只有一个页面。 SZQ： is there any better solutions to solve this redundant codes?
 const XL = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 1640 });
   return isDesktop ? children : null;
@@ -58,7 +60,7 @@ class Home extends Component {
     console.log(data); //data contains all <Input> collected from user
     this.props.history.push(`/tracking?orderId=${data.orderId}`); //change url, then render Tracking component
   };
-
+  //SZQ：this.hasChange 会返回一个 bool？And why in Home page we redirect to Tracking?
   render() {
     return this.hasChange ? (
       <Redirect to="/tracking" />
