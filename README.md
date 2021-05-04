@@ -24,3 +24,7 @@ API Doc published by Postman: https://documenter.getpostman.com/view/13221409/TW
 ## Frontend Architecture
 
 ![](https://github.com/shenyue0625/UAV/blob/main/images/frontend.png)
+
+
+# Notice
+Amazon RDS service has been stopped. You can change the INSTANCE information in https://github.com/shenyue0625/UAV/blob/main/BackEnd/src/main/java/com/project/autoexpress/ApplicationConfig.java to connect to your own DB.
