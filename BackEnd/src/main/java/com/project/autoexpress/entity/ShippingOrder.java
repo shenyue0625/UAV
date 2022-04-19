@@ -40,7 +40,7 @@ public class ShippingOrder implements Serializable {
   private Timestamp time;
 
   @ManyToOne
-  private Station station; // 相当于 FK station_id
+  private Station station; // 相当于 FK2 station_id
 
   public int getOrderId() {
     return orderId;
