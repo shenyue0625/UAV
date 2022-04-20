@@ -46,7 +46,7 @@ public class DispatchService {
         return id;
     }
 
-    //distance calculator
+    //  distance calculator
     private double getDistance(double lat1, double lon1, double lat2, double lon2,
                                String deliverMethod) {
 
@@ -58,7 +58,7 @@ public class DispatchService {
         }
     }
 
-    //Haversine formula(球面距离，SF市内其实可以就当作曼哈顿距离）
+    //  Haversine formula(球面距离，SF市内其实可以就当作曼哈顿距离）
     private double getDist(double lat1, double lon1, double lat2, double lon2) {
         if ((lat1 == lat2) && (lon1 == lon2)) {
             return 0;
