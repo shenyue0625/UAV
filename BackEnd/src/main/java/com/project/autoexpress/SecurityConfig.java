@@ -44,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               System.out.println(authentication.getName() + "logged in.");
 //              httpServletResponse.setHeader("username", authentication.getName()); // return the email ID
               httpServletResponse.setStatus(HttpStatus.OK.value());
+              //  很重要！避免了向前端返回302 Found然后自动跳转到后端某URL，而不是经过前端的代理，
+              //  我的目的是要返回Data而不是跳转页面
             })
             .failureHandler((httpServletRequest, httpServletResponse, e) -> {
               httpServletResponse.setStatus(HttpStatus.BAD_REQUEST.value()); // if fail to login, return the bad request status code
@@ -83,8 +85,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance(); // 所以直接返回就行了。
   }
 
-  // 响应OPTION request
-  //  处理跨域CORS情况的
+  //  响应OPTION request
+  //  处理跨域CORS情况的setup
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
