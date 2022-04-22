@@ -20,7 +20,7 @@ public class Station implements Serializable {
   private double longitude;
 
 
-  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "station", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<ShippingOrder> shippingOrder;
 
   public int getStationId() {
